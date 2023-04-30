@@ -31,6 +31,7 @@ function isoToday() {
 }
 
 app.post('/energy_drink', async (req, res) => {
+    console.log('bateu')
       await notion.pages.create({
             parent: {
                 database_id: databases.energy_drink,
@@ -61,6 +62,7 @@ app.post('/energy_drink', async (req, res) => {
 })
 app.post('/unecessary_sweet', async (req, res) => {
     const body = req.body
+    console.log(body)
     await notion.pages.create({
           parent: {
               database_id: databases.sweet,
@@ -151,6 +153,12 @@ app.post('/unecessary_delivery', async (req, res) => {
     res.send('ok')
 })
 
-app.listen(port, `0.0.0.0`, () => {
-    console.log(`Service initialized on port ${port}`);
+app.get('/ping', (req, res) => {
+    res.json({res: 'pong'})
+})
+
+const server = app.listen(3000, 'localhost', () => {
+    const { address, port } = server.address();
+    console.log(`Servidor ouvindo em http://${address}:${port}`);
 });
+  
