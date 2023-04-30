@@ -1,0 +1,20 @@
+POST http://0.0.0.0:3000/energy_drink
+
+###
+POST http://0.0.0.0:3000/unecessary_sweet
+Content-Type: application/json
+
+{
+    "value": 12.0
+}
+
+###
+POST http://0.0.0.0:3000/unecessary_fried_pastry
+
+###
+POST http://0.0.0.0:3000/unecessary_delivery
+Content-Type: application/json
+
+{
+    "value": 55
+}
