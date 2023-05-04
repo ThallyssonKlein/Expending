@@ -1,4 +1,6 @@
-POST http://0.0.0.0:3000/energy_drink
+POST https://my-expending-project.rj.r.appspot.com/energy_drink
+###
+POST http://0.0.0.0:8080/energy_drink
 
 ###
 POST http://0.0.0.0:3000/unecessary_sweet

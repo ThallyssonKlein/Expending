@@ -31,7 +31,6 @@ function isoToday() {
 }
 
 app.post('/energy_drink', async (req, res) => {
-    console.log('bateu')
       await notion.pages.create({
             parent: {
                 database_id: databases.energy_drink,
@@ -157,8 +156,7 @@ app.get('/ping', (req, res) => {
     res.json({res: 'pong'})
 })
 
-const server = app.listen(3000, 'localhost', () => {
-    const { address, port } = server.address();
-    console.log(`Servidor ouvindo em http://${address}:${port}`);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}...`);
 });
-  
