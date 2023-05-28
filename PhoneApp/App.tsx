@@ -28,7 +28,7 @@ import { create } from 'apisauce'
 
 // define the api
 const api = create({
-  baseURL: 'https://60b8-2804-14d-4cd6-ba4c-8cbe-ea28-92cc-90d1.ngrok.io',
+  baseURL: 'https://my-expending-project.rj.r.appspot.com',
 })
 
 
