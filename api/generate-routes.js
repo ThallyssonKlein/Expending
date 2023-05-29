@@ -35,18 +35,18 @@ function isoToday() {
     return new Date(agora.getTime() + offset * 60 * 1000).toISOString();
 }
 
-function buildValor(valor) {
-    if (!valor && !config.defaultValue) throw new Error('Informe um valor!');
+function buildValor(valor, path) {
+    if (!valor && !config[path].defaultValue) throw new Error('Informe um valor!');
 
     return {
         Valor: {
             type: "number",
-            number: valor? valor : config.defaultValue
+            number: valor? valor : config[path].defaultValue
         }
     }
 }
 
-export default function(app) {
+function generateRoutes(app) {
     for (const path in config) {
         app.post(path, async (req, res) => {
             const body = req.body
@@ -71,18 +71,18 @@ export default function(app) {
             try {
                 properties = {
                   ...properties,
-                  ...buildValor(body.valor)
+                  ...buildValor(body.valor, path)
                 }
             } catch (err) {
                 res.status(400).json({
                     error: err.message
                 })
+                return
             }
-
 
             await notion.pages.create({
                 parent: {
-                    database_id: databases.energy_drink,
+                    database_id: config[path].databaseId,
                 },
                 properties
             })
@@ -91,3 +91,5 @@ export default function(app) {
         })
     }
 }
+
+module.exports = generateRoutes
