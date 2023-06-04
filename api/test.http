@@ -3,7 +3,7 @@ POST https://my-expending-project.rj.r.appspot.com/energy_drink
 POST http://0.0.0.0:8080/energy_drink
 
 ###
-POST http://0.0.0.0:3000/unecessary_sweet
+POST http://0.0.0.0:8080/unecessary_sweet
 Content-Type: application/json
 
 {
@@ -11,14 +11,44 @@ Content-Type: application/json
 }
 
 ###
-POST http://0.0.0.0:3000/unecessary_fried_pastry
+POST http://0.0.0.0:8080/unecessary_fried_pastry
 
 ###
-POST http://0.0.0.0:3000/unecessary_delivery
+POST http://0.0.0.0:8080/unecessary_delivery
 Content-Type: application/json
 
 {
     "value": 55
+}
+
+###
+POST http://0.0.0.0:8080/life_cost_item
+Content-Type: application/json
+
+{
+    "value": 30,
+    "name": "Life Cost Item",
+    "date": "2023-05-04"
+}
+
+###
+POST http://0.0.0.0:8080/diet_item
+Content-Type: application/json
+
+{
+    "value": 50,
+    "name": "Diet Item",
+    "date": "2023-05-04"
+}
+
+###
+POST http://0.0.0.0:8080/extra_meal
+Content-Type: application/json
+
+{
+    "value": 60,
+    "name": "Extra Meal Item",
+    "date": "2023-05-04"
 }
 
 ###
