@@ -1,6 +1,10 @@
 POST https://my-expending-project.rj.r.appspot.com/energy_drink
+
 ###
 POST http://0.0.0.0:8080/energy_drink
+
+###
+GET http://0.0.0.0:8080/options
 
 ###
 POST http://0.0.0.0:8080/unecessary_sweet
@@ -15,6 +19,14 @@ POST http://0.0.0.0:8080/unecessary_fried_pastry
 
 ###
 POST http://0.0.0.0:8080/unecessary_delivery
+Content-Type: application/json
+
+{
+    "value": 55
+}
+
+###
+POST http://0.0.0.0:8080/unecessary_juice
 Content-Type: application/json
 
 {

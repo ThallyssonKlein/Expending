@@ -1,42 +1,5 @@
-const access_token = 'secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG'
-
-const { Client } = require("@notionhq/client")
-const notion = new Client({
-    auth: access_token,
-});
-
-const config = {
-    "/energy_drink": {
-        databaseId: "eedd5638a5504b21b8072990bda89a78",
-        defaultValue: 14
-    },
-    "/unecessary_sweet": {
-        databaseId: "786bd628f0a342b98b3d642720b11ddf"
-    },
-    "/unecessary_fried_pastry": {
-        databaseId: "4eb24dac86534e158401b9254dc82ab8",
-        defaultValue: 10
-    },
-    "/unecessary_delivery": {
-        databaseId: "b4fe40193cac4c1da26419d594ba01f1"
-    },
-    "/life_cost_item": {
-        databaseId: "e6b0d46bd87d41d892ab25022f193435",
-        customName: true
-    },
-    "/diet_item": {
-        databaseId: "f74826ab2ac5426cb03bd2085dbd3e9e",
-        customName: true,
-    },
-    "/extra_meal": {
-        databaseId: "5e485e39ec2b4b23aec4bb9414ea49da",
-        customName: true,
-        relation: {
-            name: "Categorias Custo de Vida",
-            id: "44c47b873b714ebb8d4985d5af8d7f3a"
-        }
-    }
-}
+import { loadPathsFromNotion, IPath } from "./config";
+import { notion } from "./notion";
 
 function today(){
     const hoje = new Date();
@@ -45,7 +8,7 @@ function today(){
     return `${dia}/${mes}`;
 }
 
-function isoToday(date) {
+function isoToday(date?: Date) {
     let agora;
 
     if (date) {
@@ -58,19 +21,19 @@ function isoToday(date) {
     return new Date(agora.getTime() + offset * 60 * 1000).toISOString();
 }
 
-function buildValor(valor, path) {
-    if (!valor && !config[path].defaultValue) throw new Error('Informe um valor!');
+function buildValor(valor: number, path: IPath) {
+    if (!valor && !path.defaultValue) throw new Error('Informe um valor!');
 
     return {
         Valor: {
             type: "number",
-            number: valor? valor : config[path].defaultValue
+            number: valor? valor : path.defaultValue
         }
     }
 }
 
-function buildName(name, path) {
-    if(!name && config[path].customName) throw new Error('Informe um nome!');
+function buildName(name: string, path: IPath) {
+    if(!name && path.customName) throw new Error('Informe um nome!');
     return {
         Name: {
             title: [
@@ -84,7 +47,7 @@ function buildName(name, path) {
     }
 }
 
-function buildDate(date) {
+function buildDate(date?: Date) {
     return {
         Date: {
             date: {
@@ -95,21 +58,35 @@ function buildDate(date) {
     }
 }
 
-function buildRelation(path) {
+function buildRelation(path: IPath) {
     return {
-        [config[path].relation.name]:{
+        [path.relation_name]:{
             "relation":[
                {
-                  "id": config[path].relation.id
+                  "id": path.relation_id
                }
             ]
          }
     }
 }
 
-function generateRoutes(app) {
-    for (const path in config) {
-        app.post(path, async (req, res) => {
+async function generateRoutes(app: any) {
+    const paths: IPath[] = await loadPathsFromNotion();
+
+    app.get('/options', (req: any, res: any) => {
+        const options = []
+        for(const path of paths) {
+            options.push({
+                path: path.path,
+                hasDefault: !!path.defaultValue,
+                hasCustomName: !!path.customName
+            })
+        }
+        res.json(options)
+    })
+      
+    for (const path of paths) {
+        app.post(path.path, async (req: any, res: any) => {
             const body = req.body
             let properties = {}
 
@@ -127,7 +104,7 @@ function generateRoutes(app) {
                     ...buildDate(body.date)
                 }
 
-                if(config[path].relation) {
+                if(path.relation_id && path.relation_name) {
                     properties = {
                       ...properties,
                       ...buildRelation(path)
@@ -135,7 +112,7 @@ function generateRoutes(app) {
                 }
             } catch (err) {
                 res.status(400).json({
-                    error: err.message
+                    error: (err as Error).message
                 })
                 return
             }
@@ -143,7 +120,7 @@ function generateRoutes(app) {
             try {
                 await notion.pages.create({
                     parent: {
-                        database_id: config[path].databaseId,
+                        database_id: path.databaseId,
                     },
                     properties
                 })
@@ -152,7 +129,7 @@ function generateRoutes(app) {
             } catch (err) {
                 res.status(400)
                     .json({
-                        error: err.message
+                        error: (err as Error).message
                     })
             }
         })

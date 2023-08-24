@@ -3,13 +3,11 @@ const express = require('express')
 const app = express()
 app.use(express.json())
 
-const port = 3000
-
 const generateRoutes = require('./generate-routes');
 
 generateRoutes(app)
 
-app.get('/ping', (req, res) => {
+app.get('/ping', (req: any, res: any) => {
     res.json({res: 'pong'})
 })
 

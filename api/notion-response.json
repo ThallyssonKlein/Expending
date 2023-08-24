@@ -1,0 +1,682 @@
+{
+    "object": "list",
+    "results": [
+        {
+            "object": "page",
+            "id": "519e96e5-7094-4cad-9eba-f06f89ec7ec3",
+            "created_time": "2023-08-23T01:24:00.000Z",
+            "last_edited_time": "2023-08-23T01:25:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "5e485e39ec2b4b23aec4bb9414ea49da",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "5e485e39ec2b4b23aec4bb9414ea49da",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Categorias Custo de Vida",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Categorias Custo de Vida",
+                            "href": null
+                        }
+                    ]
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "44c47b873b714ebb8d4985d5af8d7f3a",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "44c47b873b714ebb8d4985d5af8d7f3a",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/extra_meal",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/extra_meal",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/extra_meal-519e96e570944cad9ebaf06f89ec7ec3",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "f53d3963-7efc-4fa8-9080-1e3700e5cab9",
+            "created_time": "2023-08-23T01:24:00.000Z",
+            "last_edited_time": "2023-08-23T01:24:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "f74826ab2ac5426cb03bd2085dbd3e9e",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "f74826ab2ac5426cb03bd2085dbd3e9e",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/diet_item",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/diet_item",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/diet_item-f53d39637efc4fa890801e3700e5cab9",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "79925ac2-c847-4bfd-a8e9-4937c490d93d",
+            "created_time": "2023-08-23T01:24:00.000Z",
+            "last_edited_time": "2023-08-23T01:24:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "e6b0d46bd87d41d892ab25022f193435",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "e6b0d46bd87d41d892ab25022f193435",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/life_cost_item",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/life_cost_item",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/life_cost_item-79925ac2c8474bfda8e94937c490d93d",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "f678a222-d3c6-45cb-afd3-f15e0483c16a",
+            "created_time": "2023-08-23T01:23:00.000Z",
+            "last_edited_time": "2023-08-23T01:24:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "b4fe40193cac4c1da26419d594ba01f1",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "b4fe40193cac4c1da26419d594ba01f1",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_delivery",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_delivery",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_delivery-f678a222d3c645cbafd3f15e0483c16a",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "a4915466-9adc-45d9-8ad2-9072f17d09fb",
+            "created_time": "2023-08-23T01:23:00.000Z",
+            "last_edited_time": "2023-08-23T01:23:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "4eb24dac86534e158401b9254dc82ab8",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "4eb24dac86534e158401b9254dc82ab8",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 10
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_fried_pastry",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_fried_pastry",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_fried_pastry-a49154669adc45d98ad29072f17d09fb",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "809df940-1903-4c51-81e6-a4a4012e5eb7",
+            "created_time": "2023-08-23T01:22:00.000Z",
+            "last_edited_time": "2023-08-23T01:22:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "786bd628f0a342b98b3d642720b11ddf",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "786bd628f0a342b98b3d642720b11ddf",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_sweet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_sweet",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_sweet-809df94019034c5181e6a4a4012e5eb7",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "ad2cd208-feb3-465b-98f6-8015249d96bb",
+            "created_time": "2023-08-23T01:21:00.000Z",
+            "last_edited_time": "2023-08-23T01:22:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "databaseId": {
+                    "id": "ANkI",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "eedd5638a5504b21b8072990bda89a78",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "eedd5638a5504b21b8072990bda89a78",
+                            "href": null
+                        }
+                    ]
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 14
+                },
+                "relation_name": {
+                    "id": "kvk%5D",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "relation_id": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/energy_drink",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/energy_drink",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/energy_drink-ad2cd208feb3465b98f68015249d96bb",
+            "public_url": null
+        }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "page_or_database",
+    "page_or_database": {}
+}
