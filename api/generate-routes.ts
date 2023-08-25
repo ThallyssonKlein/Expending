@@ -76,12 +76,14 @@ async function generateRoutes(app: any) {
     app.get('/options', (req: any, res: any) => {
         const options = []
         for(const path of paths) {
-            options.push({
-                path: path.path,
-                defaultValue: path.defaultValue,
-                hasCustomName: !!path.customName,
-                nameInApp: path.nameInApp
-            })
+            if (path.nameInApp) {
+                options.push({
+                    path: path.path,
+                    defaultValue: path.defaultValue,
+                    hasCustomName: !!path.customName,
+                    nameInApp: path.nameInApp
+                })
+            }
         }
         res.json(options)
     })
