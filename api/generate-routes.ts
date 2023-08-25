@@ -78,7 +78,7 @@ async function generateRoutes(app: any) {
         for(const path of paths) {
             options.push({
                 path: path.path,
-                hasDefault: !!path.defaultValue,
+                defaultValue: path.defaultValue,
                 hasCustomName: !!path.customName,
                 nameInApp: path.nameInApp
             })
