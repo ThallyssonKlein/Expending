@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useState, useEffect, useRef } from 'react';
-import { IOption, getOptions } from '../api';
+import { IOption, getOptions, post } from '../api';
 import { Picker } from '@react-native-picker/picker';
 import Input from './Input'
 import Animated from 'react-native-reanimated';
@@ -46,7 +46,7 @@ export default function BottomSheetComponent() {
     retry(getOptions, 3).then((data: any) => {
       if (data) {
         setOptions(data);
-        setSelectedOption(data[0])
+        setSelectedOption(data.find(item => item.path === '/unecessary_delivery'))
       }
     }).catch(error => {
         console.error("Falhou após 3 tentativas", error);
@@ -60,8 +60,9 @@ export default function BottomSheetComponent() {
   }
 
   function onPressButton() {
-    console.log(selectedOption?.path)
-    console.log(value)
+    if (selectedOption?.path && value) {
+      post(selectedOption?.path, { value: parseInt(value) })
+    }
   }
 
   if (options.length > 0 && selectedOption) {

@@ -24,4 +24,8 @@ export async function getOptions() {
   return []
 }
 
+export async function post(path: string, body: any) {
+  api.post(path, body);
+}
+
 export default api;
