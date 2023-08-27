@@ -22,13 +22,35 @@ export default function BottomSheetComponent() {
   const [selectedOption, setSelectedOption] = useState<IOption>();
   const [value, setValue] = useState<string>(selectedOption ? (selectedOption.defaultValue ? selectedOption.defaultValue + '' : '') : '')
 
+  const retry = (fn: any, retries = 3, delay = 469000) => {
+    return new Promise((resolve, reject) => {
+        const attempt = () => {
+            fn()
+                .then(resolve)
+                .catch((err: any) => {
+                    if (retries === 0) {
+                        reject(err);
+                    } else {
+                        setTimeout(() => {
+                            retries--;
+                            attempt();
+                        }, delay);
+                    }
+                });
+        };
+        attempt();
+    });
+  };
+
   useEffect(() => {
-    getOptions().then((data) => {
+    retry(getOptions, 3).then((data: any) => {
       if (data) {
         setOptions(data);
         setSelectedOption(data[0])
       }
-    });
+    }).catch(error => {
+        console.error("Falhou após 3 tentativas", error);
+    });  
   },[]);
 
   function onSelect(value: any) {

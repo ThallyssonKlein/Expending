@@ -4,6 +4,7 @@ import {create} from 'apisauce';
 
 const api = create({
   baseURL: 'https://my-expending-project.rj.r.appspot.com',
+  timeout: 469000
 });
 
 export interface IOption {
