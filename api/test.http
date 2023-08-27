@@ -1,3 +1,12 @@
+POST https://my-expending-project.rj.r.appspot.com/unecessary_delivery
+Content-Type: application/json
+
+{
+    "value": "55"
+}
+
+
+###
 POST https://my-expending-project.rj.r.appspot.com/energy_drink
 
 ###

@@ -195,6 +195,10 @@ async function generateRoutes(app: any) {
             }
 
             try {
+                console.log('--------')
+                console.log(properties)
+                console.log('--------')
+                                                
                 await notion.pages.create({
                     parent: {
                         database_id: '33ddadec57b6485faae5a88d6b770141',
