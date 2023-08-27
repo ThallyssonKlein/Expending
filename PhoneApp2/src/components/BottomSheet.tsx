@@ -46,7 +46,7 @@ export default function BottomSheetComponent() {
     retry(getOptions, 3).then((data: any) => {
       if (data) {
         setOptions(data);
-        setSelectedOption(data.find(item => item.path === '/unecessary_delivery'))
+        setSelectedOption(data.find((item: IOption) => item.path === '/unecessary_delivery'))
       }
     }).catch(error => {
         console.error("Falhou após 3 tentativas", error);
@@ -61,7 +61,8 @@ export default function BottomSheetComponent() {
 
   function onPressButton() {
     if (selectedOption?.path && value) {
-      post(selectedOption?.path, { value: parseInt(value) })
+      post(selectedOption?.path, { value: parseFloat(value) })
+      setValue('')
     }
   }
 
