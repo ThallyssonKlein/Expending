@@ -1,4 +1,4 @@
-const pathsDatabaseId = '17139f87807640ad8ac55b8bf0f27e3b';
+const pathsDatabaseId = 'e75ff5d78fa142d7a65d666567bc5551';
 
 export default {
     access_token: 'secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG',
@@ -8,11 +8,10 @@ import { notion } from "./notion";
 
 export interface IPath {
     path: string;
-    databaseId: string;
+    subcategory: string;
+    category: string;
     defaultValue: number;
     customName: boolean;
-    relation_name: string;
-    relation_id: string;
     nameInApp: string;
 }
 
@@ -24,18 +23,17 @@ export async function loadPathsFromNotion(): Promise<IPath[]> {
 
     const paths = response.results.map((page: any) => {
         const defaultValue = page.properties.defaultValue.number;
-        const relation_id = page.properties.relation_id.rich_text;
-        const relation_name = page.properties.relation_name.rich_text;
         const nameInApp = page.properties.nameInApp.rich_text;
+        const subcategory = page.properties.subcategory.rich_text;
+        const category = page.properties.category.rich_text;
 
         return {
             path: page.properties.Path.title[0].plain_text,
-            databaseId: page.properties.databaseId.rich_text[0].plain_text,
             customName: page.properties.customName.checkbox,
-            relation_name: relation_name.length > 0 ? relation_name[0].plain_text : null,
-            relation_id: relation_id.length > 0 ? relation_id[0].plain_text : null,
             defaultValue: defaultValue ? defaultValue : null,
-            nameInApp: nameInApp.length > 0 ? nameInApp[0].plain_text : null
+            nameInApp: nameInApp.length > 0 ? nameInApp[0].plain_text : null,
+            subcategory: subcategory.length > 0 ? subcategory[0].plain_text : null,
+            category: category.length > 0 ? category[0].plain_text : null
         } as IPath;
     }
     );

@@ -1,0 +1,167 @@
+{
+    "object": "list",
+    "results": [
+        {
+            "object": "page",
+            "id": "6159e783-bf22-45ed-a1ba-6a56f7573db3",
+            "created_time": "2023-08-25T17:58:00.000Z",
+            "last_edited_time": "2023-08-25T17:58:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "33ddadec-57b6-485f-aae5-a88d6b770141"
+            },
+            "archived": false,
+            "properties": {
+                "Sub Category": {
+                    "id": "AvBt",
+                    "type": "select",
+                    "select": null
+                },
+                "Date": {
+                    "id": "FKpa",
+                    "type": "date",
+                    "date": null
+                },
+                "Valor": {
+                    "id": "lH%3Ar",
+                    "type": "number",
+                    "number": null
+                },
+                "Big Category": {
+                    "id": "l~Bu",
+                    "type": "select",
+                    "select": null
+                },
+                "Name": {
+                    "id": "title",
+                    "type": "title",
+                    "title": []
+                }
+            },
+            "url": "https://www.notion.so/6159e783bf2245eda1ba6a56f7573db3",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "a5c72a9a-d6c7-4e2f-96a6-e17c2f690cf7",
+            "created_time": "2023-08-25T17:58:00.000Z",
+            "last_edited_time": "2023-08-25T18:03:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "33ddadec-57b6-485f-aae5-a88d6b770141"
+            },
+            "archived": false,
+            "properties": {
+                "Sub Category": {
+                    "id": "AvBt",
+                    "type": "select",
+                    "select": {
+                        "id": "ec3c902f-b339-49ac-b8d0-0d7d7e20d31a",
+                        "name": "1 - Doce desnecessário",
+                        "color": "brown"
+                    }
+                },
+                "Date": {
+                    "id": "FKpa",
+                    "type": "date",
+                    "date": null
+                },
+                "Valor": {
+                    "id": "lH%3Ar",
+                    "type": "number",
+                    "number": null
+                },
+                "Big Category": {
+                    "id": "l~Bu",
+                    "type": "select",
+                    "select": {
+                        "id": "80af4348-bd7f-4d6a-b0bc-b2f2ede01148",
+                        "name": "1 - Compulsões",
+                        "color": "default"
+                    }
+                },
+                "Name": {
+                    "id": "title",
+                    "type": "title",
+                    "title": []
+                }
+            },
+            "url": "https://www.notion.so/a5c72a9ad6c74e2f96a6e17c2f690cf7",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "e6e51296-8c42-4b16-b977-55320cf1854f",
+            "created_time": "2023-08-25T17:58:00.000Z",
+            "last_edited_time": "2023-08-25T17:58:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "33ddadec-57b6-485f-aae5-a88d6b770141"
+            },
+            "archived": false,
+            "properties": {
+                "Sub Category": {
+                    "id": "AvBt",
+                    "type": "select",
+                    "select": null
+                },
+                "Date": {
+                    "id": "FKpa",
+                    "type": "date",
+                    "date": null
+                },
+                "Valor": {
+                    "id": "lH%3Ar",
+                    "type": "number",
+                    "number": null
+                },
+                "Big Category": {
+                    "id": "l~Bu",
+                    "type": "select",
+                    "select": null
+                },
+                "Name": {
+                    "id": "title",
+                    "type": "title",
+                    "title": []
+                }
+            },
+            "url": "https://www.notion.so/e6e512968c424b16b97755320cf1854f",
+            "public_url": null
+        }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "page_or_database",
+    "page_or_database": {}
+}

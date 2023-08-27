@@ -1,0 +1,67 @@
+{
+    "object": "page",
+    "id": "6159e783-bf22-45ed-a1ba-6a56f7573db3",
+    "created_time": "2023-08-25T17:58:00.000Z",
+    "last_edited_time": "2023-08-25T20:40:00.000Z",
+    "created_by": {
+        "object": "user",
+        "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+    },
+    "last_edited_by": {
+        "object": "user",
+        "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+    },
+    "cover": null,
+    "icon": null,
+    "parent": {
+        "type": "database_id",
+        "database_id": "33ddadec-57b6-485f-aae5-a88d6b770141"
+    },
+    "archived": false,
+    "properties": {
+        "Sub Category": {
+            "id": "AvBt",
+            "type": "select",
+            "select": {
+                "id": "c90f890c-6c84-4c9a-ad76-098997794fd5",
+                "name": "1 - Pastel Desnecessário",
+                "color": "pink"
+            }
+        },
+        "Date": {
+            "id": "FKpa",
+            "type": "date",
+            "date": {
+                "start": "2023-10-20",
+                "end": null,
+                "time_zone": null
+            }
+        },
+        "Created time": {
+            "id": "dmOd",
+            "type": "created_time",
+            "created_time": "2023-08-25T17:58:00.000Z"
+        },
+        "Valor": {
+            "id": "lH%3Ar",
+            "type": "number",
+            "number": 10
+        },
+        "Big Category": {
+            "id": "l~Bu",
+            "type": "select",
+            "select": {
+                "id": "80af4348-bd7f-4d6a-b0bc-b2f2ede01148",
+                "name": "1 - Compulsões",
+                "color": "default"
+            }
+        },
+        "Name": {
+            "id": "title",
+            "type": "title",
+            "title": []
+        }
+    },
+    "url": "https://www.notion.so/6159e783bf2245eda1ba6a56f7573db3",
+    "public_url": null
+}
