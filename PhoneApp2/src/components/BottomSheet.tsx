@@ -63,6 +63,11 @@ export default function BottomSheetComponent() {
   }
 
   async function onPressButton() {
+    if (!value) {
+      Alert.alert('Erro', 'Preencha o valor!')
+      return
+    }
+
     if (selectedOption?.path && value) {
       setDisabledButton(true)
       const response = await post(selectedOption?.path, { value: parseFloat(value) })
