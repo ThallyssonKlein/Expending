@@ -3,9 +3,9 @@
     "results": [
         {
             "object": "page",
-            "id": "519e96e5-7094-4cad-9eba-f06f89ec7ec3",
-            "created_time": "2023-08-23T01:24:00.000Z",
-            "last_edited_time": "2023-08-23T01:25:00.000Z",
+            "id": "4b74dfcf-de4a-44ef-930f-3ec6009b5a9b",
+            "created_time": "2023-08-27T02:28:00.000Z",
+            "last_edited_time": "2023-08-28T02:38:00.000Z",
             "created_by": {
                 "object": "user",
                 "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
@@ -18,316 +18,7 @@
             "icon": null,
             "parent": {
                 "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
-            },
-            "archived": false,
-            "properties": {
-                "customName": {
-                    "id": "%3BUFS",
-                    "type": "checkbox",
-                    "checkbox": true
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "5e485e39ec2b4b23aec4bb9414ea49da",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "5e485e39ec2b4b23aec4bb9414ea49da",
-                            "href": null
-                        }
-                    ]
-                },
-                "defaultValue": {
-                    "id": "B%40wW",
-                    "type": "number",
-                    "number": null
-                },
-                "relation_name": {
-                    "id": "kvk%5D",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "Categorias Custo de Vida",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "Categorias Custo de Vida",
-                            "href": null
-                        }
-                    ]
-                },
-                "relation_id": {
-                    "id": "s%3EV%40",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "44c47b873b714ebb8d4985d5af8d7f3a",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "44c47b873b714ebb8d4985d5af8d7f3a",
-                            "href": null
-                        }
-                    ]
-                },
-                "Path": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "/extra_meal",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "/extra_meal",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/extra_meal-519e96e570944cad9ebaf06f89ec7ec3",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "f53d3963-7efc-4fa8-9080-1e3700e5cab9",
-            "created_time": "2023-08-23T01:24:00.000Z",
-            "last_edited_time": "2023-08-23T01:24:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
-            },
-            "archived": false,
-            "properties": {
-                "customName": {
-                    "id": "%3BUFS",
-                    "type": "checkbox",
-                    "checkbox": true
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "f74826ab2ac5426cb03bd2085dbd3e9e",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "f74826ab2ac5426cb03bd2085dbd3e9e",
-                            "href": null
-                        }
-                    ]
-                },
-                "defaultValue": {
-                    "id": "B%40wW",
-                    "type": "number",
-                    "number": null
-                },
-                "relation_name": {
-                    "id": "kvk%5D",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "relation_id": {
-                    "id": "s%3EV%40",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "Path": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "/diet_item",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "/diet_item",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/diet_item-f53d39637efc4fa890801e3700e5cab9",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "79925ac2-c847-4bfd-a8e9-4937c490d93d",
-            "created_time": "2023-08-23T01:24:00.000Z",
-            "last_edited_time": "2023-08-23T01:24:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
-            },
-            "archived": false,
-            "properties": {
-                "customName": {
-                    "id": "%3BUFS",
-                    "type": "checkbox",
-                    "checkbox": true
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "e6b0d46bd87d41d892ab25022f193435",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "e6b0d46bd87d41d892ab25022f193435",
-                            "href": null
-                        }
-                    ]
-                },
-                "defaultValue": {
-                    "id": "B%40wW",
-                    "type": "number",
-                    "number": null
-                },
-                "relation_name": {
-                    "id": "kvk%5D",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "relation_id": {
-                    "id": "s%3EV%40",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "Path": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "/life_cost_item",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "/life_cost_item",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/life_cost_item-79925ac2c8474bfda8e94937c490d93d",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "f678a222-d3c6-45cb-afd3-f15e0483c16a",
-            "created_time": "2023-08-23T01:23:00.000Z",
-            "last_edited_time": "2023-08-23T01:24:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
             },
             "archived": false,
             "properties": {
@@ -336,14 +27,24 @@
                     "type": "checkbox",
                     "checkbox": false
                 },
-                "databaseId": {
-                    "id": "ANkI",
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
                     "type": "rich_text",
                     "rich_text": [
                         {
                             "type": "text",
                             "text": {
-                                "content": "b4fe40193cac4c1da26419d594ba01f1",
+                                "content": "Quetiapina",
                                 "link": null
                             },
                             "annotations": {
@@ -354,25 +55,2768 @@
                                 "code": false,
                                 "color": "default"
                             },
-                            "plain_text": "b4fe40193cac4c1da26419d594ba01f1",
+                            "plain_text": "Quetiapina",
                             "href": null
                         }
                     ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Meds",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Meds",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Quetiapina",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Quetiapina",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/quetiapina",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/quetiapina",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/quetiapina-4b74dfcfde4a44ef930f3ec6009b5a9b",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "163ba451-61b9-4aab-b387-8a527d7cd185",
+            "created_time": "2023-08-27T02:28:00.000Z",
+            "last_edited_time": "2023-08-28T02:38:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
                 },
                 "defaultValue": {
                     "id": "B%40wW",
                     "type": "number",
                     "number": null
                 },
-                "relation_name": {
-                    "id": "kvk%5D",
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Venvanse",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Venvanse",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Meds",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Meds",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Venvanse",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Venvanse",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/venvanse",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/venvanse",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/venvanse-163ba45161b94aabb3878a527d7cd185",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "b32d3733-87a9-4ee7-9968-1f07779ace03",
+            "created_time": "2023-08-27T02:24:00.000Z",
+            "last_edited_time": "2023-08-28T02:59:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Academia",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Academia",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Health",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Health",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Academia",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Academia",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/gym",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/gym",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/gym-b32d373387a94ee799681f07779ace03",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "0403f943-3955-4a56-a7e8-84717bc55556",
+            "created_time": "2023-08-27T02:19:00.000Z",
+            "last_edited_time": "2023-08-28T02:27:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Google Cloud",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Google Cloud",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Google Cloud",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Google Cloud",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/google_cloud",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/google_cloud",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/google_cloud-0403f94339554a56a7e884717bc55556",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "ce1f692f-f221-44ed-bc13-8132c428036c",
+            "created_time": "2023-08-27T02:12:00.000Z",
+            "last_edited_time": "2023-08-28T02:28:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Mega",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Mega",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Mega",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Mega",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/mega",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/mega",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/mega-ce1f692ff22144edbc138132c428036c",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "c11cacab-0cf1-43ec-81fb-3084f54d8ec4",
+            "created_time": "2023-08-27T02:12:00.000Z",
+            "last_edited_time": "2023-08-28T02:37:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 19.9
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Serasa Premium",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Serasa Premium",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Serasa Premium",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Serasa Premium",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/serasa_premium",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/serasa_premium",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/serasa_premium-c11cacab0cf143ec81fb3084f54d8ec4",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "a1f31fae-d27c-45a4-a276-600f8033839f",
+            "created_time": "2023-08-27T02:11:00.000Z",
+            "last_edited_time": "2023-08-28T02:28:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Club iFood",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Club iFood",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Club iFood",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Club iFood",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/club_ifood",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/club_ifood",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/club_ifood-a1f31faed27c45a4a276600f8033839f",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "63fd2ef9-9e86-41a0-bccb-274757c36463",
+            "created_time": "2023-08-27T02:11:00.000Z",
+            "last_edited_time": "2023-08-28T02:28:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Video Insights",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Video Insights",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Video Insights",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Video Insights",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/video_insights",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/video_insights",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/video_insights-63fd2ef99e8641a0bccb274757c36463",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "3e95b197-b145-4d9c-bb6a-adb423efbf46",
+            "created_time": "2023-08-27T02:11:00.000Z",
+            "last_edited_time": "2023-08-28T02:28:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Chat Gpt",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Chat Gpt",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Chat Gpt",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Chat Gpt",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/chat_gpt",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/chat_gpt",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/chat_gpt-3e95b197b1454d9cbb6aadb423efbf46",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "08d4385c-7327-4b46-921c-33b408ff4ee7",
+            "created_time": "2023-08-27T02:11:00.000Z",
+            "last_edited_time": "2023-08-28T02:27:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Google One",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Google One",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Google One",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Google One",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/google_one",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/google_one",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/google_one-08d4385c73274b46921c33b408ff4ee7",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "63e7dd71-197c-4b85-8fa1-8170466c1833",
+            "created_time": "2023-08-27T02:11:00.000Z",
+            "last_edited_time": "2023-08-28T02:04:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 19.9
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Spotify",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Spotify",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Spotify",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Spotify",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/spotify",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/spotify",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/spotify-63e7dd71197c4b858fa18170466c1833",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "8194420c-4c65-4dc1-9ea6-ea3d59247cd0",
+            "created_time": "2023-08-27T02:10:00.000Z",
+            "last_edited_time": "2023-08-28T02:04:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 39.9
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Netflix",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Netflix",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Services",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Services",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Netflix",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Netflix",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/netflix",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/netflix",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/netflix-8194420c4c654dc19ea6ea3d59247cd0",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "84ac448e-906c-4ca1-bed9-cd62a4cb837d",
+            "created_time": "2023-08-27T02:07:00.000Z",
+            "last_edited_time": "2023-08-28T02:04:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 150.02
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Cred Pago",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Cred Pago",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Housing Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Housing Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Cred Pago",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Cred Pago",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/cred_pago",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/cred_pago",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/cred_pago-84ac448e906c4ca1bed9cd62a4cb837d",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "f6558522-3755-4aaa-9445-6dd29c8c2bc1",
+            "created_time": "2023-08-27T02:07:00.000Z",
+            "last_edited_time": "2023-08-28T02:04:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 1505.73
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Aluguel",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Aluguel",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Housing Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Housing Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Aluguel",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Aluguel",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/rent",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/rent",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/rent-f655852237554aaa94456dd29c8c2bc1",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "c4aaa5ae-f92c-4cf2-a04d-485b28267bd0",
+            "created_time": "2023-08-27T02:07:00.000Z",
+            "last_edited_time": "2023-08-28T01:54:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Luz",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Luz",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Housing Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Housing Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Luz",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Luz",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/light",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/light",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/light-c4aaa5aef92c4cf2a04d485b28267bd0",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "dd748994-a3fa-4db6-b0f1-5283d99fb0ed",
+            "created_time": "2023-08-27T02:07:00.000Z",
+            "last_edited_time": "2023-08-28T01:53:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 159.89
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Internet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Internet",
+                            "href": null
+                        }
+                    ]
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Housing Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Housing Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Internet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Internet",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/internet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/internet",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/internet-dd748994a3fa4db6b0f15283d99fb0ed",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "8b9ddcfd-56a6-4f71-8933-b31d4b1de37b",
+            "created_time": "2023-08-27T02:03:00.000Z",
+            "last_edited_time": "2023-08-28T01:51:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 357
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
                     "type": "rich_text",
                     "rich_text": []
                 },
-                "relation_id": {
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "subcategory": {
                     "id": "s%3EV%40",
                     "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Alimentação",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Alimentação",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Comidas (Marmitas)",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Comidas (Marmitas)",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "2 - Life Cost",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "2 - Life Cost",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/food",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/food",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/food-8b9ddcfd56a64f718933b31d4b1de37b",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "a6032e76-8816-465e-bd3f-eb55356a789d",
+            "created_time": "2023-08-25T18:42:00.000Z",
+            "last_edited_time": "2023-08-25T20:03:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
                     "rich_text": []
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - iFood Desnecessário",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - iFood Desnecessário",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Unecessary Delivery",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Unecessary Delivery",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Compulsões",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Compulsões",
+                            "href": null
+                        }
+                    ]
                 },
                 "Path": {
                     "id": "title",
@@ -398,14 +2842,14 @@
                     ]
                 }
             },
-            "url": "https://www.notion.so/unecessary_delivery-f678a222d3c645cbafd3f15e0483c16a",
+            "url": "https://www.notion.so/unecessary_delivery-a6032e768816465ebd3feb55356a789d",
             "public_url": null
         },
         {
             "object": "page",
-            "id": "a4915466-9adc-45d9-8ad2-9072f17d09fb",
-            "created_time": "2023-08-23T01:23:00.000Z",
-            "last_edited_time": "2023-08-23T01:23:00.000Z",
+            "id": "720e11fa-2d9a-4666-8dd5-922d22a64c0b",
+            "created_time": "2023-08-25T18:42:00.000Z",
+            "last_edited_time": "2023-08-25T20:03:00.000Z",
             "created_by": {
                 "object": "user",
                 "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
@@ -418,7 +2862,7 @@
             "icon": null,
             "parent": {
                 "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
             },
             "archived": false,
             "properties": {
@@ -426,226 +2870,95 @@
                     "id": "%3BUFS",
                     "type": "checkbox",
                     "checkbox": false
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "4eb24dac86534e158401b9254dc82ab8",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "4eb24dac86534e158401b9254dc82ab8",
-                            "href": null
-                        }
-                    ]
-                },
-                "defaultValue": {
-                    "id": "B%40wW",
-                    "type": "number",
-                    "number": 10
-                },
-                "relation_name": {
-                    "id": "kvk%5D",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "relation_id": {
-                    "id": "s%3EV%40",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "Path": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "/unecessary_fried_pastry",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "/unecessary_fried_pastry",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/unecessary_fried_pastry-a49154669adc45d98ad29072f17d09fb",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "809df940-1903-4c51-81e6-a4a4012e5eb7",
-            "created_time": "2023-08-23T01:22:00.000Z",
-            "last_edited_time": "2023-08-23T01:22:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
-            },
-            "archived": false,
-            "properties": {
-                "customName": {
-                    "id": "%3BUFS",
-                    "type": "checkbox",
-                    "checkbox": false
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "786bd628f0a342b98b3d642720b11ddf",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "786bd628f0a342b98b3d642720b11ddf",
-                            "href": null
-                        }
-                    ]
-                },
-                "defaultValue": {
-                    "id": "B%40wW",
-                    "type": "number",
-                    "number": null
-                },
-                "relation_name": {
-                    "id": "kvk%5D",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "relation_id": {
-                    "id": "s%3EV%40",
-                    "type": "rich_text",
-                    "rich_text": []
-                },
-                "Path": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "/unecessary_sweet",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "/unecessary_sweet",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/unecessary_sweet-809df94019034c5181e6a4a4012e5eb7",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "ad2cd208-feb3-465b-98f6-8015249d96bb",
-            "created_time": "2023-08-23T01:21:00.000Z",
-            "last_edited_time": "2023-08-23T01:22:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "17139f87-8076-40ad-8ac5-5b8bf0f27e3b"
-            },
-            "archived": false,
-            "properties": {
-                "customName": {
-                    "id": "%3BUFS",
-                    "type": "checkbox",
-                    "checkbox": false
-                },
-                "databaseId": {
-                    "id": "ANkI",
-                    "type": "rich_text",
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "eedd5638a5504b21b8072990bda89a78",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "eedd5638a5504b21b8072990bda89a78",
-                            "href": null
-                        }
-                    ]
                 },
                 "defaultValue": {
                     "id": "B%40wW",
                     "type": "number",
                     "number": 14
                 },
-                "relation_name": {
-                    "id": "kvk%5D",
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
                     "type": "rich_text",
                     "rich_text": []
                 },
-                "relation_id": {
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "subcategory": {
                     "id": "s%3EV%40",
                     "type": "rich_text",
-                    "rich_text": []
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Energético",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Energético",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Energy Drink",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Energy Drink",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Compulsões",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Compulsões",
+                            "href": null
+                        }
+                    ]
                 },
                 "Path": {
                     "id": "title",
@@ -671,7 +2984,433 @@
                     ]
                 }
             },
-            "url": "https://www.notion.so/energy_drink-ad2cd208feb3465b98f68015249d96bb",
+            "url": "https://www.notion.so/energy_drink-720e11fa2d9a46668dd5922d22a64c0b",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "e1a3fe2d-6900-42a7-8e6b-d9484a90ea1c",
+            "created_time": "2023-08-25T18:42:00.000Z",
+            "last_edited_time": "2023-08-25T20:03:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": 10
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Pastel Desnecessário",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Pastel Desnecessário",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Unecessary Fried Pastry",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Unecessary Fried Pastry",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Compulsões",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Compulsões",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_fried_pastry",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_fried_pastry",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_fried_pastry-e1a3fe2d690042a78e6bd9484a90ea1c",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "e57c18b8-c821-4ef5-8dde-7e792f65783d",
+            "created_time": "2023-08-25T18:42:00.000Z",
+            "last_edited_time": "2023-08-25T20:03:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Doce Desnecessário",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Doce Desnecessário",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Unecessary Sweet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Unecessary Sweet",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Compulsões",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Compulsões",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_sweet",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_sweet",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_sweet-e57c18b8c8214ef58dde7e792f65783d",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "9f3ac5af-f4f1-42fe-b7ee-ed079b89b4fc",
+            "created_time": "2023-08-25T18:42:00.000Z",
+            "last_edited_time": "2023-08-25T20:03:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e75ff5d7-8fa1-42d7-a65d-666567bc5551"
+            },
+            "archived": false,
+            "properties": {
+                "customName": {
+                    "id": "%3BUFS",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultValue": {
+                    "id": "B%40wW",
+                    "type": "number",
+                    "number": null
+                },
+                "Visto": {
+                    "id": "T%3Bri",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "defaultName": {
+                    "id": "ToY%3E",
+                    "type": "rich_text",
+                    "rich_text": []
+                },
+                "lifecost": {
+                    "id": "%60K%7Cl",
+                    "type": "checkbox",
+                    "checkbox": false
+                },
+                "subcategory": {
+                    "id": "s%3EV%40",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Suco Desnecessário",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Suco Desnecessário",
+                            "href": null
+                        }
+                    ]
+                },
+                "nameInApp": {
+                    "id": "zgil",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "Unecessary Juice",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "Unecessary Juice",
+                            "href": null
+                        }
+                    ]
+                },
+                "category": {
+                    "id": "%7DHdO",
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "1 - Compulsões",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "1 - Compulsões",
+                            "href": null
+                        }
+                    ]
+                },
+                "Path": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "/unecessary_juice",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "/unecessary_juice",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/unecessary_juice-9f3ac5aff4f142feb7eeed079b89b4fc",
             "public_url": null
         }
     ],

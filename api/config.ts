@@ -13,6 +13,7 @@ export interface IPath {
     defaultValue: number;
     customName: boolean;
     nameInApp: string;
+    lifecost: boolean;
 }
 
 export async function loadPathsFromNotion(): Promise<IPath[]> {
@@ -33,7 +34,8 @@ export async function loadPathsFromNotion(): Promise<IPath[]> {
             defaultValue: defaultValue ? defaultValue : null,
             nameInApp: nameInApp.length > 0 ? nameInApp[0].plain_text : null,
             subcategory: subcategory.length > 0 ? subcategory[0].plain_text : null,
-            category: category.length > 0 ? category[0].plain_text : null
+            category: category.length > 0 ? category[0].plain_text : null,
+            lifecost: page.properties.lifecost.checkbox
         } as IPath;
     }
     );

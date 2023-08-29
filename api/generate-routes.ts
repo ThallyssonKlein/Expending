@@ -153,7 +153,7 @@ async function generateRoutes(app: any) {
     app.get('/options', (req: any, res: any) => {
         const options = []
         for(const path of paths) {
-            if (path.nameInApp) {
+            if (path.nameInApp && !path.lifecost) {
                 options.push({
                     path: path.path,
                     defaultValue: path.defaultValue,
