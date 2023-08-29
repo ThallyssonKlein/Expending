@@ -8,17 +8,11 @@ function today(){
     return `${dia}/${mes}`;
 }
 
-function isoToday(date?: Date) {
-    let agora;
+function isoToday(date?: string) {
+    let agr = date ? new Date(date) : new Date();
 
-    if (date) {
-        agora = new Date(date);
-    } else {
-            agora = new Date();
-    }
-
-    const offset = -3 * 60;
-    return new Date(agora.getTime() + offset * 60 * 1000).toISOString();
+    agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
+    return agr.toISOString()
 }
 
 function buildValor(valor: number, path: IPath) {
@@ -47,7 +41,7 @@ function buildName(name: string, path: IPath) {
     }
 }
 
-function buildDate(date?: Date) {
+function buildDate(date?: string) {
     return {
         Date: {
             date: {

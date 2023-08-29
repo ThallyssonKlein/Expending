@@ -5,6 +5,8 @@ import { IOption, getOptions, post } from '../api';
 import { Picker } from '@react-native-picker/picker';
 import Input from './Input'
 import Animated from 'react-native-reanimated';
+import DatePicker from 'react-native-date-picker'
+import { format } from 'date-fns';
 
 const CustomBackground = (props: any) => {
   const containerStyle = {
@@ -15,14 +17,20 @@ const CustomBackground = (props: any) => {
   return <Animated.View pointerEvents="none" style={containerStyle} />;
 };
 
+interface IBody {
+  value: number,
+  date?: string
+}
+
 export default function BottomSheetComponent() {
   const [options, setOptions] = useState<IOption[]>([]);
   const bottomSheetRef = useRef(null);
-  const snapPoints = ['25%', '50%'];
+  const snapPoints = ['35%', '60%'];
   const [selectedOption, setSelectedOption] = useState<IOption>();
   const [value, setValue] = useState<string>(selectedOption ? (selectedOption.defaultValue ? selectedOption.defaultValue + '' : '') : '')
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
   const [isEnabled, setEnabled] = useState<boolean>(selectedOption ? (selectedOption.defaultValue ? true : false) : false);
+  const [date, setDate] = useState(new Date())
 
   const retry = (fn: any, retries = 3, delay = 469000) => {
     return new Promise((resolve, reject) => {
@@ -63,14 +71,19 @@ export default function BottomSheetComponent() {
   }
 
   async function onPressButton() {
+    const formattedDate = format(date, 'yyyy-MM-dd');
     if (!value) {
       Alert.alert('Erro', 'Preencha o valor!')
       return
     }
 
     if (selectedOption?.path && value) {
+      let body: IBody = { value: parseFloat(value) }
+      if (date.toDateString() !== new Date().toDateString()) {
+        body = { ...body, date: formattedDate }
+      }
       setDisabledButton(true)
-      const response = await post(selectedOption?.path, { value: parseFloat(value) })
+      const response = await post(selectedOption?.path, body)
       setDisabledButton(false)
 
       if (!response) {
@@ -113,6 +126,12 @@ export default function BottomSheetComponent() {
 
               </View>
               {selectedOption && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled}/>}
+              <DatePicker
+                  mode="date"
+                  textColor="black"
+                  date={date}
+                  onDateChange={setDate}
+                />
           </View>
           <Button
               onPress={() => onPressButton()}
