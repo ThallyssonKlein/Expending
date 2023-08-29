@@ -25,7 +25,13 @@ export async function getOptions() {
 }
 
 export async function post(path: string, body: any) {
-  await api.post(path, body);
+  const response = await api.post(path, body);
+
+  if (response.status == 200) {
+    return response.data;
+  }
+
+  return null;
 }
 
 export default api;

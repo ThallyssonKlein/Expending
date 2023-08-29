@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, Alert, Button } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useState, useEffect, useRef } from 'react';
 import { IOption, getOptions, post } from '../api';
@@ -22,6 +22,7 @@ export default function BottomSheetComponent() {
   const [selectedOption, setSelectedOption] = useState<IOption>();
   const [value, setValue] = useState<string>(selectedOption ? (selectedOption.defaultValue ? selectedOption.defaultValue + '' : '') : '')
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
+  const [isEnabled, setEnabled] = useState<boolean>(selectedOption ? (selectedOption.defaultValue ? true : false) : false);
 
   const retry = (fn: any, retries = 3, delay = 469000) => {
     return new Promise((resolve, reject) => {
@@ -57,20 +58,32 @@ export default function BottomSheetComponent() {
   function onSelect(value: any) {
     const option = options.find(option => option.path === value);
     setSelectedOption(option)
+    setEnabled(selectedOption ? (selectedOption.defaultValue ? true : false) : false)
     setValue(option?.defaultValue ? option?.defaultValue + '' : '')
   }
 
   async function onPressButton() {
     if (selectedOption?.path && value) {
       setDisabledButton(true)
-      await post(selectedOption?.path, { value: parseFloat(value) })
-      setValue('')
+      const response = await post(selectedOption?.path, { value: parseFloat(value) })
       setDisabledButton(false)
+
+      if (!response) {
+        Alert.alert('Erro', 'Não foi possível salvar o item')
+        return
+      }
+
+      if (!selectedOption.defaultValue) {
+        setValue('')
+      } else {
+        if (!isEnabled) {
+          setValue('')
+        }
+      }
     }
   }
 
   if (options.length > 0 && selectedOption) {
-    console.log(options)
     return (
       <BottomSheet
           ref={bottomSheetRef}
@@ -94,7 +107,7 @@ export default function BottomSheetComponent() {
                 </Picker>
 
               </View>
-              {selectedOption && <Input option={selectedOption} value={value} setValue={setValue} />}
+              {selectedOption && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled}/>}
           </View>
           <Button
               onPress={() => onPressButton()}

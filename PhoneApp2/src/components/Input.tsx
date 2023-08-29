@@ -5,15 +5,16 @@ import { useState, useEffect } from 'react'
 interface IProps {
   option: IOption;
   value: string;
+  isEnabled: boolean;
   setValue: (value: string) => void
+  setEnabled: (value: boolean) => void
 }
 
 export default function Input(props: IProps) {
     const option = props.option
-    const [isEnabled, setEnabled] = useState(option.defaultValue ? true : false);
 
     function onSwitch(switchValue: boolean){
-      setEnabled(switchValue)
+      props.setEnabled(switchValue)
       if (switchValue == true) {
         props.setValue(option.defaultValue + '')
       } else {
@@ -22,7 +23,7 @@ export default function Input(props: IProps) {
     }
 
     useEffect(() => {
-      setEnabled(option.defaultValue ? true : false)
+      props.setEnabled(option.defaultValue ? true : false)
     }, [props.option])
 
     return (
@@ -33,16 +34,16 @@ export default function Input(props: IProps) {
             onChangeText={text => props.setValue(text)}
             style={styles.textInput}
             placeholderTextColor="black"
-            editable={!isEnabled}
+            editable={!props.isEnabled}
           />
           {
             option.defaultValue ? 
             <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
-              thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+              thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={(value) => onSwitch(value)}
-              value={isEnabled}/>
+              value={props.isEnabled}/>
             : null
           }
       </View>
