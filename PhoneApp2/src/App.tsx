@@ -5,13 +5,13 @@ import BottomSheet from './components/BottomSheet';
 export default function MyScreen() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         {['A', 'B', 'C', 'D'].map((button, index) => (
           <TouchableOpacity key={index} style={styles.button}>
             <Text style={styles.buttonText}>{button}</Text>
           </TouchableOpacity>
         ))}
-      </View>
+      </View> */}
       <BottomSheet />
     </GestureHandlerRootView>
   );

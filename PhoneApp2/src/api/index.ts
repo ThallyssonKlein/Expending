@@ -25,7 +25,7 @@ export async function getOptions() {
 }
 
 export async function post(path: string, body: any) {
-  api.post(path, body);
+  await api.post(path, body);
 }
 
 export default api;
