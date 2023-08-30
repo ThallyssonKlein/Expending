@@ -26,6 +26,8 @@ Content-Type: application/json
     "date": "2023-08-30"
 }
 
+###
+POST http://0.0.0.0:8080/internet
 
 ###
 GET http://0.0.0.0:8080/options

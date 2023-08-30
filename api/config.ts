@@ -14,6 +14,7 @@ export interface IPath {
     customName: boolean;
     nameInApp: string;
     lifecost: boolean;
+    defaultName: string;
 }
 
 export async function loadPathsFromNotion(): Promise<IPath[]> {
@@ -27,6 +28,7 @@ export async function loadPathsFromNotion(): Promise<IPath[]> {
         const nameInApp = page.properties.nameInApp.rich_text;
         const subcategory = page.properties.subcategory.rich_text;
         const category = page.properties.category.rich_text;
+        const defaultName = page.properties.defaultName.rich_text;
 
         return {
             path: page.properties.Path.title[0].plain_text,
@@ -35,7 +37,8 @@ export async function loadPathsFromNotion(): Promise<IPath[]> {
             nameInApp: nameInApp.length > 0 ? nameInApp[0].plain_text : null,
             subcategory: subcategory.length > 0 ? subcategory[0].plain_text : null,
             category: category.length > 0 ? category[0].plain_text : null,
-            lifecost: page.properties.lifecost.checkbox
+            lifecost: page.properties.lifecost.checkbox,
+            defaultName: defaultName.length > 0 ? defaultName[0].plain_text : null
         } as IPath;
     }
     );

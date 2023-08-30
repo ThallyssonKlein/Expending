@@ -28,16 +28,30 @@ function buildValor(valor: number, path: IPath) {
 
 function buildName(name: string, path: IPath) {
     if(!name && path.customName) throw new Error('Informe um nome!');
-    return {
-        Name: {
-            title: [
-                {
-                    text: {
-                        content: name ? name : today(),
+    if (path.defaultName) {
+        return {
+            Name: {
+                title: [
+                    {
+                        text: {
+                            content: path.defaultName,
+                        },
                     },
-                },
-            ],
-        },
+                ],
+            },
+        }
+    } else {
+        return {
+            Name: {
+                title: [
+                    {
+                        text: {
+                            content: name ? name : today(),
+                        },
+                    },
+                ],
+            },
+        }
     }
 }
 
