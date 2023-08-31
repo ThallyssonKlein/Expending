@@ -1,6 +1,6 @@
-import { StyleSheet, TextInput, View, Switch } from 'react-native';
+import { StyleSheet, TextInput, View, Switch, Text } from 'react-native';
 import { IOption } from '../api'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
 interface IProps {
   option: IOption;
@@ -38,12 +38,16 @@ export default function Input(props: IProps) {
           />
           {
             option.defaultValue ? 
-            <Switch
-              trackColor={{false: '#767577', true: '#81b0ff'}}
-              thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={(value) => onSwitch(value)}
-              value={props.isEnabled}/>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>Default</Text>
+              <Switch
+                trackColor={{false: '#767577', true: '#81b0ff'}}
+                thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={(value) => onSwitch(value)}
+                value={props.isEnabled}/>
+
+            </View>
             : null
           }
       </View>

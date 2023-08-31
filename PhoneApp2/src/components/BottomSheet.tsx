@@ -22,7 +22,11 @@ interface IBody {
   date?: string
 }
 
-export default function BottomSheetComponent() {
+interface IProps {
+  selectedMode: string
+}
+
+export default function BottomSheetComponent(props: IProps) {
   const [options, setOptions] = useState<IOption[]>([]);
   const bottomSheetRef = useRef(null);
   const snapPoints = ['35%', '60%'];
@@ -35,6 +39,7 @@ export default function BottomSheetComponent() {
   const retry = (fn: any, retries = 3, delay = 469000) => {
     return new Promise((resolve, reject) => {
         const attempt = () => {
+            console.log('Attempt: ' + new Date())
             fn()
                 .then(resolve)
                 .catch((err: any) => {
