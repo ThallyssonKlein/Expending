@@ -158,14 +158,29 @@ async function generateRoutes(app: any) {
           res.json(sums)
     })
 
-    app.get('/options', (req: any, res: any) => {
+    app.get('/options_v1', (req: any, res: any) => {
         const options = []
         for(const path of paths) {
             if (path.nameInApp && !path.lifecost) {
                 options.push({
                     path: path.path,
                     defaultValue: path.defaultValue,
-                    hasCustomName: !!path.customName,
+                    hasCustomName: path.customName,
+                    nameInApp: path.nameInApp
+                })
+            }
+        }
+        res.json(options)
+    })
+
+    app.get('/options_v2', (req: any, res: any) => {
+        const options = []
+        for(const path of paths) {
+            if (path.nameInApp && path.lifecost) {
+                options.push({
+                    path: path.path,
+                    defaultValue: path.defaultValue,
+                    hasCustomName: path.customName,
                     nameInApp: path.nameInApp
                 })
             }

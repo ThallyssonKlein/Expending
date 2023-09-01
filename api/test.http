@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-GET https://my-expending-project.rj.r.appspot.com/options
+GET https://my-expending-project.rj.r.appspot.com/options_v2
 
 
 ###
@@ -30,7 +30,10 @@ Content-Type: application/json
 POST http://0.0.0.0:8080/internet
 
 ###
-GET http://0.0.0.0:8080/options
+GET http://0.0.0.0:8080/options_v1
+
+###
+GET http://0.0.0.0:8080/options_v2
 
 ###
 POST http://0.0.0.0:8080/refresh

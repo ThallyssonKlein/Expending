@@ -14,8 +14,8 @@ export interface IOption {
   path: string;
 }
 
-export async function getOptions() {
-  const response = await api.get<IOption[]>('/options');
+export async function getOptions(selectedMode: string) {
+  const response = await api.get<IOption[]>(selectedMode === 'compulsions' ? '/options_v1' : '/options_v2');
   
   if (response.status == 200) {
     return response.data;

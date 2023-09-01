@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Alert, Button } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useState, useEffect, useRef } from 'react';
-import { IOption, getOptions, post } from '../api';
+import { IOption, getOptions as getOptionsApi, post } from '../api';
 import { Picker } from '@react-native-picker/picker';
 import Input from './Input'
 import Animated from 'react-native-reanimated';
@@ -36,42 +36,46 @@ export default function BottomSheetComponent(props: IProps) {
   const [isEnabled, setEnabled] = useState<boolean>(selectedOption ? (selectedOption.defaultValue ? true : false) : false);
   const [date, setDate] = useState(new Date())
 
-  const retry = (fn: any, retries = 3, delay = 469000) => {
-    return new Promise((resolve, reject) => {
-        const attempt = () => {
-            console.log('Attempt: ' + new Date())
-            fn()
-                .then(resolve)
-                .catch((err: any) => {
-                    if (retries === 0) {
-                        reject(err);
-                    } else {
-                        setTimeout(() => {
-                            retries--;
-                            attempt();
-                        }, delay);
-                    }
-                });
-        };
-        attempt();
-    });
-  };
-
   useEffect(() => {
-    retry(getOptions, 3).then((data: any) => {
+    getOptions()
+  }, [props.selectedMode])
+
+  function getOptions() {
+    getOptionsApi(props.selectedMode).then(data => {
       if (data) {
         setOptions(data);
-        setSelectedOption(data.find((item: IOption) => item.path === '/unecessary_delivery'))
+        const defaultOption = data.find((item: IOption) => {
+          if (props.selectedMode === 'compulsions' && item.path === '/unecessary_delivery') {
+            return item
+          } else if (item.path === '/food') {
+            return item
+          }
+        })
+        if (defaultOption) {
+          refresh(defaultOption)
+        } else {
+          Alert.alert('Opção padrão não encontrada!')
+        }
       }
-    }).catch(error => {
-        console.error("Falhou após 3 tentativas", error);
-    });  
+    }).catch(_ => {
+      Alert.alert('Erro ao buscar opções')
+    })
+  }
+
+  useEffect(() => {
+    getOptions()
   },[]);
 
   function onSelect(value: any) {
     const option = options.find(option => option.path === value);
+    if (option) {
+      refresh(option)
+    }
+  }
+
+  function refresh(option: IOption) {
     setSelectedOption(option)
-    setEnabled(selectedOption ? (selectedOption.defaultValue ? true : false) : false)
+    setEnabled(option ? (option.defaultValue ? true : false) : false)
     setValue(option?.defaultValue ? option?.defaultValue + '' : '')
   }
 
