@@ -1,5 +1,6 @@
-import { loadPathsFromNotion, IPath } from "./config";
+import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
 import { notion } from "./notion";
+import { Decimal } from 'decimal.js';
 
 function today(){
     const hoje = new Date();
@@ -112,13 +113,14 @@ async function searchDatabase(month: number) {
     });
 
     const filteredResults = response.results.filter((item: any) => {
-        // Verifique se a propriedade "Date" existe e se é do tipo "date"
         if (item.properties.Date && item.properties.Date.type === 'date') {
             const dateValue = new Date(item.properties.Date.date.start);
+            dateValue.setUTCHours(0, 0, 0, 0);
             const startDate = new Date(`2023-${month}-01`);
+            startDate.setUTCHours(0, 0, 0, 0);
             const endDate = new Date(`2023-${month + 1}-01`);
+            endDate.setUTCHours(0, 0, 0, 0);
 
-            // Verifique se a data está no intervalo desejado
             return dateValue >= startDate && dateValue < endDate;
         }
         return false;
@@ -145,17 +147,79 @@ async function generateRoutes(app: any) {
             }
             acc[subcategory].push(result);
             return acc;
-          }, {});
+        }, {});
         
-          const sums: Sums = {};
-          for (const [subcategory, results] of Object.entries(groupedResults)) {
-            sums[subcategory] = (results as any).reduce(
-              (acc: any, result: any) => acc + result.properties.Valor.number,
-              0
-            );
-          }
+        const sums: Sums = {};
+        for (const [subcategory, results] of Object.entries(groupedResults)) {
+            sums[subcategory] = parseFloat((results as any).reduce(
+                (acc: Decimal, result: any) => acc.plus(result.properties.Valor.number),
+                new Decimal(0)
+            ).toFixed(2));
+        }
+        
+
+        // search on resumeDatabaseId for items with the name equals to any key of sums (subcategory)
+
+        const filterOptions = []
+
+        for (const key in sums) {
+            filterOptions.push(
+                {
+                    property: "Name",
+                    title: {
+                        equals: key,
+                    },
+                },
+            )
+        }
+
+
+        const response = await notion.databases.query({
+            database_id: resumeDatabaseId,
+            filter: {
+                or: filterOptions,
+            },
+        })
+        
+        // for each key in sums, if there is a item with the same name, update the field 'Valor atual' with the sum value, else create a new item
+
+        for (const key in sums) {
+            const item = response.results.find((item: any) => item.properties.Name.title[0].plain_text === key)
+            if (item) {
+                await notion.pages.update({
+                    page_id: item.id,
+                    properties: {
+                        "Valor atual": {
+                            type: "number",
+                            number: sums[key]
+                        }
+                    }
+                })
+            } else {
+                await notion.pages.create({
+                    parent: {
+                        database_id: resumeDatabaseId,
+                    },
+                    properties: {
+                        Name: {
+                            title: [
+                                {
+                                    text: {
+                                        content: key,
+                                    },
+                                },
+                            ],
+                        },
+                        "Valor atual": {
+                            type: "number",
+                            number: sums[key]
+                        }
+                    }
+                })
+            }
+        }
           
-          res.json(sums)
+        res.send('ok')
     })
 
     app.get('/options_v1', (req: any, res: any) => {
@@ -224,7 +288,7 @@ async function generateRoutes(app: any) {
                                                 
                 await notion.pages.create({
                     parent: {
-                        database_id: '33ddadec57b6485faae5a88d6b770141',
+                        database_id: recordsDatabaseId,
                     },
                     properties
                 })

@@ -1,3 +1,6 @@
+export const recordsDatabaseId = '33ddadec57b6485faae5a88d6b770141'
+export const resumeDatabaseId = '2ff700ffa96d4ff3895c868f1c2198ad'
+
 const pathsDatabaseId = 'e75ff5d78fa142d7a65d666567bc5551';
 
 export default {

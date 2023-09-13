@@ -40,7 +40,7 @@ POST http://0.0.0.0:8080/refresh
 Content-Type: application/json
 
 {
-    "month": 10
+    "month": 9
 }
 
 ###
