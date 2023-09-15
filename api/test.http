@@ -8,11 +8,6 @@ Content-Type: application/json
 
 ###
 POST https://my-expending-project.rj.r.appspot.com/energy_drink
-Content-Type: application/json
-
-{
-    "date": "2023-08-30"
-}
 
 ###
 GET https://my-expending-project.rj.r.appspot.com/options_v2
@@ -34,6 +29,16 @@ GET http://0.0.0.0:8080/options_v1
 
 ###
 GET http://0.0.0.0:8080/options_v2
+
+
+###
+POST https://my-expending-project.rj.r.appspot.com/refresh
+Content-Type: application/json
+
+{
+    "month": 9
+}
+
 
 ###
 POST http://0.0.0.0:8080/refresh

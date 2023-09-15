@@ -1,6 +1,7 @@
 import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
 import { notion } from "./notion";
 import { Decimal } from 'decimal.js';
+import * as Sentry from '@sentry/node';
 
 function today(){
     const hoje = new Date();
@@ -12,8 +13,14 @@ function today(){
 function isoToday(date?: string) {
     let agr = date ? new Date(date) : new Date();
 
-    agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
-    return agr.toISOString()
+    // agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
+    // return agr.toISOString()
+    // return the date in the format 2023-02-23
+
+    const dia = agr.getDate().toString().padStart(2, '0');
+    const mes = (agr.getMonth() + 1).toString().padStart(2, '0');
+    const ano = agr.getFullYear();
+    return `${ano}-${mes}-${dia}`;
 }
 
 function buildValor(valor: number, path: IPath) {
@@ -282,6 +289,7 @@ async function generateRoutes(app: any) {
             }
 
             try {
+                Sentry.captureMessage('My important message I want to know about');
                 console.log('--------')
                 console.log(properties)
                 console.log('--------')
