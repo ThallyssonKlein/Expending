@@ -140,12 +140,9 @@ async function generateRoutes(app: any) {
     const paths: IPath[] = await loadPathsFromNotion();
 
     app.post('/refresh', async (req: any, res: any) => {
-        if (!req.body.month  || !(typeof req.body.month === 'number')) {
-            res.status(400).json({
-                error: 'Informe um mês válido!'
-            })
-        }
-        const itemsOfThisMonth = await searchDatabase(req.body.month)
+        const today = new Date()
+        console.log(today.getMonth() + 1)
+        const itemsOfThisMonth = await searchDatabase(today.getMonth() + 1)
 
         const groupedResults = itemsOfThisMonth.results.reduce((acc: any, result: any) => {
             const subcategory = result.properties['Sub Category'].select.name;
