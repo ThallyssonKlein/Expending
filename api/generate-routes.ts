@@ -1,4 +1,4 @@
-import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
+import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId, salariesDatabaseId, billsDatabaseId } from "./config";
 import { notion } from "./notion";
 import { Decimal } from 'decimal.js';
 import * as Sentry from '@sentry/node';
@@ -8,19 +8,6 @@ function today(){
     const dia = hoje.getDate().toString().padStart(2, '0');
     const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
     return `${dia}/${mes}`;
-}
-
-function isoToday(date?: string) {
-    let agr = date ? new Date(date) : new Date();
-
-    // agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
-    // return agr.toISOString()
-    // return the date in the format 2023-02-23
-
-    const dia = agr.getDate().toString().padStart(2, '0');
-    const mes = (agr.getMonth() + 1).toString().padStart(2, '0');
-    const ano = agr.getFullYear();
-    return `${ano}-${mes}-${dia}`;
 }
 
 function buildValor(valor: number, path: IPath) {
@@ -60,17 +47,6 @@ function buildName(name: string, path: IPath) {
                 ],
             },
         }
-    }
-}
-
-function buildDate(date?: string) {
-    return {
-        Date: {
-            date: {
-                start: date ? isoToday(date): isoToday() + "",
-                end: null
-            }
-        },
     }
 }
 
@@ -134,15 +110,28 @@ async function searchDatabase(month: number) {
     });
 
     return { ...response, results: filteredResults };
-}  
+}
+
+function monthSlashYear() {
+    // return MM/YYYY string of current month
+    
+}
   
 async function generateRoutes(app: any) {
     const paths: IPath[] = await loadPathsFromNotion();
 
+    app.post('/enter_salary', async (req: any, res: any) => {
+
+        // TODO - change resume to currentMonehts
+
+        
+
+    })
     app.post('/refresh', async (req: any, res: any) => {
         const today = new Date()
-        console.log(today.getMonth() + 1)
-        const itemsOfThisMonth = await searchDatabase(today.getMonth() + 1)
+        const currentMonth = today.getMonth() + 1
+
+        const itemsOfThisMonth = await searchDatabase(currentMonth)
 
         const groupedResults = itemsOfThisMonth.results.reduce((acc: any, result: any) => {
             const subcategory = result.properties['Sub Category'].select.name;
@@ -178,7 +167,7 @@ async function generateRoutes(app: any) {
         }
 
 
-        const response = await notion.databases.query({
+        const responseResumesDatabase = await notion.databases.query({
             database_id: resumeDatabaseId,
             filter: {
                 or: filterOptions,
@@ -188,7 +177,7 @@ async function generateRoutes(app: any) {
         // for each key in sums, if there is a item with the same name, update the field 'Valor atual' with the sum value, else create a new item
 
         for (const key in sums) {
-            const item = response.results.find((item: any) => item.properties.Name.title[0].plain_text === key)
+            const item = responseResumesDatabase.results.find((item: any) => item.properties.Name.title[0].plain_text === key)
             if (item) {
                 await notion.pages.update({
                     page_id: item.id,
