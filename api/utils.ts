@@ -11,9 +11,9 @@ function buildYearTraceMonthTraceDayTraceDateString() {
     return `${ano}-${mes}-${dia}`;
 }
 
-export function buildMonthSlashYearDateString(date?: Date){
-    const hoje = date? date : new Date();
-    const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+export function buildMonthSlashYearDateString(){
+    const hoje = new Date();
+    const mes = (hoje.getMonth() + 2).toString().padStart(2, '0');
     const ano = hoje.getFullYear();
     return `${mes}/${ano}`;
 }

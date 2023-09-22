@@ -205,7 +205,6 @@ export default class EnterSalaryController {
             }
 
             span.finish();
-
             console.log('--------------------')
             return salaryCreationResponse.id
         } catch (err) {            
@@ -294,6 +293,52 @@ export default class EnterSalaryController {
 
     }
 
+    async fillWhatLeftFromPastMonth(currentMonth: number, transaction: any) {
+        const span = transaction.startChild({ op: "fillWhatLeftFromPastMonth" });
+        console.log('--------------------')
+        console.log("fillWhatLeftFromPastMonth")
+
+        try {
+            const searchPastMonthResponse = await notion.databases.query({
+                database_id: salariesDatabaseId,
+                filter: {
+                    property: "Date",
+                    date: {
+                        after_or_equal: `2023-${currentMonth - 1}-01`,
+                        before: `2023-${currentMonth}-01`
+                    }         
+                },
+            });
+    
+            if (!searchPastMonthResponse || !searchPastMonthResponse.results || searchPastMonthResponse.results.length === 0) {
+                span.finish();
+                console.log('--------------------')
+                throw new Error('Erro ao buscar mes passado para preencher valor que sobrou!')
+            }
+        
+            const pastMonthItem = searchPastMonthResponse.results[0]
+    
+            const whatLeftFromPastMonth = pastMonthItem.properties['Quanto vai sobrar'].formula.number
+
+            await notion.pages.update({
+                page_id: pastMonthItem.id,
+                properties: {
+                    "Sobrou": {
+                        type: "number",
+                        number: whatLeftFromPastMonth
+                    }
+                }
+            });
+            span.finish();
+            console.log('--------------------')
+        } catch (error) {
+            console.log(error)
+            span.finish();
+            console.log('--------------------')
+            throw new Error('Erro ao buscar mes passado para preencher valor que sobrou!')
+        }
+    }
+
     async doEnterSalary(req: any, res: any) {
         const transaction = Sentry.startTransaction({ name: "enter-salary-transaction" });
         transaction.setData("body", req.body)
@@ -323,6 +368,7 @@ export default class EnterSalaryController {
             dataToDelete['pastSalaryIds'] = pastSalaryIds
             dataToDelete['pastMonths'] = pastMonths
             await this.updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes, currentMonth, salaryId, transaction, pastSalaryIds, pastMonths)
+            await this.fillWhatLeftFromPastMonth(currentMonth, transaction)
             
             transaction.finish();
 

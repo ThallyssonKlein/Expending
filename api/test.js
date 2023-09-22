@@ -10,20 +10,11 @@ const notion = new Client({
 //     console.log(JSON.stringify(response));
 // })
 
-function buildYearTraceMonthTraceDayTraceDateString() {
-    let agr = new Date();
+// const dataString = '2023-09-01';
+// const [ano, mes, dia] = dataString.split('-').map(Number);  // Divide a string e converte cada pedaço para um número
+// const dataLocal = new Date(ano, mes - 1, dia);  // Cria um novo objeto Date no fuso horário local
+// console.log(dataLocal.getMonth());  // Deve imprimir 8
 
-    // agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
-    // return agr.toISOString()
-    // return the date in the format 2023-02-23
-
-    const dia = agr.getDate().toString().padStart(2, '0');
-    const mes = (agr.getMonth() + 1).toString().padStart(2, '0');
-    const ano = agr.getFullYear();
-    return `${ano}-${mes}-${dia}`;
-}
-
-console.log(buildYearTraceMonthTraceDayTraceDateString())
 
 // notion.pages.create({
 //     parent: {
