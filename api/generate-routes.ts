@@ -1,7 +1,6 @@
 import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
 import { notion } from "./notion";
 import { Decimal } from 'decimal.js';
-import * as Sentry from '@sentry/node';
 import EnterSalaryController from './controller/EnterSalaryController/index'
 import { buildDatePropertyData } from './utils'
 
@@ -270,7 +269,6 @@ async function generateRoutes(app: any) {
             }
 
             try {
-                Sentry.captureMessage('My important message I want to know about');
                 console.log('--------')
                 console.log(properties)
                 console.log('--------')
