@@ -1,10 +1,22 @@
 import * as Sentry from '@sentry/node';
-import { notion } from "../notion";
-import { billsDatabaseId, salariesDatabaseId, resumeDatabaseId } from '../config'
-import { buildDatePropertyData, buildMonthSlashYearDateString } from '../utils'
+import { notion } from "../../notion";
+import { billsDatabaseId, salariesDatabaseId, resumeDatabaseId } from '../../config'
+import { buildDatePropertyData, buildMonthSlashYearDateString } from '../../utils'
 
+type PastSalaryIds = {
+    [key: string]: string;
+};
+
+type PastMonths = {
+    [key: string]: number;
+};
+type DataToDelete = {
+    [key: string]: string | PastSalaryIds | PastMonths;
+}
+  
 export default class EnterSalaryController {
-    doValidations(body, transaction) {
+
+    doValidations(body: any, transaction: any) {
         const span = transaction.startChild({ op: "doValidations" });
 
         if (!body.salary || isNaN(body.salary)) {
@@ -14,7 +26,7 @@ export default class EnterSalaryController {
         span.finish();
     }
 
-    async createCreditCardBillItems(currentMonth: number, transaction): Promise<[number, number]>{
+    async createCreditCardBillItems(currentMonth: number, transaction: any): Promise<[string, string]>{
         const span = transaction.startChild({ op: "createCreditCardBillItems" });
         console.log('--------------------')
         console.log('createCreditCardBillItems')
@@ -41,7 +53,7 @@ export default class EnterSalaryController {
                         type: "number",
                         number: 0
                     },
-                    Month: buildDatePropertyData(`2023-${currentMonth}-01`)
+                    ...buildDatePropertyData(`2023-${currentMonth}-01`, 'Month')
                 }
             })
 
@@ -66,7 +78,7 @@ export default class EnterSalaryController {
                         type: "number",
                         number: 0
                     },
-                    Month: buildDatePropertyData(`2023-${currentMonth}-01`)
+                    ...buildDatePropertyData(`2023-${currentMonth}-01`, 'Month')
                 }
             })
 
@@ -79,36 +91,15 @@ export default class EnterSalaryController {
 
             span.finish();
             console.log('--------------------')
-            return [responseBill1, responseBill2]
+            return [responseBill1.id, responseBill2.id]
         } catch (err) {
-            try {
-                if (responseBill1 && responseBill1.id) {
-                    //delete bill1
-                    const responseDelete1 = await notion.pages.update({
-                        page_id: responseBill1.id,
-                        archived: true
-                    });
-                    console.log(responseDelete1)
-                    span.setData("responseDelete1", responseDelete1)                      
-                }
-    
-                if (responseBill2 && responseBill2.id) {
-                    const responseDelete2 = await notion.pages.update({
-                        page_id: responseBill2.id,
-                        archived: true
-                    }); 
-                    console.log(responseDelete2)
-                    span.setData("responseDelete2", responseDelete2)
-                }
-            } catch (err) {}
-
             span.finish();
             console.log('--------------------')
             throw new Error('Erro ao criar faturas!')
         }
     }
 
-    async createSalaryItem(salary: number, currentMonth, billId1, billId2, transaction) {
+    async createSalaryItem(salary: number, currentMonth: number, billId1: string, billId2: string, transaction: any) {
         const span = transaction.startChild({ op: "createSalary" });
         console.log('--------------------')
         console.log("createSalary")
@@ -130,7 +121,7 @@ export default class EnterSalaryController {
                             },
                         ],
                     },
-                    Date: buildDatePropertyData(`2023-${currentMonth}-01`),
+                    ...buildDatePropertyData(`2023-${currentMonth}-01`),
                     Chegou: {
                         type: "number",
                         number: salary
@@ -162,25 +153,14 @@ export default class EnterSalaryController {
 
             console.log('--------------------')
             return salaryCreationResponse.id
-        } catch (err) {
-            try {
-                if (salaryCreationResponse && salaryCreationResponse.id) {
-                    const responseDelete = await notion.pages.update({
-                        page_id: salaryCreationResponse.id,
-                        archived: true
-                    });
-                    console.log(responseDelete)
-                    span.setData("responseDelete", responseDelete)                      
-                }
-            } catch (err2) {}
-            
+        } catch (err) {            
             span.finish();
             console.log('--------------------')
             throw new Error('Erro ao criar salário!')
         }
     }
 
-    async findAllCompulsionsResumes(transaction) {
+    async findAllCompulsionsResumes(transaction: any) {
         const span = transaction.startChild({ op: "findAllCompulsionsResumes" });
         console.log('--------------------')
         console.log("findAllCompulsionsResumes")
@@ -204,7 +184,7 @@ export default class EnterSalaryController {
     }
 
     async updateCompulsionWithSalary(resumeId: string, currentMonth: number, salaryId: string) {
-        const updateResponse = await notion.pages.update({
+        return await notion.pages.update({
             page_id: resumeId,
             properties: {
                 "Current Month Number": {
@@ -223,17 +203,12 @@ export default class EnterSalaryController {
 
             }
         })
-
-        return updateResponse ? updateResponse.id : null
     }
 
-    async updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes, currentMonth: number, salaryId: string, transaction) {
+    async updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes: any[], currentMonth: number, salaryId: string, transaction: any, pastSalaryIds: PastSalaryIds, pastMonths: PastMonths) {
         const span = transaction.startChild({ op: "updateCompulsionsResumesWithCorrectSalary" });
         console.log('--------------------')
         console.log("updateCompulsionsResumesWithCorrectSalary")
-
-        const pastSalaryIds = {}
-        const pastMonths = {}
 
         try {
             let i = 1
@@ -256,19 +231,7 @@ export default class EnterSalaryController {
 
             span.finish();
             console.log('--------------------')
-        } catch (err) {
-            let i2 = 1
-            try {
-                for (const itemToUndo in pastSalaryIds) {
-                    const pastSalaryId = pastSalaryIds[itemToUndo]
-
-                    const updateResponse = await this.updateCompulsionWithSalary(itemToUndo, pastMonths[itemToUndo], pastSalaryId)
-                    console.log(updateResponse)
-                    span.setData("updateResponse" + i2, updateResponse)
-                    i2 += 1
-                }
-            } catch (err2) {}
-            
+        } catch (err) {            
             span.finish();
             console.log('--------------------')
             throw new Error('Erro ao fazer updates nas compulsoes!')
@@ -279,6 +242,9 @@ export default class EnterSalaryController {
     async doEnterSalary(req: any, res: any) {
         const transaction = Sentry.startTransaction({ name: "enter-salary-transaction" });
         transaction.setData("body", req.body)
+
+        const dataToDelete: DataToDelete = {}
+
         try {
             this.doValidations(req.body, transaction)
             
@@ -286,15 +252,88 @@ export default class EnterSalaryController {
             const currentMonth = today.getMonth() + 1
     
             const [bill1Id, bill2Id] = await this.createCreditCardBillItems(currentMonth, transaction)
+            dataToDelete['bill1Id'] = bill1Id
+            dataToDelete['bill2Id'] = bill2Id
 
             const salaryId = await this.createSalaryItem(req.body.salary, currentMonth, bill1Id, bill2Id, transaction)
+            dataToDelete['salaryId'] = salaryId
 
             const itemsCompulsionsResumes = await this.findAllCompulsionsResumes(transaction)
 
-            await this.updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes, currentMonth, salaryId, transaction)
+            const pastSalaryIds: PastSalaryIds = {}
+            const pastMonths: PastMonths = {}
+            dataToDelete['pastSalaryIds'] = pastSalaryIds
+            dataToDelete['pastMonths'] = pastMonths
+            await this.updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes, currentMonth, salaryId, transaction, pastSalaryIds, pastMonths)
             
             transaction.finish();
+
+            res.status(200).send('ok')
         } catch (err) {
+            const span = transaction.startChild({ op: "revertOperations" });
+
+            try {
+                span.setData("dataToDelete", dataToDelete)
+                console.log('--------------------')
+                console.log('revertOperations')    
+    
+                if (dataToDelete['bill1Id']) {
+                    const responseDelete1 = await notion.pages.update({
+                        page_id: dataToDelete['bill1Id'],
+                        archived: true
+                    });
+                    console.log(responseDelete1)
+                    span.setData("responseDelete1", responseDelete1)                      
+                }
+    
+                if (dataToDelete['bill2Id']) {
+                    const responseDelete2 = await notion.pages.update({
+                        page_id: dataToDelete['bill2Id'],
+                        archived: true
+                    });
+                    console.log(responseDelete2)
+                    span.setData("responseDelete2", responseDelete2)                      
+                }
+
+
+                try {
+                    if (dataToDelete['salaryId']) {
+                        const responseDelete3 = await notion.pages.update({
+                            page_id: dataToDelete['salaryId'],
+                            archived: true
+                        });
+                        console.log(responseDelete3)
+                        span.setData("responseDelete3", responseDelete3)                      
+                    }
+                } catch (err2) {}
+    
+
+                let i2 = 1
+                try {
+                    if (dataToDelete['pastSalaryIds'] && Object.keys(dataToDelete['pastSalaryIds']).length > 0) {
+                        for (const itemToUndo in (dataToDelete['pastSalaryIds'] as PastSalaryIds)) {
+                            const pastSalaryId = (dataToDelete['pastSalaryIds'] as PastSalaryIds)[itemToUndo]
+        
+                            if (!dataToDelete['pastMonths'] || !(dataToDelete['pastMonths'] as PastMonths)[itemToUndo]) {
+                                span.setData("errorUndoingItem_" + i2, itemToUndo)
+                                console.log('error undoing item: ' + itemToUndo)
+                                continue
+                            }
+                            
+                            const responseDelete4 = await this.updateCompulsionWithSalary(itemToUndo, (dataToDelete['pastMonths'] as PastMonths)[itemToUndo], pastSalaryId)
+                            console.log(responseDelete4)
+                            span.setData("responseDelete4_" + i2, responseDelete4)
+                            i2 += 1
+                        }
+                    }
+                } catch (err2) {}    
+
+                span.finish()
+                console.log('--------------------')
+            } catch (err) {
+                span.finish()
+            }
+
             transaction.finish();
             res.status(400).json({
                 error: (err as Error).message

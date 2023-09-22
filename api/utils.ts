@@ -18,13 +18,21 @@ export function buildMonthSlashYearDateString(date?: Date){
     return `${mes}/${ano}`;
 }
 
-export function buildDatePropertyData(date?: string) {
-    return {
-        Date: {
-            date: {
-                start: buildYearTraceMonthTraceDayTraceDateString(date),
-                end: null
-            }
-        },
+export function buildDatePropertyData(date?: string, fieldName?: string) {
+    const dateValue = {
+        date: {
+            start: buildYearTraceMonthTraceDayTraceDateString(date),
+            end: null
+        }
+    }
+
+    if (fieldName) {
+        return {
+            [fieldName]: dateValue
+        }
+    } else {
+        return {
+            Date: dateValue
+        }
     }
 }

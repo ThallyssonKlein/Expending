@@ -1,7 +1,9 @@
-import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId, salariesDatabaseId, billsDatabaseId } from "./config";
+import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
 import { notion } from "./notion";
 import { Decimal } from 'decimal.js';
 import * as Sentry from '@sentry/node';
+import EnterSalaryController from './controller/EnterSalaryController/index'
+import { buildDatePropertyData } from './utils'
 
 function today(){
     const hoje = new Date();
@@ -111,22 +113,15 @@ async function searchDatabase(month: number) {
 
     return { ...response, results: filteredResults };
 }
-
-function monthSlashYear() {
-    // return MM/YYYY string of current month
-    
-}
   
 async function generateRoutes(app: any) {
     const paths: IPath[] = await loadPathsFromNotion();
+    const enterSalaryController = new EnterSalaryController()
 
     app.post('/enter_salary', async (req: any, res: any) => {
-
-        // TODO - change resume to currentMonehts
-
-        
-
+        enterSalaryController.doEnterSalary(req, res)
     })
+
     app.post('/refresh', async (req: any, res: any) => {
         const today = new Date()
         const currentMonth = today.getMonth() + 1
@@ -261,7 +256,7 @@ async function generateRoutes(app: any) {
                 }
                 properties = {
                     ...properties,
-                    ...buildDate(body.date)
+                    ...buildDatePropertyData(body.date)
                 }
                 properties = {
                     ...properties,

@@ -1,0 +1,14 @@
+POST https://my-expending-project.rj.r.appspot.com/enter_salary
+Content-Type: application/json
+
+{
+    "salary": 1000
+}
+
+###
+POST http://0.0.0.0:8080/enter_salary
+Content-Type: application/json
+
+{
+    "salary": 1000
+}

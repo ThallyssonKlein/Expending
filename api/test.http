@@ -30,14 +30,6 @@ GET http://0.0.0.0:8080/options_v1
 ###
 GET http://0.0.0.0:8080/options_v2
 
-
-###
-POST https://my-expending-project.rj.r.appspot.com/refresh
-
-
-###
-POST http://0.0.0.0:8080/refresh
-
 ###
 POST http://0.0.0.0:8080/unecessary_sweet
 Content-Type: application/json
