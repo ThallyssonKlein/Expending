@@ -1,5 +1,5 @@
-function buildYearTraceMonthTraceDayTraceDateString(date?: string) {
-    let agr = date ? new Date(date) : new Date();
+function buildYearTraceMonthTraceDayTraceDateString() {
+    let agr = new Date();
 
     // agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
     // return agr.toISOString()
@@ -19,9 +19,10 @@ export function buildMonthSlashYearDateString(date?: Date){
 }
 
 export function buildDatePropertyData(date?: string, fieldName?: string) {
+    console.log(date)
     const dateValue = {
         date: {
-            start: buildYearTraceMonthTraceDayTraceDateString(date),
+            start: date ? date : buildYearTraceMonthTraceDayTraceDateString(),
             end: null
         }
     }

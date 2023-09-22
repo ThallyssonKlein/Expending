@@ -2,6 +2,7 @@ export const recordsDatabaseId = '33ddadec57b6485faae5a88d6b770141'
 export const resumeDatabaseId = '2ff700ffa96d4ff3895c868f1c2198ad'
 export const salariesDatabaseId = '914acfb686f84c849fad7f5c8896b853'
 export const billsDatabaseId = 'd9a3cc51e9d04f6697a16e46d37b7662'
+export const balanceDatabaseId = 'd9a154666088476bbf60a089c8753e2f'
 
 const pathsDatabaseId = 'e75ff5d78fa142d7a65d666567bc5551';
 

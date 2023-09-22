@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { notion } from "../../notion";
-import { billsDatabaseId, salariesDatabaseId, resumeDatabaseId } from '../../config'
+import { billsDatabaseId, salariesDatabaseId, resumeDatabaseId, balanceDatabaseId } from '../../config'
 import { buildDatePropertyData, buildMonthSlashYearDateString } from '../../utils'
 
 type PastSalaryIds = {
@@ -85,7 +85,7 @@ export default class EnterSalaryController {
             console.log(responseBill2)
             span.setData("responseBill2", responseBill2)
     
-            if (!responseBill1.id || !responseBill2.id) {
+            if (!responseBill1 || !responseBill2 || !responseBill1.id || !responseBill2.id) {
                 throw new Error('Erro ao criar faturas!')
             }
 
@@ -99,7 +99,54 @@ export default class EnterSalaryController {
         }
     }
 
-    async createSalaryItem(salary: number, currentMonth: number, billId1: string, billId2: string, transaction: any) {
+    async createBalanceItem(transaction: any) {
+        const span = transaction.startChild({ op: "createBalanceItem" });
+        console.log('--------------------')
+        console.log('createBalanceItem')
+
+        let responseBalance
+
+        try {
+            responseBalance = await notion.pages.create({
+                parent: {
+                    database_id: balanceDatabaseId,
+                },
+                properties: {
+                    Name: {
+                        title: [
+                            {
+                                text: {
+                                    content: "Saldo refeição"
+                                }
+                            }
+                        ]
+                    },
+                    Valor: {
+                        type: "number",
+                        number: 0
+                    },
+                }
+            })
+
+            console.log(responseBalance)
+            span.setData("responseBalance", responseBalance)
+    
+            if (!responseBalance || !responseBalance.id) {
+                throw new Error('Erro ao criar balanço!')
+            }
+
+            span.finish();
+            console.log('--------------------')
+            return responseBalance.id
+        } catch (err) {
+            span.finish();
+            console.log('--------------------')
+            throw new Error('Erro ao criar balanço!')
+        }
+
+    }
+
+    async createSalaryItem(salary: number, currentMonth: number, billId1: string, billId2: string, transaction: any, balanceId: string) {
         const span = transaction.startChild({ op: "createSalary" });
         console.log('--------------------')
         console.log("createSalary")
@@ -138,14 +185,22 @@ export default class EnterSalaryController {
                             }
                         ],
                     },
-    
+                    Saldos: {
+                        id: "W%5BTt",
+                        type: "relation",
+                        relation: [
+                            {
+                                id: balanceId
+                            }
+                        ],
+                    },
                 }
             })
 
             console.log(salaryCreationResponse)
             span.setData("salaryCreationResponse", salaryCreationResponse)
 
-            if (!salaryCreationResponse.id) {
+            if (!salaryCreationResponse || !salaryCreationResponse.id) {
                 throw new Error('Erro ao criar salário!')
             }
 
@@ -219,7 +274,7 @@ export default class EnterSalaryController {
                     const updateResponse = await this.updateCompulsionWithSalary(resumeItem.id, currentMonth, salaryId)
 
                     console.log(updateResponse)
-                    span.setData("updateResponse" + i, updateResponse)
+                    span.setData("updateResponse_" + i, updateResponse)
 
                     if (!updateResponse || !updateResponse.id) {
                         throw new Error('Erro ao fazer updates nas compulsoes!')
@@ -249,13 +304,16 @@ export default class EnterSalaryController {
             this.doValidations(req.body, transaction)
             
             const today = new Date()
-            const currentMonth = today.getMonth() + 1
+            const currentMonth = today.getMonth() + 2
     
             const [bill1Id, bill2Id] = await this.createCreditCardBillItems(currentMonth, transaction)
             dataToDelete['bill1Id'] = bill1Id
             dataToDelete['bill2Id'] = bill2Id
 
-            const salaryId = await this.createSalaryItem(req.body.salary, currentMonth, bill1Id, bill2Id, transaction)
+            const balanceId = await this.createBalanceItem(transaction)
+            dataToDelete['balanceId'] = balanceId
+
+            const salaryId = await this.createSalaryItem(req.body.salary, currentMonth, bill1Id, bill2Id, transaction, balanceId)
             dataToDelete['salaryId'] = salaryId
 
             const itemsCompulsionsResumes = await this.findAllCompulsionsResumes(transaction)
@@ -295,15 +353,23 @@ export default class EnterSalaryController {
                     span.setData("responseDelete2", responseDelete2)                      
                 }
 
+                if (dataToDelete['balanceId']) {
+                    const responseDelete3 = await notion.pages.update({
+                        page_id: dataToDelete['balanceId'],
+                        archived: true
+                    });
+                    console.log(responseDelete3)
+                    span.setData("responseDelete3", responseDelete3)                      
+                }
 
                 try {
                     if (dataToDelete['salaryId']) {
-                        const responseDelete3 = await notion.pages.update({
+                        const responseDelete4 = await notion.pages.update({
                             page_id: dataToDelete['salaryId'],
                             archived: true
                         });
-                        console.log(responseDelete3)
-                        span.setData("responseDelete3", responseDelete3)                      
+                        console.log(responseDelete4)
+                        span.setData("responseDelete4", responseDelete4)                      
                     }
                 } catch (err2) {}
     
@@ -320,9 +386,9 @@ export default class EnterSalaryController {
                                 continue
                             }
                             
-                            const responseDelete4 = await this.updateCompulsionWithSalary(itemToUndo, (dataToDelete['pastMonths'] as PastMonths)[itemToUndo], pastSalaryId)
-                            console.log(responseDelete4)
-                            span.setData("responseDelete4_" + i2, responseDelete4)
+                            const responseDelete5 = await this.updateCompulsionWithSalary(itemToUndo, (dataToDelete['pastMonths'] as PastMonths)[itemToUndo], pastSalaryId)
+                            console.log(responseDelete5)
+                            span.setData("responseDelete5_" + i2, responseDelete5)
                             i2 += 1
                         }
                     }

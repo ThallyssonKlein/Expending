@@ -5,10 +5,25 @@ const notion = new Client({
 });
 
 // notion.databases.query({
-//     database_id: '2ff700ffa96d4ff3895c868f1c2198ad',
+//     database_id: '914acfb686f84c849fad7f5c8896b853',
 // }).then(response => {
 //     console.log(JSON.stringify(response));
 // })
+
+function buildYearTraceMonthTraceDayTraceDateString() {
+    let agr = new Date();
+
+    // agr.setUTCHours(0, 0, 0, 0); // Zera o tempo UTC
+    // return agr.toISOString()
+    // return the date in the format 2023-02-23
+
+    const dia = agr.getDate().toString().padStart(2, '0');
+    const mes = (agr.getMonth() + 1).toString().padStart(2, '0');
+    const ano = agr.getFullYear();
+    return `${ano}-${mes}-${dia}`;
+}
+
+console.log(buildYearTraceMonthTraceDayTraceDateString())
 
 // notion.pages.create({
 //     parent: {
@@ -31,14 +46,14 @@ const notion = new Client({
 
 // https://www.notion.so/thallyssonklein/Fatura-Nubank-?pvs=4
 
-notion.pages.update({
-    page_id: '8dfdef9006704d78bca03cf29671287a',
-    properties: {
-        Valor: {
-            type: "number",
-            number: 10
-        },
-    }
-}).then(response => {
-    console.log(response);
-})
+// notion.pages.update({
+//     page_id: '8dfdef9006704d78bca03cf29671287a',
+//     properties: {
+//         Valor: {
+//             type: "number",
+//             number: 10
+//         },
+//     }
+// }).then(response => {
+//     console.log(response);
+// })
