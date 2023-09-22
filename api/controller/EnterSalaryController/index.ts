@@ -349,7 +349,7 @@ export default class EnterSalaryController {
             this.doValidations(req.body, transaction)
             
             const today = new Date()
-            const currentMonth = today.getMonth() + 2
+            const currentMonth = today.getMonth() + 1
     
             const [bill1Id, bill2Id] = await this.createCreditCardBillItems(currentMonth, transaction)
             dataToDelete['bill1Id'] = bill1Id
