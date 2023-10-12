@@ -4,11 +4,19 @@ const notion = new Client({
     auth: 'secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG',
 });
 
-// notion.databases.query({
-//     database_id: '914acfb686f84c849fad7f5c8896b853',
-// }).then(response => {
-//     console.log(JSON.stringify(response));
-// })
+notion.databases.query({
+    database_id: '914acfb686f84c849fad7f5c8896b853',
+    filter: {
+        property: 'This Month',
+        formula: {
+            checkbox: {
+                equals: true
+            }
+        }
+    }
+}).then(response => {
+    console.log(JSON.stringify(response));
+})
 
 // const dataString = '2023-09-01';
 // const [ano, mes, dia] = dataString.split('-').map(Number);  // Divide a string e converte cada pedaço para um número

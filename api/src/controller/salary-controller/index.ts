@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/node';
 import { notion } from "../../notion";
 import { billsDatabaseId, salariesDatabaseId, resumeDatabaseId, balanceDatabaseId } from '../../config'
 import { buildDatePropertyData, buildMonthSlashYearDateString } from '../../utils'
+import SalaryRepository from '../../repository/SalaryRepository';
 
 type PastSalaryIds = {
     [key: string]: string;
@@ -15,8 +16,9 @@ type DataToDelete = {
 }
   
 export default class EnterSalaryController {
+    private salaryRepository: SalaryRepository = new SalaryRepository()
 
-    doValidations(body: any, transaction: any) {
+    private doValidations(body: any, transaction: any) {
         const span = transaction.startChild({ op: "doValidations" });
 
         if (!body.salary || isNaN(body.salary)) {
@@ -26,7 +28,7 @@ export default class EnterSalaryController {
         span.finish();
     }
 
-    async createCreditCardBillItems(currentMonth: number, transaction: any): Promise<[string, string]>{
+    private async createCreditCardBillItems(currentMonth: number, transaction: any): Promise<[string, string]>{
         const span = transaction.startChild({ op: "createCreditCardBillItems" });
         console.log('--------------------')
         console.log('createCreditCardBillItems')
@@ -99,7 +101,7 @@ export default class EnterSalaryController {
         }
     }
 
-    async createBalanceItem(transaction: any) {
+    private async createBalanceItem(transaction: any) {
         const span = transaction.startChild({ op: "createBalanceItem" });
         console.log('--------------------')
         console.log('createBalanceItem')
@@ -146,7 +148,7 @@ export default class EnterSalaryController {
 
     }
 
-    async createSalaryItem(salary: number, currentMonth: number, billId1: string, billId2: string, transaction: any, balanceId: string) {
+    private async createSalaryItem(salary: number, currentMonth: number, billId1: string, billId2: string, transaction: any, balanceId: string) {
         const span = transaction.startChild({ op: "createSalary" });
         console.log('--------------------')
         console.log("createSalary")
@@ -214,7 +216,7 @@ export default class EnterSalaryController {
         }
     }
 
-    async findAllCompulsionsResumes(transaction: any) {
+    private async findAllCompulsionsResumes(transaction: any) {
         const span = transaction.startChild({ op: "findAllCompulsionsResumes" });
         console.log('--------------------')
         console.log("findAllCompulsionsResumes")
@@ -237,7 +239,7 @@ export default class EnterSalaryController {
         return responseResumesDatabase.results
     }
 
-    async updateCompulsionWithSalary(resumeId: string, currentMonth: number, salaryId: string) {
+    private async updateCompulsionWithSalary(resumeId: string, currentMonth: number, salaryId: string) {
         return await notion.pages.update({
             page_id: resumeId,
             properties: {
@@ -259,7 +261,7 @@ export default class EnterSalaryController {
         })
     }
 
-    async updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes: any[], currentMonth: number, salaryId: string, transaction: any, pastSalaryIds: PastSalaryIds, pastMonths: PastMonths) {
+    private async updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes: any[], currentMonth: number, salaryId: string, transaction: any, pastSalaryIds: PastSalaryIds, pastMonths: PastMonths) {
         const span = transaction.startChild({ op: "updateCompulsionsResumesWithCorrectSalary" });
         console.log('--------------------')
         console.log("updateCompulsionsResumesWithCorrectSalary")
@@ -293,7 +295,7 @@ export default class EnterSalaryController {
 
     }
 
-    async fillWhatLeftFromPastMonth(currentMonth: number, transaction: any) {
+    private async fillWhatLeftFromPastMonth(currentMonth: number, transaction: any) {
         const span = transaction.startChild({ op: "fillWhatLeftFromPastMonth" });
         console.log('--------------------')
         console.log("fillWhatLeftFromPastMonth")
@@ -446,6 +448,27 @@ export default class EnterSalaryController {
                 span.finish()
             }
 
+            transaction.finish();
+            res.status(400).json({
+                error: (err as Error).message
+            })
+        }
+    }
+
+    async getCurrentSalaryDetails(req: any, res: any) {
+        const transaction = Sentry.startTransaction({ name: "find-current-salary-transaction" });
+        transaction.setData("body", req.body)
+
+        try {
+            const currentSalaryItem = await this.salaryRepository.findCurrentMonthSalaryItem()
+    
+            transaction.finish();
+            res.status(200).json({
+                whatWillBeLeft: currentSalaryItem.properties['Quanto vai sobrar'].formula.number,
+                whatWillBeLeftWithoutCompulsions: currentSalaryItem.properties['Quanto Sobraria sem Compulsões'].formula.number,
+                currentSalaryUsePercentage: currentSalaryItem.properties['% do salário atual'].formula.number,
+            })
+        } catch (err) {
             transaction.finish();
             res.status(400).json({
                 error: (err as Error).message

@@ -1,7 +1,6 @@
 import { loadPathsFromNotion, IPath, recordsDatabaseId, resumeDatabaseId } from "./config";
 import { notion } from "./notion";
 import { Decimal } from 'decimal.js';
-import EnterSalaryController from './controller/EnterSalaryController/index'
 import { buildDatePropertyData } from './utils'
 
 function today(){
@@ -115,11 +114,6 @@ async function searchDatabase(month: number) {
   
 async function generateRoutes(app: any) {
     const paths: IPath[] = await loadPathsFromNotion();
-    const enterSalaryController = new EnterSalaryController()
-
-    app.post('/enter_salary', async (req: any, res: any) => {
-        enterSalaryController.doEnterSalary(req, res)
-    })
 
     app.post('/refresh', async (req: any, res: any) => {
         const today = new Date()

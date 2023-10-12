@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { ProfilingIntegration } from '@sentry/profiling-node';
+import SalaryController from './controller/salary-controller'
 
 const express = require('express')
 
@@ -30,7 +31,17 @@ app.get('/ping', (req: any, res: any) => {
     res.json({res: 'pong'})
 })
 
+const salaryController = new SalaryController()
+
+app.post('/enter_salary', async (req: any, res: any) => {
+    salaryController.doEnterSalary(req, res)
+})
+
+app.get('/salary_details', async (req: any, res: any) => {
+    salaryController.getCurrentSalaryDetails(req, res)
+})
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
+    console.log(`Server listening on port ${PORT}...`);
 });
