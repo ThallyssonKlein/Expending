@@ -7,6 +7,7 @@ import Input from './Input'
 import Animated from 'react-native-reanimated';
 import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns';
+import * as Sentry from "@sentry/react-native";
 
 const CustomBackground = (props: any) => {
   const containerStyle = {
@@ -43,6 +44,8 @@ export default function BottomSheetComponent(props: IProps) {
   function getOptions() {
     getOptionsApi(props.selectedMode).then(data => {
       if (data) {
+        console.log(data)
+        //Sentry.captureMessage(data.toString())
         setOptions(data);
         const defaultOption = data.find((item: IOption) => {
           if (props.selectedMode === 'compulsions' && item.path === '/unecessary_delivery') {

@@ -3,27 +3,34 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet from './components/BottomSheet';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
+import SalaryUsage from './components/salary_usage';
+import * as Sentry from "@sentry/react-native";
 
-export default function MyScreen() {
+Sentry.init({
+  dsn: "https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872",
+  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+  // We recommend adjusting this value in production.
+  tracesSampleRate: 1.0,
+});
+
+function App() {
   const [selectedMode, setSelectedMode] = useState("compulsions");
 
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <View style={styles.buttonContainer}>
-        {/* {['B', 'C'].map((button, index) => (
-          <TouchableOpacity key={index} style={styles.button}>
-            <Text style={styles.buttonText}>{button}</Text>
-          </TouchableOpacity>
-        ))} */}
+    <GestureHandlerRootView style={styles.gestureHandler}>
+      <View style={{flex: 1}}>
         <Picker
-            selectedValue={selectedMode}
-            onValueChange={(itemValue: any) => setSelectedMode(itemValue)}
-            style={styles.picker}
-            dropdownIconColor="black" // Cor da seta e do texto
-          >
-            <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
-            <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
+              selectedValue={selectedMode}
+              onValueChange={(itemValue: any) => setSelectedMode(itemValue)}
+              style={styles.picker}
+              dropdownIconColor="black" // Cor da seta e do texto
+            >
+              <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
+              <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
         </Picker>
+      </View>
+      <View style={{margin: 20, flex: 10}}>
+            <SalaryUsage />
       </View>
       <BottomSheet selectedMode={selectedMode}/>
     </GestureHandlerRootView>
@@ -31,15 +38,10 @@ export default function MyScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gestureHandler: {
     flex: 1,
-    backgroundColor: '#f5faff'
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    paddingTop: 10,
+    backgroundColor: '#f5faff',
+    justifyContent: 'flex-start'
   },
   button: {
     width: 50,
@@ -61,3 +63,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default Sentry.wrap(App);

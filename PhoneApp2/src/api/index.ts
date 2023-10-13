@@ -1,6 +1,6 @@
 // apisauce
 
-import {create} from 'apisauce';
+import { create } from 'apisauce';
 
 const api = create({
   baseURL: 'https://my-expending-project.rj.r.appspot.com',
@@ -32,6 +32,26 @@ export async function post(path: string, body: any) {
   }
 
   return null;
+}
+
+export interface SalaryUsageDetails {
+  whatWillBeLeft?: number;
+  whatWillBeLeftWithoutCompulsions?: number;
+  currentSalaryUsePercentage?: number;
+}
+
+export async function getSalaryDetails(): Promise<SalaryUsageDetails | null>{
+  try {
+    const response = await api.get('/salary_details');
+
+    if (response.status == 200) {
+      return (response.data) as SalaryUsageDetails;
+    }
+
+    return null;
+  } catch (err) {
+    return null
+  }
 }
 
 export default api;
