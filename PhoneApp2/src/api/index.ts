@@ -17,7 +17,7 @@ export interface IOption {
 export async function getOptions (selectedMode: string): Promise<IOption[]> {
   const response = await api.get<IOption[]>(selectedMode === 'compulsions' ? '/options_v1' : '/options_v2')
 
-  if (response?.data && response.status === 200) {
+  if (((response?.data) != null) && response.status === 200) {
     return response.data
   }
 

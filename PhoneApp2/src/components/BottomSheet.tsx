@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, StyleSheet, Alert, Button } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
 import { useState, useEffect, useRef } from 'react'
@@ -51,22 +52,26 @@ export default function BottomSheetComponent (props: IProps) {
     })
   }
 
-  async function getOptions (counter = 0) {
+  async function getOptions (counter = 0, transactionFromPastFunction = null) {
+    const transaction = transactionFromPastFunction? transactionFromPastFunction : Sentry.startTransaction({ name: "app-get-options" });
+    transaction.setData("counter", counter)
+
     if (counter > 1) {
       Alert.alert('Erro ao buscar opções para o select')
+      transaction.finish();
     }
 
     const response = await getOptionsApi(props.selectedMode)
 
     if (response) {
-      console.log(response)
-      // Sentry.captureMessage(data.toString())
+      transaction.setData(`response-${counter}`, response)
       setOptions(response)
 
-      const defaultOption = findDefaultOptionForEachMode(data, props.selectedMode)
+      const defaultOption = findDefaultOptionForEachMode(response, props.selectedMode)
 
       if (defaultOption) {
         refresh(defaultOption)
+        transaction.finish();
       } else {
         setTimeout(() => {
           getOptions(counter + 1)
