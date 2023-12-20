@@ -20,11 +20,15 @@ export default class EnterSalaryController {
 
     private doValidations(body: any, transaction: any) {
         const span = transaction.startChild({ op: "doValidations" });
+        console.log('--------------------')
+        console.log('doValidations')
 
         if (!body.salary || isNaN(body.salary)) {
             span.finish();
             throw new Error('Informe um salário válido!')
         }
+
+        console.log('--------------------')
         span.finish();
     }
 
@@ -170,7 +174,7 @@ export default class EnterSalaryController {
                             },
                         ],
                     },
-                    ...buildDatePropertyData(`2023-${currentMonth}-01`),
+                    ...buildDatePropertyData(`2023-11-01`),
                     Chegou: {
                         type: "number",
                         number: salary
@@ -343,6 +347,8 @@ export default class EnterSalaryController {
 
     async doEnterSalary(req: any, res: any) {
         const transaction = Sentry.startTransaction({ name: "enter-salary-transaction" });
+        console.log('xxxxxxxxxxxxxxxxx')
+        console.log('enter-salary-transaction')
         transaction.setData("body", req.body)
 
         const dataToDelete: DataToDelete = {}
@@ -350,8 +356,9 @@ export default class EnterSalaryController {
         try {
             this.doValidations(req.body, transaction)
             
-            const today = new Date()
-            const currentMonth = today.getMonth() + 1
+            //const today = new Date()
+            const currentMonth = 11
+            transaction.setData("currentMonth", currentMonth)
     
             const [bill1Id, bill2Id] = await this.createCreditCardBillItems(currentMonth, transaction)
             dataToDelete['bill1Id'] = bill1Id
@@ -370,8 +377,9 @@ export default class EnterSalaryController {
             dataToDelete['pastSalaryIds'] = pastSalaryIds
             dataToDelete['pastMonths'] = pastMonths
             await this.updateCompulsionsResumesWithCorrectSalary(itemsCompulsionsResumes, currentMonth, salaryId, transaction, pastSalaryIds, pastMonths)
-            await this.fillWhatLeftFromPastMonth(currentMonth, transaction)
+            // await this.fillWhatLeftFromPastMonth(currentMonth, transaction)
             
+            console.log('xxxxxxxxxxxxxxxxx')
             transaction.finish();
 
             res.status(200).send('ok')
@@ -448,6 +456,7 @@ export default class EnterSalaryController {
                 span.finish()
             }
 
+            console.log('xxxxxxxxxxxxxxxxx')
             transaction.finish();
             res.status(400).json({
                 error: (err as Error).message

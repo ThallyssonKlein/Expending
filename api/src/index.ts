@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { ProfilingIntegration } from '@sentry/profiling-node';
-import SalaryController from './controller/salary-controller'
+import SalaryController from './controller/SalaryController'
 
 const express = require('express')
 

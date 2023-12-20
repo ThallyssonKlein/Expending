@@ -12,14 +12,13 @@ function buildYearTraceMonthTraceDayTraceDateString() {
 }
 
 export function buildMonthSlashYearDateString(){
-    const hoje = new Date();
-    const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
-    const ano = hoje.getFullYear();
+    //const hoje = new Date();
+    const mes = (11).toString().padStart(2, '0');
+    const ano = 2023;
     return `${mes}/${ano}`;
 }
 
 export function buildDatePropertyData(date?: string, fieldName?: string) {
-    console.log(date)
     const dateValue = {
         date: {
             start: date ? date : buildYearTraceMonthTraceDayTraceDateString(),
