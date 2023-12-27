@@ -1,40 +1,28 @@
-import { View, StyleSheet } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheet from './components/BottomSheet';
-import { Picker } from '@react-native-picker/picker';
-import { useState } from 'react';
-import SalaryUsage from './components/salary_usage';
-import * as Sentry from "@sentry/react-native";
+import { View, StyleSheet } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import BottomSheet from './components/BottomSheet'
+import React from 'react'
+import SalaryUsage from './components/salary_usage'
+import * as Sentry from '@sentry/react-native'
 
 Sentry.init({
-  dsn: "https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872",
+  dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
   // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
   // We recommend adjusting this value in production.
-  tracesSampleRate: 1.0,
-});
+  tracesSampleRate: 1.0
+})
 
-function App() {
-  const [selectedMode, setSelectedMode] = useState("compulsions");
-
+function App (): JSX.Element {
   return (
     <GestureHandlerRootView style={styles.gestureHandler}>
-      <View style={{flex: 1}}>
-        <Picker
-              selectedValue={selectedMode}
-              onValueChange={(itemValue: any) => setSelectedMode(itemValue)}
-              style={styles.picker}
-              dropdownIconColor="black" // Cor da seta e do texto
-            >
-              <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
-              <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
-        </Picker>
+      <View style={{ flex: 1 }}>
       </View>
-      <View style={{margin: 20, flex: 10}}>
+      <View style={{ margin: 20, flex: 10 }}>
             <SalaryUsage />
       </View>
-      <BottomSheet selectedMode={selectedMode}/>
+      <BottomSheet />
     </GestureHandlerRootView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -49,7 +37,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: '#4a90e2',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   buttonText: {
     color: 'white'
@@ -59,9 +47,9 @@ const styles = StyleSheet.create({
     borderColor: '#4a90e2',
     borderRadius: 5,
     marginVertical: 5,
-    color: "black",
+    color: 'black',
     flex: 1
   }
-});
+})
 
-export default Sentry.wrap(App);
+export default Sentry.wrap(App)

@@ -1,8 +1,9 @@
-import React from 'react';
+// TODO - Add traceability
 import { View, Text, StyleSheet, Alert, Button } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
-import { useState, useEffect, useRef } from 'react'
-import { type IOption, getOptions as getOptionsApi, post } from '../api'
+import React, { useState, useEffect, useRef } from 'react'
+import { getOptions as getOptionsApi, post, type IBodyPostInput } from '../api'
+import type IOption from '../model/IOption'
 import { Picker } from '@react-native-picker/picker'
 import Input from './Input'
 import Animated from 'react-native-reanimated'
@@ -10,7 +11,8 @@ import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns'
 import * as Sentry from '@sentry/react-native'
 
-const CustomBackground = (props: any) => {
+// TODO - Is this component being used?
+const CustomBackground = (props: any): JSX.Element => {
   const containerStyle = {
     ...props.style,
     backgroundColor: '#e6f2ff'
@@ -19,168 +21,167 @@ const CustomBackground = (props: any) => {
   return <Animated.View pointerEvents="none" style={containerStyle} />
 }
 
-interface IBody {
-  value: number
-  date?: string
-}
-
-interface IProps {
-  selectedMode: string
-}
-
-export default function BottomSheetComponent (props: IProps) {
-  const [options, setOptions] = useState<IOption[]>([])
+export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
   const snapPoints = ['35%', '60%']
+  const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false);
+
+  const [selectedMode, setSelectedMode] = useState('compulsions')
+
+  const [options, setOptions] = useState<IOption[]>([])
   const [selectedOption, setSelectedOption] = useState<IOption>()
-  const [value, setValue] = useState<string>(selectedOption ? (selectedOption.defaultValue ? selectedOption.defaultValue + '' : '') : '')
+
+  const [value, setValue] = useState<string>('0')
+
   const [disabledButton, setDisabledButton] = useState<boolean>(false)
-  const [isEnabled, setEnabled] = useState<boolean>(selectedOption ? (!!selectedOption.defaultValue) : false)
+  const [isEnabled, setEnabled] = useState<boolean>(false)
+
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
-    getOptions()
-  }, [props.selectedMode])
+    void getOptions()
+  }, [selectedMode])
+
+  useEffect(() => {
+    void getOptions()
+  }, [])
+  useEffect(() => {
+    if (options.length > 0 && selectedOption != null) {
+      setCanRenderBottomSheet(true)
+      setEnabled(selectedOption?.defaultValue != null)
+      setValue(((selectedOption?.defaultValue) != null) ? selectedOption?.defaultValue + '' : '0')
+    }
+  }, [options, selectedOption])
 
   function findDefaultOptionForEachMode (data: IOption[], mode: string): IOption | undefined {
     return data.find((item: IOption) => {
       if (mode === 'compulsions' && item.path === '/unecessary_delivery') {
         return item
-      } else if (item.path === '/food') {
+      } else if (mode === 'lifecost' && item.path === '/food') {
         return item
       }
+      return undefined
     })
   }
 
-  async function getOptions (counter = 0, transactionFromPastFunction = null) {
-    const transaction = transactionFromPastFunction? transactionFromPastFunction : Sentry.startTransaction({ name: "app-get-options" });
-    transaction.setData("counter", counter)
+  async function getOptions (counter = 0, transactionFromPastFunction = null): Promise<void> {
+    const transaction = transactionFromPastFunction ?? Sentry.startTransaction({ name: 'app-get-options' })
+    transaction.setData('counter', counter)
 
     if (counter > 1) {
       Alert.alert('Erro ao buscar opções para o select')
-      transaction.finish();
+      transaction.finish()
+      return
     }
 
-    const response = await getOptionsApi(props.selectedMode)
+    const response = await getOptionsApi(selectedMode)
 
-    if (response) {
+    if (response.length > 0) {
       transaction.setData(`response-${counter}`, response)
-      setOptions(response)
 
-      const defaultOption = findDefaultOptionForEachMode(response, props.selectedMode)
+      const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
 
-      if (defaultOption) {
-        refresh(defaultOption)
-        transaction.finish();
+      if (defaultOption !== undefined) {
+        setOptions(options)
+        setSelectedOption(defaultOption)
+        transaction.finish()
       } else {
         setTimeout(() => {
-          getOptions(counter + 1)
+          void getOptions(counter + 1)
         }, 3000)
       }
     }
   }
 
-  useEffect(() => {
-    getOptions()
-  }, [])
-
-  function onSelect (value: any) {
-    const option = options.find(option => option.path === value)
-    if (option) {
-      refresh(option)
-    }
+  function onSelect (value: any): void {
+    setSelectedOption(
+      options.find(option => option.path === value)
+    )
   }
 
-  function refresh (option: IOption) {
-    setSelectedOption(option)
-    setEnabled(option ? (!!option.defaultValue) : false)
-    setValue(option?.defaultValue ? option?.defaultValue + '' : '')
-  }
+  async function onPressButton (): Promise<void> {
+    // just for typscript
+    if (selectedOption == null) return
 
-  async function onPressButton () {
+    // TODO - Why not use float from the beginning?
+    let body: IBodyPostInput = { value: parseFloat(value) }
+
     const formattedDate = format(date, 'yyyy-MM-dd')
-    if (!value) {
-      Alert.alert('Erro', 'Preencha o valor!')
-      return
+    if (date.toDateString() !== new Date().toDateString()) {
+      body = { ...body, date: formattedDate }
     }
 
-    if (selectedOption?.path && value) {
-      let body: IBody = { value: parseFloat(value) }
+    setDisabledButton(true)
+    const response: boolean = await post(selectedOption.path, body)
+    setDisabledButton(false)
 
-      if (date.toDateString() !== new Date().toDateString()) {
-        body = { ...body, date: formattedDate }
-      }
-      setDisabledButton(true)
-      const response = await post(selectedOption?.path, body)
-      setDisabledButton(false)
+    if (!response) {
+      Alert.alert('Erro', 'Não foi possível salvar o item')
+      await Promise.resolve()
+    }
 
-      if (!response) {
-        Alert.alert('Erro', 'Não foi possível salvar o item')
-        return
-      }
-
-      if (!selectedOption.defaultValue) {
+    // TODO - Validate if it is really null in the cases without default value
+    if (selectedOption.defaultValue == null) {
+      setValue('')
+    } else {
+      if (!isEnabled) {
         setValue('')
-      } else {
-        if (!isEnabled) {
-          setValue('')
-        }
       }
     }
   }
 
-  if (options.length > 0 && selectedOption) {
-    return (
-      <BottomSheet
+  return <BottomSheet
           ref={bottomSheetRef}
           index={0}
           snapPoints={snapPoints}
           backgroundComponent={CustomBackground}>
-        <View style={styles.bottomSheetContent}>
-          <View>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={selectedOption.path}
-                  onValueChange={itemValue => { onSelect(itemValue) }}
+          <View style={styles.bottomSheetContent}>
+            <Picker
+                  selectedValue={selectedMode}
+                  onValueChange={(itemValue: any) => { setSelectedMode(itemValue) }}
                   style={styles.picker}
                   dropdownIconColor="black" // Cor da seta e do texto
                 >
-                  {
-                    options.map(option => (
-                      <Picker.Item key={option.path} label={option.nameInApp} value={option.path} />
-                    ))
-                  }
-                </Picker>
+                  <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
+                  <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
+                  <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
+            </Picker>
 
+            {
+              !canRenderBottomSheet
+                ? <Text style={{ color: 'black' }}>Loading...</Text>
+
+                : <View>
+                <View>
+                  <View style={styles.pickerContainer}>
+                      <Picker
+                        selectedValue={selectedOption?.path}
+                        onValueChange={itemValue => { onSelect(itemValue) } }
+                        style={styles.picker}
+                        dropdownIconColor="black" // Cor da seta e do texto
+                      >
+                        {options.map(option => (
+                          <Picker.Item key={option.path} label={option.nameInApp} value={option.path} />
+                        ))}
+                      </Picker>
+                  </View>
+                  {selectedOption != null && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled} />}
+                  <DatePicker
+                    mode="date"
+                    textColor="black"
+                    date={date}
+                    onDateChange={setDate} />
+                </View>
+                <Button
+                    onPress={() => {
+                      void onPressButton()
+                    }}
+                    disabled={disabledButton}
+                    title="SALVAR" />
               </View>
-              {selectedOption && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled}/>}
-              <DatePicker
-                  mode="date"
-                  textColor="black"
-                  date={date}
-                  onDateChange={setDate}
-                />
+            }
           </View>
-          <Button
-              onPress={async () => { await onPressButton() }}
-              disabled={disabledButton}
-              title="SALVAR"/>
-          </View>
-      </BottomSheet>
-    )
-  }
-
-  return (
-    <BottomSheet
-      ref={bottomSheetRef}
-      index={0}
-      snapPoints={snapPoints}
-      backgroundComponent={CustomBackground}>
-      <View style={styles.bottomSheetContent}>
-        <Text style={{ color: 'black' }}>Loading...</Text>
-      </View>
-    </BottomSheet>
-  )
+        </BottomSheet>
 }
 
 const styles = StyleSheet.create({

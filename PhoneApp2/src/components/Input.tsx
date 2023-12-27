@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View, Switch, Text } from 'react-native';
-import { IOption } from '../api'
 import { useEffect } from 'react'
+import type IOption from '../model/IOption'
 
 interface IProps {
   option: IOption;
@@ -35,6 +35,7 @@ export default function Input(props: IProps) {
             style={styles.textInput}
             placeholderTextColor="black"
             editable={!props.isEnabled}
+            keyboardType='numeric'
           />
           {
             option.defaultValue ? 

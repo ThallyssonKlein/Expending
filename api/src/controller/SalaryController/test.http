@@ -17,7 +17,7 @@ Content-Type: application/json
 POST https://my-expending-project.rj.r.appspot.com/refresh
 
 ###
-GET http://0.0.0.0:8080/salary_details
+GET http://0.0.0.0:8080/current_salary
 
 ###
-GET https://my-expending-project.rj.r.appspot.com/salary_details
+GET https://my-expending-project.rj.r.appspot.com/current_salary
