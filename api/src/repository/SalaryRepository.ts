@@ -21,4 +21,12 @@ export default class SalaryRepository {
 
         return response.results[0]
     }
+
+    async findAllSalaries() {
+        const response = await notion.databases.query({
+            database_id: salariesDatabaseId,
+        })
+
+        return response.results
+    }
 }
