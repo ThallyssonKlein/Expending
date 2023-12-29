@@ -1,21 +1,16 @@
 import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
-import {
-  salariesDatabaseId,
-  recordsDatabaseId
-} from "../../config";
+
+import { salariesDatabaseId, recordsDatabaseId } from "../../config";
+
 import SalaryRepository from "../../repository/SalaryRepository";
 
-type PastSalaryIds = {
-  [key: string]: string;
-};
-
-type PastMonths = {
-  [key: string]: number;
-};
-type DataToDelete = {
-  [key: string]: string | PastSalaryIds | PastMonths;
-};
+import {
+  convertDateToYearTraceMonthTraceDayFormat,
+  buildDatePropertyData,
+  getDateOfTheFirstDayOfThisMonth,
+} from "../../utils/date_field";
+import { buildMonthSlashYearDateString } from "../../utils/title_field";
 
 interface SalaryFromNotionApi {
   Mes: {
@@ -23,66 +18,27 @@ interface SalaryFromNotionApi {
       {
         text: {
           content: string;
-        }
+        };
       }
-    ]
-  },
-  'Quanto pode chegar': {
+    ];
+  };
+  "Quanto pode chegar": {
     type: string;
     number: number;
-  },
+  };
   Date: {
     date: {
       start: string;
       end: null;
-    }
-  }
+    };
+  };
 }
 
 interface PastMonthSalaryFromNotionApi extends SalaryFromNotionApi {
   Chegou?: {
     type: string;
     number: number;
-  },
-}
-
-function buildMonthSlashYearDateString(pastMonth: boolean = false){
-  let hoje = new Date()
-
-  if (pastMonth) {
-    hoje.setMonth(hoje.getMonth() - 1);
-  }
-
-  const mes = (hoje).toString().padStart(2, '0');
-  const ano = 2023;
-  return `${mes}/${ano}`;
-}
-
-export function buildDatePropertyData(date?: string) {
-  const dateValue = {
-      date: {
-          start: date ? date : convertDateToYearTraceMonthTraceDayFormat(new Date()),
-          end: null
-      }
-  }
-
-  return {
-    Date: dateValue
-  }
-}
-
-function getDateOfTheFirstDayOfThisMonth(pastMonth: boolean = false): Date {
-  const date = new Date();
-  const firstDay = new Date(date.getFullYear(), pastMonth ? date.getMonth() - 1 : date.getMonth(), 1);
-  return firstDay;
-}
-
-function convertDateToYearTraceMonthTraceDayFormat(date: Date): string {
-  const dia = date.getDate().toString().padStart(2, '0');
-  const mes = (date.getMonth() + 1).toString().padStart(2, '0');
-  const ano = (date.getFullYear()).toString().padStart(4, '0');
-
-  return `${ano}-${mes}-${dia}`
+  };
 }
 
 export default class EnterSalaryController {
@@ -100,8 +56,8 @@ export default class EnterSalaryController {
 
     let salaryCreationResponse;
 
+    console.log("average: " + salaryAverage);
     try {
-      
       let properties: SalaryFromNotionApi = {
         Mes: {
           title: [
@@ -112,16 +68,20 @@ export default class EnterSalaryController {
             },
           ],
         },
-        'Quanto pode chegar': {
+        "Quanto pode chegar": {
           type: "number",
           number: salaryAverage,
         },
         // fill the date with the first day of this month
-        ...buildDatePropertyData(convertDateToYearTraceMonthTraceDayFormat(getDateOfTheFirstDayOfThisMonth(pastMonth))) 
-      }
-      
+        ...buildDatePropertyData(
+          convertDateToYearTraceMonthTraceDayFormat(
+            getDateOfTheFirstDayOfThisMonth(pastMonth)
+          )
+        ),
+      };
 
-      let properties2: PastMonthSalaryFromNotionApi = properties as SalaryFromNotionApi;
+      let properties2: PastMonthSalaryFromNotionApi =
+        properties as SalaryFromNotionApi;
 
       if (salary) {
         properties2 = {
@@ -130,14 +90,14 @@ export default class EnterSalaryController {
             type: "number",
             number: salary,
           },
-        }
+        };
       }
 
       salaryCreationResponse = await notion.pages.create({
         parent: {
           database_id: salariesDatabaseId,
         },
-        properties2 
+        properties: { ...properties2 },
       });
 
       console.log(salaryCreationResponse);
@@ -158,22 +118,34 @@ export default class EnterSalaryController {
   }
 
   // new enter salary
-  async enterSalary (req: any, res: any) {
+  async enterSalary(req: any, res: any) {
     const transaction = Sentry.startTransaction({
       name: "enter-salary-transaction",
     });
 
     // get salary from request body
+    // return 400 if salary was not informed or is not a number
     const salary = req.body.salary;
+    if (!salary || isNaN(salary)) {
+      transaction.finish();
+      res.status(400).json({
+        error: "Salário não informado ou não é um número!",
+      });
+      return;
+    }
 
     // find all salaries and get the average of the field "Chegou":
     const salaries = await this.salaryRepository.findAllSalaries();
 
-    const average = salaries.reduce((total: number, salary: any) => {
-                                      return total + ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]?.number ?? 0);
-                                    }, 0) 
-                                    / salaries.length;
-    
+    const average =
+      salaries.reduce((total: number, salary: any) => {
+        return (
+          total +
+          ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]
+            ?.number ?? 0)
+        );
+      }, 0) / salaries.length; // Subtract 1 from the length
+
     // createSalaryPastMonth
     this.createSalaryItem(average, transaction, true, salary);
 
@@ -181,6 +153,7 @@ export default class EnterSalaryController {
     this.createSalaryItem(average, transaction, false);
 
     transaction.finish();
+    res.status(200).send();
   }
 
   // TODO - Get Salary Id to use on the app
@@ -217,7 +190,8 @@ export default class EnterSalaryController {
     // fill "Soma Compulsoes", "Soma Gastos Extras" and "Soma Custo de Vida" fields of salary
 
     // get the currentSalary of the month by using findCurrentMonthSalaryItem from repository
-    const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem()
+    const currentSalary =
+      await this.salaryRepository.findCurrentMonthSalaryItem();
     // search on recordsDatabase for records with the field Salary linked to the currentSalary of the month and with the field "Big Category" with the value "1 - Compulsões"
     const compulsions = await notion.query({
       database_id: recordsDatabaseId,
@@ -239,9 +213,12 @@ export default class EnterSalaryController {
       },
     });
     //sum compulsions by "Valor"
-    const compulsionsSum = compulsions.results.reduce((total: number, item: any) => {
-      return total + item.properties["Valor"].number;
-    }, 0);
+    const compulsionsSum = compulsions.results.reduce(
+      (total: number, item: any) => {
+        return total + item.properties["Valor"].number;
+      },
+      0
+    );
 
     // search on recordsDatabase for records with the field Salary linked to the currentSalary of the month and with the field "Big Category" with the value "2 - Life Cost"
 
@@ -265,10 +242,13 @@ export default class EnterSalaryController {
       },
     });
     // sum lifeCosts by "Valor"
-    const lifeCostsSum = lifeCosts.results.reduce((total: number, item: any) => {
-      return total + item.properties["Valor"].number;
-    }, 0);
-  
+    const lifeCostsSum = lifeCosts.results.reduce(
+      (total: number, item: any) => {
+        return total + item.properties["Valor"].number;
+      },
+      0
+    );
+
     // search on recordsDatabase for records with the field Salary linked to the currentSalary of the month and with the field "Big Category" with the value "3 - Extra"
     const extras = await notion.query({
       database_id: recordsDatabaseId,
@@ -310,6 +290,6 @@ export default class EnterSalaryController {
       },
     });
 
-    res.status(200).send()
+    res.status(200).send();
   }
 }

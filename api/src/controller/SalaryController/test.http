@@ -10,7 +10,7 @@ POST http://0.0.0.0:8080/enter_salary
 Content-Type: application/json
 
 {
-    "salary": 1000
+    "salary": 9031.45
 }
 
 ###
