@@ -9,6 +9,7 @@ export default {
 import { notion } from "./notion";
 
 export interface IConfig {
+  CanUseMealsCard: boolean | null;
   Name: string | null;
   NameInApp: string | null;
   Category: string | null;
@@ -24,7 +25,8 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
   });
 
   const configs = response.results.map((page: any) => {
-    let { Name, NameInApp, Category, Subcategory, CustomName, DefaultValue } = {
+    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue } = {
+      CanUseMealsCard: null,
       Name: null,
       NameInApp: null,
       Category: null,
@@ -32,6 +34,10 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       CustomName: null,
       DefaultValue: null,
     };
+
+    if (page.properties.CanUseMealsCard.checkbox !== null) {
+      CanUseMealsCard = page.properties.CanUseMealsCard.checkbox;
+    }
 
     if (page.properties.Name.title.length > 0) {
       Name = page.properties.Name.title[0].plain_text;
@@ -56,6 +62,7 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
     }
 
     return {
+      CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
       NameInApp: NameInApp || "",
       Category: Category || "",
