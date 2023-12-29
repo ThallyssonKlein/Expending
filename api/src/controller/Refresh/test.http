@@ -1,6 +1,0 @@
-###
-POST https://my-expending-project.rj.r.appspot.com/refresh
-
-
-###
-POST http://0.0.0.0:8080/refresh

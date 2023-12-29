@@ -1,10 +1,7 @@
 import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
 import {
-  billsDatabaseId,
   salariesDatabaseId,
-  resumeDatabaseId,
-  balanceDatabaseId,
   recordsDatabaseId
 } from "../../config";
 import SalaryRepository from "../../repository/SalaryRepository";

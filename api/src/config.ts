@@ -1,15 +1,11 @@
+export const salariesDatabaseId = "5ffb177a9e57475cbe14f50664dd9387";
 export const recordsDatabaseId = "33ddadec57b6485faae5a88d6b770141";
-export const resumeDatabaseId = "2ff700ffa96d4ff3895c868f1c2198ad";
-export const salariesDatabaseId = "914acfb686f84c849fad7f5c8896b853";
-export const billsDatabaseId = "d9a3cc51e9d04f6697a16e46d37b7662";
-export const balanceDatabaseId = "d9a154666088476bbf60a089c8753e2f";
 
 const configssDatabaseId = "8bec8602848a4a6dbf5432fed52fd1f6";
 
 export default {
   access_token: "secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG",
 };
-
 import { notion } from "./notion";
 
 export interface IConfig {
