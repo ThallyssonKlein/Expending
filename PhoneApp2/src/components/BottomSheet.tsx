@@ -44,11 +44,8 @@ export default function BottomSheetComponent (): JSX.Element {
 
   useEffect(() => {
     void getOptions()
-  }, [selectedMode])
-
-  useEffect(() => {
-    void getOptions()
   }, [])
+
   useEffect(() => {
     if (options.length > 0 && selectedOption != null) {
       setCanRenderBottomSheet(true)
@@ -57,11 +54,18 @@ export default function BottomSheetComponent (): JSX.Element {
     }
   }, [options, selectedOption])
 
+  function onChangeMode (mode: string): void {
+    setSelectedMode(mode)
+    // void getOptions()
+  }
+
   function findDefaultOptionForEachMode (data: IConfig[], mode: string): IConfig | undefined {
     return data.find((item: IConfig) => {
       if (mode === 'compulsions' && item.Name === 'unecessary_delivery') {
         return item
-      } else if (mode === 'lifecost' && item.Name === 'food') {
+      } else if (mode === 'lifecost' && item.Name === 'psicologa_1') {
+        return item
+      } else if (item.Name === 'additional_expenses_default') {
         return item
       }
       return undefined
@@ -86,7 +90,7 @@ export default function BottomSheetComponent (): JSX.Element {
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
 
       if (defaultOption !== undefined) {
-        setOptions(options)
+        setOptions(response)
         setSelectedOption(defaultOption)
         transaction.finish()
       } else {
@@ -171,34 +175,35 @@ export default function BottomSheetComponent (): JSX.Element {
           snapPoints={snapPoints}
           backgroundComponent={CustomBackground}>
           <View style={styles.bottomSheetContent}>
+          <View style={{ maxHeight: 200 }}>
             <Picker
-                  selectedValue={selectedMode}
-                  onValueChange={(itemValue: any) => { setSelectedMode(itemValue) }}
-                  style={styles.picker}
-                  dropdownIconColor="black" // Cor da seta e do texto
-                >
-                  <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
-                  <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
-                  <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
+              onValueChange={(itemValue: any) => { onChangeMode(itemValue) }}
+              style={styles.picker}
+              selectedValue={selectedMode}
+              dropdownIconColor="black"
+            >
+              <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
+              <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
+              <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
             </Picker>
 
-            {
-              !canRenderBottomSheet
-                ? <Text style={{ color: 'black' }}>Loading...</Text>
+            {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
+          </View>
 
-                : <View>
-                <View>
+            {canRenderBottomSheet &&
+              <View>
+                <View style={{ marginBottom: 40 }}>
                   <View style={styles.pickerContainer}>
-                      <Picker
-                        selectedValue={selectedOption?.Name}
-                        onValueChange={itemValue => { onSelect(itemValue) } }
-                        style={styles.picker}
-                        dropdownIconColor="black" // Cor da seta e do texto
-                      >
-                        {options.map(option => (
-                          <Picker.Item key={option.Name} label={option.NameInApp} value={option.Name} />
-                        ))}
-                      </Picker>
+                    <Picker
+                      selectedValue={selectedOption?.Name}
+                      onValueChange={itemValue => { onSelect(itemValue) } }
+                      style={styles.picker}
+                      dropdownIconColor="black"
+                    >
+                      {options.map(option => (
+                        <Picker.Item key={option.Name} label={option.NameInApp} value={option.Name} />
+                      ))}
+                    </Picker>
                   </View>
                   {selectedOption != null && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled} />}
                   <TextInput
@@ -223,11 +228,12 @@ export default function BottomSheetComponent (): JSX.Element {
                     onDateChange={setDate} />
                 </View>
                 <Button
-                    onPress={() => {
-                      void onPressButton()
-                    }}
-                    disabled={disabledButton}
-                    title="SALVAR" />
+                  onPress={() => {
+                    void onPressButton()
+                  }}
+                  disabled={disabledButton}
+                  title="SALVAR"
+                  />
               </View>
             }
           </View>

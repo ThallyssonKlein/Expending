@@ -40,15 +40,15 @@ export default function Input (props: IProps): JSX.Element {
           {
             option.DefaultValue > 0
               ? <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>Default</Text>
-              <Switch
-                trackColor={{ false: '#767577', true: '#81b0ff' }}
-                thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={(value) => { onSwitch(value) }}
-                value={props.isEnabled}/>
+                  <Text style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>Default</Text>
+                  <Switch
+                    trackColor={{ false: '#767577', true: '#81b0ff' }}
+                    thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={(value) => { onSwitch(value) }}
+                    value={props.isEnabled}/>
 
-            </View>
+                </View>
               : null
           }
       </View>
