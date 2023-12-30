@@ -6,6 +6,7 @@ export interface IConfig {
   Subcategory: string
   CustomName: boolean
   DefaultValue: number
+  DefaultName: string | null
 }
 
 export interface IConfigFromApi {
@@ -16,4 +17,12 @@ export interface IConfigFromApi {
   Subcategory: string | null
   CustomName: boolean
   DefaultValue: number
+  DefaultName: string | null
+}
+
+export interface IConfigPlusValues extends IConfig {
+  Value: number
+  Date: string
+  CustomNameValue?: string
+  Reason?: string
 }

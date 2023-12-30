@@ -26,6 +26,10 @@ export interface SalaryFromNotionApi {
     type: string;
     number: number;
   };
+  "Quanto pode chegar Refeicao": {
+    type: string;
+    number: number;
+  };
   Date: {
     date: {
       start: string;
@@ -39,6 +43,10 @@ interface PastMonthSalaryFromNotionApi extends SalaryFromNotionApi {
     type: string;
     number: number;
   };
+  "Chegou Refeicao"?: {
+    type: string;
+    number: number;
+  };
 }
 
 export default class EnterSalaryController {
@@ -46,9 +54,11 @@ export default class EnterSalaryController {
 
   private async createSalaryItem(
     salaryAverage: number,
+    mealVouncherAverage: number,
     transaction: any,
     pastMonth: boolean = false,
-    salary?: number
+    salary?: number,
+    mealVouncher?: number
   ) {
     const span = transaction.startChild({ op: "createSalary" });
     console.log("--------------------");
@@ -56,7 +66,6 @@ export default class EnterSalaryController {
 
     let salaryCreationResponse;
 
-    console.log("average: " + salaryAverage);
     try {
       let properties: SalaryFromNotionApi = {
         Mes: {
@@ -72,6 +81,10 @@ export default class EnterSalaryController {
           type: "number",
           number: salaryAverage,
         },
+        "Quanto pode chegar Refeicao": {
+          type: "number",
+          number: mealVouncherAverage,
+        },
         // fill the date with the first day of this month
         ...buildDatePropertyData(
           convertDateToYearTraceMonthTraceDayFormat(
@@ -83,12 +96,16 @@ export default class EnterSalaryController {
       let properties2: PastMonthSalaryFromNotionApi =
         properties as SalaryFromNotionApi;
 
-      if (salary) {
+      if (salary && mealVouncher) {
         properties2 = {
           ...properties,
           Chegou: {
             type: "number",
             number: salary,
+          },
+          "Chegou Refeicao": {
+            type: "number",
+            number: mealVouncher,
           },
         };
       }
@@ -118,7 +135,7 @@ export default class EnterSalaryController {
   }
 
   // new enter salary
-  async enterSalary(req: any, res: any) {
+  async createSalary(req: any, res: any) {
     const transaction = Sentry.startTransaction({
       name: "enter-salary-transaction",
     });
@@ -126,10 +143,18 @@ export default class EnterSalaryController {
     // get salary from request body
     // return 400 if salary was not informed or is not a number
     const salary = req.body.salary;
+    const mealVouncher = req.body.mealVouncher;
     if (!salary || isNaN(salary)) {
       transaction.finish();
       res.status(400).json({
         error: "Salário não informado ou não é um número!",
+      });
+      return;
+    }
+    if (!mealVouncher || isNaN(mealVouncher)) {
+      transaction.finish();
+      res.status(400).json({
+        error: "Vale refeição não informado ou não é um número!",
       });
       return;
     }
@@ -145,12 +170,22 @@ export default class EnterSalaryController {
             ?.number ?? 0)
         );
       }, 0) / salaries.length; // Subtract 1 from the length
+    // calculate mealVouncher average from "Chegou Refeicao" field
+    const mealVouncherAverage =
+      salaries.reduce((total: number, salary: any) => {
+        return (
+          total +
+          ((salary.properties as PastMonthSalaryFromNotionApi)?.[
+            "Chegou Refeicao"
+          ]?.number ?? 0)
+        );
+      }, 0) / salaries.length; // Subtract 1 from the length
 
     // createSalaryPastMonth
-    this.createSalaryItem(average, transaction, true, salary);
+    this.createSalaryItem(average, mealVouncherAverage, transaction, true, salary, mealVouncher);
 
     // createSalary currentMonth
-    this.createSalaryItem(average, transaction, false);
+    this.createSalaryItem(average, mealVouncherAverage, transaction, false);
 
     transaction.finish();
     res.status(200).send();

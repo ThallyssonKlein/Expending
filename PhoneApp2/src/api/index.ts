@@ -6,11 +6,6 @@ const api = create({
   timeout: 469000
 })
 
-export interface IBodyPostInput {
-  value: number
-  date?: string
-}
-
 export async function getOptions (selectedMode: string): Promise<IConfig[]> {
   let response
 
@@ -35,8 +30,8 @@ export async function getOptions (selectedMode: string): Promise<IConfig[]> {
   return []
 }
 
-export async function post (path: string, body: IBodyPostInput): Promise<boolean> {
-  const response = await api.post(path, body)
+export async function post (body: IConfig): Promise<boolean> {
+  const response = await api.post('/record', body)
 
   return response.status === 200
 }

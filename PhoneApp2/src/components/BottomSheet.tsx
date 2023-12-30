@@ -1,9 +1,9 @@
 // TODO - Add traceability
-import { View, Text, StyleSheet, Alert, Button } from 'react-native'
+import { View, Text, StyleSheet, Alert, Button, TextInput } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useState, useEffect, useRef } from 'react'
-import { getOptions as getOptionsApi, post, type IBodyPostInput } from '../api'
-import { type IConfig } from '../model/IConfig'
+import { getOptions as getOptionsApi, post } from '../api'
+import { type IConfig, type IConfigPlusValues } from '../model/IConfig'
 import { Picker } from '@react-native-picker/picker'
 import Input from './Input'
 import Animated from 'react-native-reanimated'
@@ -37,6 +37,10 @@ export default function BottomSheetComponent (): JSX.Element {
   const [isEnabled, setEnabled] = useState<boolean>(false)
 
   const [date, setDate] = useState(new Date())
+
+  const [reason, setReason] = useState('')
+
+  const [customName, setCustomName] = useState('')
 
   useEffect(() => {
     void getOptions()
@@ -103,16 +107,47 @@ export default function BottomSheetComponent (): JSX.Element {
     // just for typscript
     if (selectedOption == null) return
 
-    // TODO - Why not use float from the beginning?
-    let body: IBodyPostInput = { value: parseFloat(value) }
+    // validate if value is not empty
+    if (value === '') {
+      Alert.alert('Erro', 'O valor não pode ser vazio')
+      return
+    }
 
-    const formattedDate = format(date, 'yyyy-MM-dd')
-    if (date.toDateString() !== new Date().toDateString()) {
-      body = { ...body, date: formattedDate }
+    // TODO - Why not use float from the beginning?
+    let body: IConfigPlusValues = {
+      Value: parseFloat(value),
+      Date: format(date, 'yyyy-MM-dd'),
+      CanUseMealsCard: selectedOption.CanUseMealsCard,
+      Name: selectedOption.Name,
+      NameInApp: selectedOption.NameInApp,
+      Category: selectedOption.Category,
+      Subcategory: selectedOption.Subcategory,
+      CustomName: selectedOption.CustomName,
+      DefaultValue: selectedOption.DefaultValue,
+      DefaultName: selectedOption.DefaultName
+    }
+
+    if (reason !== '') {
+      body = {
+        ...body,
+        Reason: reason
+      }
+    }
+
+    if (selectedOption.CustomName) {
+      if (customName.length === 0) {
+        Alert.alert('Erro', 'O nome customizado não pode ser vazio')
+        return
+      } else {
+        body = {
+          ...body,
+          CustomNameValue: customName
+        }
+      }
     }
 
     setDisabledButton(true)
-    const response: boolean = await post(selectedOption.Name, body)
+    const response: boolean = await post(body)
     setDisabledButton(false)
 
     if (!response) {
@@ -166,6 +201,21 @@ export default function BottomSheetComponent (): JSX.Element {
                       </Picker>
                   </View>
                   {selectedOption != null && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled} />}
+                  <TextInput
+                      placeholder="Reason"
+                      value={reason}
+                      onChangeText={text => { setReason(text) }}
+                      style={styles.textInput}
+                      placeholderTextColor="black"
+                  />
+                  <TextInput
+                      placeholder="Custom Name"
+                      value={customName}
+                      onChangeText={text => { setCustomName(text) }}
+                      style={styles.textInput}
+                      placeholderTextColor="black"
+                  />
+
                   <DatePicker
                     mode="date"
                     textColor="black"
@@ -214,5 +264,14 @@ const styles = StyleSheet.create({
     borderColor: '#4a90e2',
     borderRadius: 5,
     marginVertical: 5
+  },
+  textInput: {
+    marginVertical: 10,
+    color: 'black',
+    borderWidth: 1,
+    borderColor: '#4a90e2',
+    borderRadius: 5,
+    padding: 10,
+    flex: 1
   }
 })
