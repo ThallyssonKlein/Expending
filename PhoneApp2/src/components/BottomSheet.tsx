@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Alert, Button } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useState, useEffect, useRef } from 'react'
 import { getOptions as getOptionsApi, post, type IBodyPostInput } from '../api'
-import type IOption from '../model/IOption'
+import { type IConfig } from '../model/IConfig'
 import { Picker } from '@react-native-picker/picker'
 import Input from './Input'
 import Animated from 'react-native-reanimated'
@@ -24,12 +24,12 @@ const CustomBackground = (props: any): JSX.Element => {
 export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
   const snapPoints = ['35%', '60%']
-  const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false);
+  const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false)
 
   const [selectedMode, setSelectedMode] = useState('compulsions')
 
-  const [options, setOptions] = useState<IOption[]>([])
-  const [selectedOption, setSelectedOption] = useState<IOption>()
+  const [options, setOptions] = useState<IConfig[]>([])
+  const [selectedOption, setSelectedOption] = useState<IConfig>()
 
   const [value, setValue] = useState<string>('0')
 
@@ -48,16 +48,16 @@ export default function BottomSheetComponent (): JSX.Element {
   useEffect(() => {
     if (options.length > 0 && selectedOption != null) {
       setCanRenderBottomSheet(true)
-      setEnabled(selectedOption?.defaultValue != null)
-      setValue(((selectedOption?.defaultValue) != null) ? selectedOption?.defaultValue + '' : '0')
+      setEnabled(selectedOption?.DefaultValue != null)
+      setValue(((selectedOption?.DefaultValue) != null) ? selectedOption?.DefaultValue + '' : '0')
     }
   }, [options, selectedOption])
 
-  function findDefaultOptionForEachMode (data: IOption[], mode: string): IOption | undefined {
-    return data.find((item: IOption) => {
-      if (mode === 'compulsions' && item.path === '/unecessary_delivery') {
+  function findDefaultOptionForEachMode (data: IConfig[], mode: string): IConfig | undefined {
+    return data.find((item: IConfig) => {
+      if (mode === 'compulsions' && item.Name === 'unecessary_delivery') {
         return item
-      } else if (mode === 'lifecost' && item.path === '/food') {
+      } else if (mode === 'lifecost' && item.Name === 'food') {
         return item
       }
       return undefined
@@ -95,7 +95,7 @@ export default function BottomSheetComponent (): JSX.Element {
 
   function onSelect (value: any): void {
     setSelectedOption(
-      options.find(option => option.path === value)
+      options.find(option => option.Name === value)
     )
   }
 
@@ -112,7 +112,7 @@ export default function BottomSheetComponent (): JSX.Element {
     }
 
     setDisabledButton(true)
-    const response: boolean = await post(selectedOption.path, body)
+    const response: boolean = await post(selectedOption.Name, body)
     setDisabledButton(false)
 
     if (!response) {
@@ -121,7 +121,7 @@ export default function BottomSheetComponent (): JSX.Element {
     }
 
     // TODO - Validate if it is really null in the cases without default value
-    if (selectedOption.defaultValue == null) {
+    if (selectedOption.Name == null) {
       setValue('')
     } else {
       if (!isEnabled) {
@@ -155,13 +155,13 @@ export default function BottomSheetComponent (): JSX.Element {
                 <View>
                   <View style={styles.pickerContainer}>
                       <Picker
-                        selectedValue={selectedOption?.path}
+                        selectedValue={selectedOption?.Name}
                         onValueChange={itemValue => { onSelect(itemValue) } }
                         style={styles.picker}
                         dropdownIconColor="black" // Cor da seta e do texto
                       >
                         {options.map(option => (
-                          <Picker.Item key={option.path} label={option.nameInApp} value={option.path} />
+                          <Picker.Item key={option.Name} label={option.NameInApp} value={option.Name} />
                         ))}
                       </Picker>
                   </View>

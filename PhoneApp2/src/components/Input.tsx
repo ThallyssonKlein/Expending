@@ -1,58 +1,58 @@
-import { StyleSheet, TextInput, View, Switch, Text } from 'react-native';
-import { useEffect } from 'react'
-import type IOption from '../model/IOption'
+import { StyleSheet, TextInput, View, Switch, Text } from 'react-native'
+import React, { useEffect } from 'react'
+import { type IConfig } from '../model/IConfig'
 
 interface IProps {
-  option: IOption;
-  value: string;
-  isEnabled: boolean;
+  option: IConfig
+  value: string
+  isEnabled: boolean
   setValue: (value: string) => void
   setEnabled: (value: boolean) => void
 }
 
-export default function Input(props: IProps) {
-    const option = props.option
+export default function Input (props: IProps): JSX.Element {
+  const option = props.option
 
-    function onSwitch(switchValue: boolean){
-      props.setEnabled(switchValue)
-      if (switchValue == true) {
-        props.setValue(option.defaultValue + '')
-      } else {
-        props.setValue('');
-      }
+  function onSwitch (switchValue: boolean): void {
+    props.setEnabled(switchValue)
+    if (switchValue) {
+      props.setValue(option.DefaultValue + '')
+    } else {
+      props.setValue('')
     }
+  }
 
-    useEffect(() => {
-      props.setEnabled(option.defaultValue ? true : false)
-    }, [props.option])
+  useEffect(() => {
+    props.setEnabled(option.DefaultValue !== undefined && option.DefaultValue !== null)
+  }, [props.option])
 
-    return (
+  return (
         <View style={styles.textInputContainer}>
           <TextInput
             placeholder="Digite algo..."
             value={props.value}
-            onChangeText={text => props.setValue(text)}
+            onChangeText={text => { props.setValue(text) }}
             style={styles.textInput}
             placeholderTextColor="black"
             editable={!props.isEnabled}
             keyboardType='numeric'
           />
           {
-            option.defaultValue ? 
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{color: 'black', alignSelf: 'center', marginLeft: 10}}>Default</Text>
+            option.DefaultValue > 0
+              ? <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>Default</Text>
               <Switch
-                trackColor={{false: '#767577', true: '#81b0ff'}}
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
                 thumbColor={props.isEnabled ? '#f5dd4b' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
-                onValueChange={(value) => onSwitch(value)}
+                onValueChange={(value) => { onSwitch(value) }}
                 value={props.isEnabled}/>
 
             </View>
-            : null
+              : null
           }
       </View>
-    )
+  )
 }
 
 const styles = StyleSheet.create({
@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
   },
   textInput: {
     marginVertical: 10,
-    color: 'black', 
+    color: 'black',
     borderWidth: 1,
-    borderColor: '#4a90e2', 
+    borderColor: '#4a90e2',
     borderRadius: 5,
     padding: 10,
-    flex: 1,
-  },
+    flex: 1
+  }
 })
