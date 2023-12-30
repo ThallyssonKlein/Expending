@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import BottomSheet from './components/BottomSheet'
 import React from 'react'
-import SalaryUsage from './components/salary_usage'
+// import SalaryUsage from './components/salary_usage'
 import * as Sentry from '@sentry/react-native'
 
 Sentry.init({
@@ -18,7 +18,7 @@ function App (): JSX.Element {
       <View style={{ flex: 1 }}>
       </View>
       <View style={{ margin: 20, flex: 10 }}>
-            <SalaryUsage />
+            {/* <SalaryUsage /> */}
       </View>
       <BottomSheet />
     </GestureHandlerRootView>
