@@ -62,9 +62,9 @@ import { IConfig, loadConfigsFromNotion } from './config';
     salaryController.enterSalary(req, res);
   });
 
-  app.get('/current_salary', async (req: any, res: any) => {
-    salaryController.getCurrentSalary(req, res);
-  });
+  // app.get('/current_salary', async (req: any, res: any) => {
+  //   salaryController.getCurrentSalary(req, res);
+  // });
 
 })()
 
