@@ -16,6 +16,7 @@ export interface IConfig {
   Subcategory: string | null;
   CustomName: boolean;
   DefaultValue: number;
+  DefaultName: string | null;
 }
 
 // TODO - Improve this validations
@@ -25,7 +26,7 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
   });
 
   const configs = response.results.map((page: any) => {
-    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue } = {
+    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName } = {
       CanUseMealsCard: null,
       Name: null,
       NameInApp: null,
@@ -33,6 +34,7 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       Subcategory: null,
       CustomName: null,
       DefaultValue: null,
+      DefaultName: null,
     };
 
     if (page.properties.CanUseMealsCard.checkbox !== null) {
@@ -61,6 +63,10 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       DefaultValue = page.properties.DefaultValue.number;
     }
 
+    if (page.properties.DefaultName.title.length > 0) {
+      DefaultName = page.properties.DefaultName.title[0].plain_text;
+    }
+
     return {
       CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
@@ -69,6 +75,7 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       Subcategory: Subcategory || "",
       CustomName: CustomName || false,
       DefaultValue: DefaultValue || 0,
+      DefaultName: DefaultName || "",
     } as IConfig;
   });
 

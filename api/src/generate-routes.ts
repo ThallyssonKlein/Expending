@@ -8,72 +8,6 @@ import { notion } from "./notion";
 import { Decimal } from "decimal.js";
 import { buildDatePropertyData } from "./utils";
 
-function today() {
-  const hoje = new Date();
-  const dia = hoje.getDate().toString().padStart(2, "0");
-  const mes = (hoje.getMonth() + 1).toString().padStart(2, "0");
-  return `${dia}/${mes}`;
-}
-
-function buildValor(valor: number, path: IConfig) {
-  if (!valor && !path.defaultValue) throw new Error("Informe um valor!");
-
-  return {
-    Valor: {
-      type: "number",
-      number: valor ? valor : path.defaultValue,
-    },
-  };
-}
-
-function buildName(name: string, path: IConfig) {
-  if (!name && path.customName) throw new Error("Informe um nome!");
-  if (path.defaultName) {
-    return {
-      Name: {
-        title: [
-          {
-            text: {
-              content: path.defaultName,
-            },
-          },
-        ],
-      },
-    };
-  } else {
-    return {
-      Name: {
-        title: [
-          {
-            text: {
-              content: name ? name : today(),
-            },
-          },
-        ],
-      },
-    };
-  }
-}
-
-function buildCategories(path: IConfig) {
-  if (path.category && path.subcategory) {
-    return {
-      "Big Category": {
-        select: {
-          name: path.category,
-        },
-      },
-      "Sub Category": {
-        select: {
-          name: path.subcategory,
-        },
-      },
-    };
-  }
-
-  return {};
-}
-
 interface Sums {
   [subcategory: string]: number;
 }
@@ -121,50 +55,6 @@ async function generateRoutes(app: any) {
   for (const path of config) {
     app.post(path.path, async (req: any, res: any) => {
       const body = req.body;
-      let properties = {};
-
-      try {
-        properties = {
-          ...properties,
-          ...buildValor(body.value, path),
-        };
-        properties = {
-          ...properties,
-          ...buildName(body.name, path),
-        };
-        properties = {
-          ...properties,
-          ...buildDatePropertyData(body.date),
-        };
-        properties = {
-          ...properties,
-          ...buildCategories(path),
-        };
-      } catch (err) {
-        res.status(400).json({
-          error: (err as Error).message,
-        });
-        return;
-      }
-
-      try {
-        console.log("--------");
-        console.log(properties);
-        console.log("--------");
-
-        await notion.pages.create({
-          parent: {
-            database_id: recordsDatabaseId,
-          },
-          properties,
-        });
-
-        res.send("ok");
-      } catch (err) {
-        res.status(400).json({
-          error: (err as Error).message,
-        });
-      }
     });
   }
 }

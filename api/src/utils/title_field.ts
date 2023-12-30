@@ -7,3 +7,10 @@ export function buildMonthSlashYearDateString(pastMonth: boolean = false) {
   const year = date.getFullYear();
   return `${month}/${year}`;
 }
+
+export function buildDaySlashMonthDateString() {
+  const hoje = new Date();
+  const dia = hoje.getDate().toString().padStart(2, "0");
+  const mes = (hoje.getMonth() + 1).toString().padStart(2, "0");
+  return `${dia}/${mes}`;
+}
