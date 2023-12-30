@@ -190,4 +190,22 @@ export default class EnterSalaryController {
     transaction.finish();
     res.status(200).send();
   }
+
+  async getCurrentSalary(req: any, res: any): Promise<SalaryFromNotionApi | undefined> {
+    const transaction = Sentry.startTransaction({
+      name: "get-current-salary-transaction",
+    });
+
+    const salary = await this.salaryRepository.findCurrentMonthSalaryItem();
+
+    if (!salary) {
+      res.status(404).json({
+        error: "Salário não encontrado!",
+      });
+      return;
+    }
+
+    transaction.finish();
+    res.status(200).json(salary);
+  }
 }

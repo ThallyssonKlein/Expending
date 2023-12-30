@@ -1,8 +1,9 @@
 import { notion } from '../notion'
 import { salariesDatabaseId } from '../config'
+import { SalaryFromNotionApi } from '../controller/SalaryController'
 
 export default class SalaryRepository {
-    async findCurrentMonthSalaryItem() {
+    async findCurrentMonthSalaryItem(): Promise<SalaryFromNotionApi> {
         const response = await notion.databases.query({
             database_id: salariesDatabaseId,
             filter: {

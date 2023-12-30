@@ -57,4 +57,26 @@ export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
   }
 }
 
+export async function getCurrentSalary (): Promise<SalaryUsageDetails | null> {
+  try {
+    const response = await api.get('/current_salary')
+
+    if (response.status === 200) {
+      return response.data as SalaryUsageDetails
+    }
+
+    return null
+  } catch (err) {
+    return null
+  }
+}
+
+export async function createSalary (salary: number, vouncher: number): Promise<void> {
+  try {
+    await api.post('/create_salary', { salary, vouncher })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default api

@@ -67,8 +67,12 @@ import { IConfig, loadConfigsFromNotion } from "./config";
     recordsController.createRecord(req, res);
   });
 
-  // app.get('/current_salary', async (req: any, res: any) => {
-  //   salaryController.getCurrentSalary(req, res);
+  app.get("/current_salary", async (req: any, res: any) => {
+    salaryController.getCurrentSalary(req, res);
+  });
+
+  // app.get('/current_salary_details', async (req: any, res: any) => {
+  //   salaryController.getCurrentSalaryDetails(req, res);
   // });
 })();
 

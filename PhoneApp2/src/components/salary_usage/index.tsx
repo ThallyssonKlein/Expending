@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 // import * as Progress from 'react-native-progress';
-import Dialog from 'react-native-dialog'
 
 import { getSalaryDetails, type SalaryUsageDetails } from '../../api'
 
@@ -19,14 +18,6 @@ const SalaryUsage = ({
 
   return (
     <View style={styles.container}>
-       {dialogVisible && 
-            <Dialog.Container visible={dialogVisible}>
-                <Dialog.Title>Enter your salary</Dialog.Title>
-                <Dialog.Input label="Salary" onChangeText={(salary: string) => { setSalary(salary) }}
-                ></Dialog.Input>
-                <Dialog.Button label="OK" onPress={handleEnterSalary} />
-            </Dialog.Container>
-       }
         <View style={styles.row}>
             <Text style={styles.title}>Detalhes do salário</Text>
         </View>

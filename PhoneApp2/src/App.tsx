@@ -1,9 +1,11 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import BottomSheet from './components/BottomSheet'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import SalaryUsage from './components/salary_usage'
 import * as Sentry from '@sentry/react-native'
+import { getCurrentSalary as getCurrentSalaryFromApi, createSalary } from './api'
+import Dialog from 'react-native-dialog'
 
 Sentry.init({
   dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
@@ -13,11 +15,55 @@ Sentry.init({
 })
 
 function App (): JSX.Element {
+  const [dialogVisible, setDialogVisible] = useState(false)
+  const [salary, setSalary] = useState('')
+  const [vouncher, setVouncher] = useState('')
+
+  async function getCurrentSalary (): Promise<void> {
+    const response = await getCurrentSalaryFromApi()
+
+    if (response == null) {
+      setDialogVisible(true)
+    }
+  }
+
+  useEffect(() => {
+    void getCurrentSalary()
+  }, [])
+
+  function handleEnterSalary (): void {
+    // if is empty string or not a number
+    if ((salary.length === 0) || (vouncher.length === 0)) {
+      Alert.alert('Error', 'Please enter your salary and vouncher')
+      return
+    }
+
+    // try to convert salary and vouncher into numbers and alert if it goes wrong
+    const salaryNumber = Number(salary)
+    const vouncherNumber = Number(vouncher)
+    if (isNaN(salaryNumber) || isNaN(vouncherNumber)) {
+      Alert.alert('Error', 'Please enter a valid number')
+      return
+    }
+
+    // call the api to createSalary
+
+    void createSalary(salaryNumber, vouncherNumber)
+  }
+
   return (
     <GestureHandlerRootView style={styles.gestureHandler}>
       <View style={{ flex: 1 }}>
       </View>
       <View style={{ margin: 20, flex: 10 }}>
+            {dialogVisible &&
+                  <Dialog.Container visible={dialogVisible}>
+                      <Dialog.Title>Enter your salary and vouncher</Dialog.Title>
+                      <Dialog.Input label="Salary" onChangeText={(salary: string) => { setSalary(salary) }} />
+                      <Dialog.Input label="Meal Vouncher" onChangeText={(vouncher: string) => { setVouncher(vouncher) }}/>
+                      <Dialog.Button label="OK" onPress={handleEnterSalary} />
+                  </Dialog.Container>
+            }
             {/* <SalaryUsage /> */}
       </View>
       <BottomSheet />
