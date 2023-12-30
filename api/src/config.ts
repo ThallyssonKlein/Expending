@@ -9,13 +9,13 @@ export default {
 import { notion } from "./notion";
 
 export interface IConfig {
-  CanUseMealsCard: boolean | null;
+  CanUseMealsCard: boolean;
   Name: string | null;
   NameInApp: string | null;
   Category: string | null;
   Subcategory: string | null;
-  CustomName: boolean | null;
-  DefaultValue: number | null;
+  CustomName: boolean;
+  DefaultValue: number;
 }
 
 // TODO - Improve this validations
