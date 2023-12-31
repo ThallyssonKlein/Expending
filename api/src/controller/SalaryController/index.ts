@@ -197,16 +197,22 @@ export default class EnterSalaryController {
       name: "get-current-salary-transaction",
     });
 
-    const salary = await this.salaryRepository.findCurrentMonthSalaryItem();
+    try {
+      const salary = await this.salaryRepository.findCurrentMonthSalaryItem();
 
-    if (!salary) {
+      if (!salary) {
+        res.status(404).json({
+          error: "Salário não encontrado!",
+        });
+        return;
+      }
+
+      transaction.finish();
+      res.status(200).json(salary);
+    } catch (e) {
       res.status(404).json({
         error: "Salário não encontrado!",
       });
-      return;
     }
-
-    transaction.finish();
-    res.status(200).json(salary);
   }
 }
