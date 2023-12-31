@@ -13,6 +13,7 @@ import {
 import { buildMonthSlashYearDateString } from "../../utils/title_field";
 
 export interface SalaryFromNotionApi {
+  id?: string,
   Mes: {
     title: [
       {

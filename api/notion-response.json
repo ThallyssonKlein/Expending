@@ -3,144 +3,76 @@
     "results": [
         {
             "object": "page",
-            "id": "fe9b8003-cd92-4977-b0c7-fc433ccb8ccd",
-            "created_time": "2023-09-16T01:36:00.000Z",
-            "last_edited_time": "2023-09-16T19:16:00.000Z",
+            "id": "fca6e69e-d38b-4c68-9e9a-8aef3d32914f",
+            "created_time": "2023-12-29T19:16:00.000Z",
+            "last_edited_time": "2023-12-29T19:16:00.000Z",
             "created_by": {
                 "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+                "id": "f3d409be-1f95-4744-b2e7-6c0588d0bad9"
             },
             "last_edited_by": {
                 "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+                "id": "f3d409be-1f95-4744-b2e7-6c0588d0bad9"
             },
             "cover": null,
             "icon": null,
             "parent": {
                 "type": "database_id",
-                "database_id": "914acfb6-86f8-4c84-9fad-7f5c8896b853"
+                "database_id": "5ffb177a-9e57-475c-be14-f50664dd9387"
             },
             "archived": false,
             "properties": {
-                "Resumos Compulsões": {
-                    "id": "%3Bq%3B~",
-                    "type": "relation",
-                    "relation": [
-                        {
-                            "id": "3d824059-dff8-4d9d-917e-1077bf579f6c"
-                        },
-                        {
-                            "id": "87b1c52c-215d-4e83-93a3-fcf865d75e84"
-                        },
-                        {
-                            "id": "d9891fc0-0e59-4c98-9912-c44999705746"
-                        },
-                        {
-                            "id": "c16942a3-478b-4ac4-a363-f65635f54d67"
-                        }
-                    ],
-                    "has_more": false
-                },
                 "This Month": {
-                    "id": "%40b%3Df",
+                    "id": "%3B%5C~%3A",
                     "type": "formula",
                     "formula": {
                         "type": "boolean",
                         "boolean": true
                     }
                 },
-                "Sobrou": {
-                    "id": "GaU%5E",
+                "Quanto pode chegar Refeicao": {
+                    "id": "QpFu",
                     "type": "number",
                     "number": null
                 },
-                "Saldos": {
-                    "id": "W%5BTt",
-                    "type": "relation",
-                    "relation": [
-                        {
-                            "id": "1b495821-3c84-431d-bd8f-fbeebd148745"
-                        }
-                    ],
-                    "has_more": false
-                },
-                "Quanto Sobraria sem Compulsões": {
-                    "id": "XQEK",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 2861.2
-                    }
-                },
-                "Quanto vai sobrar": {
-                    "id": "%5DtQb",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 1528.73
-                    }
-                },
                 "Date": {
-                    "id": "f%60LZ",
+                    "id": "RiIr",
                     "type": "date",
                     "date": {
-                        "start": "2023-09-01",
+                        "start": "2023-12-01",
                         "end": null,
                         "time_zone": null
                     }
                 },
-                "Soma Saldos": {
-                    "id": "gX%5DH",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 7.82,
-                        "function": "sum"
-                    }
-                },
-                "Soma Faturas": {
-                    "id": "prkc",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 7408.49,
-                        "function": "sum"
-                    }
-                },
-                "Faturas": {
-                    "id": "wIjB",
-                    "type": "relation",
-                    "relation": [
-                        {
-                            "id": "3c7678d7-9387-4036-9ec9-422a6860a834"
-                        },
-                        {
-                            "id": "5a13389c-1d10-40e2-8422-446b4a211fb2"
-                        }
-                    ],
-                    "has_more": false
-                },
                 "Soma Compulsoes": {
-                    "id": "yDwI",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 1332.47,
-                        "function": "sum"
-                    }
+                    "id": "SmDq",
+                    "type": "number",
+                    "number": null
+                },
+                "Soma Custo de Vida": {
+                    "id": "Snyf",
+                    "type": "number",
+                    "number": null
                 },
                 "Chegou": {
-                    "id": "%7CGja",
+                    "id": "cELL",
                     "type": "number",
-                    "number": 8929.4
+                    "number": null
                 },
-                "% do salário atual": {
-                    "id": "%7Cz%3EP",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 82.88
-                    }
+                "Quanto pode chegar": {
+                    "id": "fmaF",
+                    "type": "number",
+                    "number": 9031.45
+                },
+                "Soma Gastos Extras": {
+                    "id": "p%5EIi",
+                    "type": "number",
+                    "number": null
+                },
+                "Chegou Refeicao": {
+                    "id": "%7D%7DOd",
+                    "type": "number",
+                    "number": null
                 },
                 "Mes": {
                     "id": "title",
@@ -149,7 +81,7 @@
                         {
                             "type": "text",
                             "text": {
-                                "content": "09/2023",
+                                "content": "12/2023",
                                 "link": null
                             },
                             "annotations": {
@@ -160,23 +92,123 @@
                                 "code": false,
                                 "color": "default"
                             },
-                            "plain_text": "09/2023",
+                            "plain_text": "12/2023",
                             "href": null
                         }
                     ]
                 }
             },
-            "url": "https://www.notion.so/09-2023-fe9b8003cd924977b0c7fc433ccb8ccd",
+            "url": "https://www.notion.so/12-2023-fca6e69ed38b4c689e9a8aef3d32914f",
             "public_url": null
         },
         {
             "object": "page",
-            "id": "92673d34-2d3a-491a-b538-b62d85d102a6",
-            "created_time": "2023-09-15T22:33:00.000Z",
-            "last_edited_time": "2023-09-16T19:14:00.000Z",
+            "id": "eb4f0e2a-8e6f-479e-9a31-d0683f62b42b",
+            "created_time": "2023-12-29T19:16:00.000Z",
+            "last_edited_time": "2023-12-29T19:16:00.000Z",
             "created_by": {
                 "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
+                "id": "f3d409be-1f95-4744-b2e7-6c0588d0bad9"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "f3d409be-1f95-4744-b2e7-6c0588d0bad9"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "5ffb177a-9e57-475c-be14-f50664dd9387"
+            },
+            "archived": false,
+            "properties": {
+                "This Month": {
+                    "id": "%3B%5C~%3A",
+                    "type": "formula",
+                    "formula": {
+                        "type": "boolean",
+                        "boolean": false
+                    }
+                },
+                "Quanto pode chegar Refeicao": {
+                    "id": "QpFu",
+                    "type": "number",
+                    "number": null
+                },
+                "Date": {
+                    "id": "RiIr",
+                    "type": "date",
+                    "date": {
+                        "start": "2023-11-01",
+                        "end": null,
+                        "time_zone": null
+                    }
+                },
+                "Soma Compulsoes": {
+                    "id": "SmDq",
+                    "type": "number",
+                    "number": null
+                },
+                "Soma Custo de Vida": {
+                    "id": "Snyf",
+                    "type": "number",
+                    "number": null
+                },
+                "Chegou": {
+                    "id": "cELL",
+                    "type": "number",
+                    "number": 9031.45
+                },
+                "Quanto pode chegar": {
+                    "id": "fmaF",
+                    "type": "number",
+                    "number": 9031.45
+                },
+                "Soma Gastos Extras": {
+                    "id": "p%5EIi",
+                    "type": "number",
+                    "number": null
+                },
+                "Chegou Refeicao": {
+                    "id": "%7D%7DOd",
+                    "type": "number",
+                    "number": null
+                },
+                "Mes": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "11/2023",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "11/2023",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/11-2023-eb4f0e2a8e6f479e9a31d0683f62b42b",
+            "public_url": null
+        },
+        {
+            "object": "page",
+            "id": "197d22b1-72d8-473d-ad82-c40aa051f067",
+            "created_time": "2023-12-29T19:13:00.000Z",
+            "last_edited_time": "2023-12-29T19:13:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "f3d409be-1f95-4744-b2e7-6c0588d0bad9"
             },
             "last_edited_by": {
                 "object": "user",
@@ -186,105 +218,61 @@
             "icon": null,
             "parent": {
                 "type": "database_id",
-                "database_id": "914acfb6-86f8-4c84-9fad-7f5c8896b853"
+                "database_id": "5ffb177a-9e57-475c-be14-f50664dd9387"
             },
             "archived": false,
             "properties": {
-                "Resumos Compulsões": {
-                    "id": "%3Bq%3B~",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
                 "This Month": {
-                    "id": "%40b%3Df",
+                    "id": "%3B%5C~%3A",
                     "type": "formula",
                     "formula": {
                         "type": "boolean",
                         "boolean": false
                     }
                 },
-                "Sobrou": {
-                    "id": "GaU%5E",
+                "Quanto pode chegar Refeicao": {
+                    "id": "QpFu",
                     "type": "number",
-                    "number": 1035.05
-                },
-                "Saldos": {
-                    "id": "W%5BTt",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "Quanto Sobraria sem Compulsões": {
-                    "id": "XQEK",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Quanto vai sobrar": {
-                    "id": "%5DtQb",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
+                    "number": null
                 },
                 "Date": {
-                    "id": "f%60LZ",
+                    "id": "RiIr",
                     "type": "date",
                     "date": {
-                        "start": "2023-08-01",
+                        "start": "2023-10-01",
                         "end": null,
                         "time_zone": null
                     }
                 },
-                "Soma Saldos": {
-                    "id": "gX%5DH",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Soma Faturas": {
-                    "id": "prkc",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Faturas": {
-                    "id": "wIjB",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
                 "Soma Compulsoes": {
-                    "id": "yDwI",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
+                    "id": "SmDq",
+                    "type": "number",
+                    "number": null
+                },
+                "Soma Custo de Vida": {
+                    "id": "Snyf",
+                    "type": "number",
+                    "number": null
                 },
                 "Chegou": {
-                    "id": "%7CGja",
+                    "id": "cELL",
                     "type": "number",
-                    "number": 8929.4
+                    "number": 9031.45
                 },
-                "% do salário atual": {
-                    "id": "%7Cz%3EP",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
+                "Quanto pode chegar": {
+                    "id": "fmaF",
+                    "type": "number",
+                    "number": 9031.45
+                },
+                "Soma Gastos Extras": {
+                    "id": "p%5EIi",
+                    "type": "number",
+                    "number": null
+                },
+                "Chegou Refeicao": {
+                    "id": "%7D%7DOd",
+                    "type": "number",
+                    "number": null
                 },
                 "Mes": {
                     "id": "title",
@@ -293,7 +281,7 @@
                         {
                             "type": "text",
                             "text": {
-                                "content": "08/2023",
+                                "content": "Wed Nov 29 2023 16:13:03 GMT-0300 (Brasilia Standard Time)/2023",
                                 "link": null
                             },
                             "annotations": {
@@ -304,306 +292,19 @@
                                 "code": false,
                                 "color": "default"
                             },
-                            "plain_text": "08/2023",
+                            "plain_text": "Wed Nov 29 2023 16:13:03 GMT-0300 (Brasilia Standard Time)/2023",
                             "href": null
                         }
                     ]
                 }
             },
-            "url": "https://www.notion.so/08-2023-92673d342d3a491ab538b62d85d102a6",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "b0fcde2c-92ed-425e-ae8e-147780067300",
-            "created_time": "2023-09-15T22:33:00.000Z",
-            "last_edited_time": "2023-09-16T19:14:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "914acfb6-86f8-4c84-9fad-7f5c8896b853"
-            },
-            "archived": false,
-            "properties": {
-                "Resumos Compulsões": {
-                    "id": "%3Bq%3B~",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "This Month": {
-                    "id": "%40b%3Df",
-                    "type": "formula",
-                    "formula": {
-                        "type": "boolean",
-                        "boolean": false
-                    }
-                },
-                "Sobrou": {
-                    "id": "GaU%5E",
-                    "type": "number",
-                    "number": 1035.05
-                },
-                "Saldos": {
-                    "id": "W%5BTt",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "Quanto Sobraria sem Compulsões": {
-                    "id": "XQEK",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Quanto vai sobrar": {
-                    "id": "%5DtQb",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Date": {
-                    "id": "f%60LZ",
-                    "type": "date",
-                    "date": {
-                        "start": "2023-06-01",
-                        "end": null,
-                        "time_zone": null
-                    }
-                },
-                "Soma Saldos": {
-                    "id": "gX%5DH",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Soma Faturas": {
-                    "id": "prkc",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Faturas": {
-                    "id": "wIjB",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "Soma Compulsoes": {
-                    "id": "yDwI",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Chegou": {
-                    "id": "%7CGja",
-                    "type": "number",
-                    "number": 8961.19
-                },
-                "% do salário atual": {
-                    "id": "%7Cz%3EP",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Mes": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "06/2023",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "06/2023",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/06-2023-b0fcde2c92ed425eae8e147780067300",
-            "public_url": null
-        },
-        {
-            "object": "page",
-            "id": "da7e68e3-ce11-49e3-aa69-ca5e4dcc281c",
-            "created_time": "2023-09-15T22:33:00.000Z",
-            "last_edited_time": "2023-09-16T19:14:00.000Z",
-            "created_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "last_edited_by": {
-                "object": "user",
-                "id": "79e359fb-29ce-4411-b5d4-22b8db1cb384"
-            },
-            "cover": null,
-            "icon": null,
-            "parent": {
-                "type": "database_id",
-                "database_id": "914acfb6-86f8-4c84-9fad-7f5c8896b853"
-            },
-            "archived": false,
-            "properties": {
-                "Resumos Compulsões": {
-                    "id": "%3Bq%3B~",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "This Month": {
-                    "id": "%40b%3Df",
-                    "type": "formula",
-                    "formula": {
-                        "type": "boolean",
-                        "boolean": false
-                    }
-                },
-                "Sobrou": {
-                    "id": "GaU%5E",
-                    "type": "number",
-                    "number": 1035.05
-                },
-                "Saldos": {
-                    "id": "W%5BTt",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "Quanto Sobraria sem Compulsões": {
-                    "id": "XQEK",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Quanto vai sobrar": {
-                    "id": "%5DtQb",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Date": {
-                    "id": "f%60LZ",
-                    "type": "date",
-                    "date": {
-                        "start": "2023-07-01",
-                        "end": null,
-                        "time_zone": null
-                    }
-                },
-                "Soma Saldos": {
-                    "id": "gX%5DH",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Soma Faturas": {
-                    "id": "prkc",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Faturas": {
-                    "id": "wIjB",
-                    "type": "relation",
-                    "relation": [],
-                    "has_more": false
-                },
-                "Soma Compulsoes": {
-                    "id": "yDwI",
-                    "type": "rollup",
-                    "rollup": {
-                        "type": "number",
-                        "number": 0,
-                        "function": "sum"
-                    }
-                },
-                "Chegou": {
-                    "id": "%7CGja",
-                    "type": "number",
-                    "number": 9084.8
-                },
-                "% do salário atual": {
-                    "id": "%7Cz%3EP",
-                    "type": "formula",
-                    "formula": {
-                        "type": "number",
-                        "number": 0
-                    }
-                },
-                "Mes": {
-                    "id": "title",
-                    "type": "title",
-                    "title": [
-                        {
-                            "type": "text",
-                            "text": {
-                                "content": "07/2023",
-                                "link": null
-                            },
-                            "annotations": {
-                                "bold": false,
-                                "italic": false,
-                                "strikethrough": false,
-                                "underline": false,
-                                "code": false,
-                                "color": "default"
-                            },
-                            "plain_text": "07/2023",
-                            "href": null
-                        }
-                    ]
-                }
-            },
-            "url": "https://www.notion.so/07-2023-da7e68e3ce1149e3aa69ca5e4dcc281c",
+            "url": "https://www.notion.so/Wed-Nov-29-2023-16-13-03-GMT-0300-Brasilia-Standard-Time-2023-197d22b172d8473dad82c40aa051f067",
             "public_url": null
         }
     ],
     "next_cursor": null,
     "has_more": false,
     "type": "page_or_database",
-    "page_or_database": {}
+    "page_or_database": {},
+    "request_id": "048d508b-2bb5-40a7-a342-375d13cab2a2"
 }

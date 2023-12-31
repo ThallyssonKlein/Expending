@@ -23,7 +23,7 @@ const CustomBackground = (props: any): JSX.Element => {
 
 export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
-  const snapPoints = ['35%', '60%']
+  const snapPoints = ['45%', '70%']
   const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false)
 
   const [selectedMode, setSelectedMode] = useState('compulsions')
@@ -43,21 +43,32 @@ export default function BottomSheetComponent (): JSX.Element {
   const [customName, setCustomName] = useState('')
 
   useEffect(() => {
-    void getOptions()
+    void (async () => {
+      const response = await getOptions()
+      const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
+      setOptions(response)
+      setSelectedOption(defaultOption)
+    })()
   }, [])
 
   useEffect(() => {
-    if (options.length > 0 && selectedOption != null) {
+    if (options.length > 0 && selectedOption != null && selectedOption !== undefined) {
       setCanRenderBottomSheet(true)
       setEnabled(selectedOption?.DefaultValue != null)
       setValue(((selectedOption?.DefaultValue) != null) ? selectedOption?.DefaultValue + '' : '0')
     }
   }, [options, selectedOption])
 
-  function onChangeMode (mode: string): void {
-    setSelectedMode(mode)
-    // void getOptions()
-  }
+  useEffect(() => {
+    void (async () => {
+      const response = await getOptions()
+      console.log(selectedMode)
+      console.log(response)
+      const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
+      setOptions(response)
+      setSelectedOption(defaultOption)
+    })()
+  }, [selectedMode])
 
   function findDefaultOptionForEachMode (data: IConfig[], mode: string): IConfig | undefined {
     return data.find((item: IConfig) => {
@@ -72,14 +83,14 @@ export default function BottomSheetComponent (): JSX.Element {
     })
   }
 
-  async function getOptions (counter = 0, transactionFromPastFunction = null): Promise<void> {
+  async function getOptions (counter = 0, transactionFromPastFunction = null): Promise<IOption[]> {
     const transaction = transactionFromPastFunction ?? Sentry.startTransaction({ name: 'app-get-options' })
     transaction.setData('counter', counter)
 
     if (counter > 1) {
       Alert.alert('Erro ao buscar opções para o select')
       transaction.finish()
-      return
+      return []
     }
 
     const response = await getOptionsApi(selectedMode)
@@ -90,9 +101,8 @@ export default function BottomSheetComponent (): JSX.Element {
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
 
       if (defaultOption !== undefined) {
-        setOptions(response)
-        setSelectedOption(defaultOption)
         transaction.finish()
+        return response
       } else {
         setTimeout(() => {
           void getOptions(counter + 1)
@@ -175,23 +185,23 @@ export default function BottomSheetComponent (): JSX.Element {
           snapPoints={snapPoints}
           backgroundComponent={CustomBackground}>
           <View style={styles.bottomSheetContent}>
-          <View style={{ maxHeight: 200 }}>
-            <Picker
-              onValueChange={(itemValue: any) => { onChangeMode(itemValue) }}
-              style={styles.picker}
-              selectedValue={selectedMode}
-              dropdownIconColor="black"
-            >
-              <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
-              <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
-              <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
-            </Picker>
+            <View style={{ maxHeight: 200, flex: 0.3 }}>
+              <Picker
+                onValueChange={(itemValue: any) => { setSelectedMode(itemValue) }}
+                style={styles.picker}
+                selectedValue={selectedMode}
+                dropdownIconColor="black"
+              >
+                <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
+                <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
+                <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
+              </Picker>
 
-            {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
-          </View>
+              {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
+            </View>
 
             {canRenderBottomSheet &&
-              <View>
+              <View style={{ flex: 2 }}>
                 <View style={{ marginBottom: 40 }}>
                   <View style={styles.pickerContainer}>
                     <Picker
@@ -213,14 +223,15 @@ export default function BottomSheetComponent (): JSX.Element {
                       style={styles.textInput}
                       placeholderTextColor="black"
                   />
-                  <TextInput
-                      placeholder="Custom Name"
-                      value={customName}
-                      onChangeText={text => { setCustomName(text) }}
-                      style={styles.textInput}
-                      placeholderTextColor="black"
-                  />
-
+                  {selectedOption.CustomName &&
+                    <TextInput
+                        placeholder="Custom Name"
+                        value={customName}
+                        onChangeText={text => { setCustomName(text) }}
+                        style={styles.textInput}
+                        placeholderTextColor="black"
+                    />
+                    }
                   <DatePicker
                     mode="date"
                     textColor="black"
@@ -277,7 +288,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#4a90e2',
     borderRadius: 5,
-    padding: 10,
-    flex: 1
+    padding: 10
   }
 })

@@ -63,8 +63,8 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       DefaultValue = page.properties.DefaultValue.number;
     }
 
-    if (page.properties.DefaultName.title.length > 0) {
-      DefaultName = page.properties.DefaultName.title[0].plain_text;
+    if (page.properties.DefaultName.rich_text.length > 0) {
+      DefaultName = page.properties.DefaultName.rich_text[0].plain_text;
     }
 
     return {
