@@ -30,6 +30,7 @@ export default class RecordsController {
       !configWithValues.Category ||
       !configWithValues.Subcategory
     ) {
+      transaction.setData("configValues", configWithValues);
       res.status(400).send();
       return;
     }

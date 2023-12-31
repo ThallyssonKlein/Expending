@@ -24,7 +24,7 @@ const CustomBackground = (props: any): JSX.Element => {
 
 export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
-  const snapPoints = ['45%', '70%']
+  const snapPoints = ['55%', '80%']
   const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false)
 
   const [selectedMode, setSelectedMode] = useState('compulsions')
@@ -118,13 +118,30 @@ export default function BottomSheetComponent (): JSX.Element {
     )
   }
 
-  async function onPressButton (): Promise<void> {
+  async function onPressButton (secondCall: boolean = false): Promise<void> {
     // just for typscript
     if (selectedOption == null) return
 
     // validate if value is not empty
     if (value === '') {
       Alert.alert('Erro', 'O valor não pode ser vazio')
+      return
+    }
+
+    if (value === '0' && !secondCall) {
+      Alert.alert(
+        'Salvar valor 0',
+        'Voce realmente quer salvar o valor 0?',
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => { console.log('Cancel Pressed') },
+            style: 'cancel'
+          },
+          { text: 'OK', onPress: () => { void onPressButton(true) } }
+        ],
+        { cancelable: false }
+      )
       return
     }
 
