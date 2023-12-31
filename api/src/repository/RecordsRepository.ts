@@ -3,7 +3,12 @@ import { recordsDatabaseId, IConfig } from "../config";
 import { IConfigPlusValues } from "../controller/RecordsController";
 import { buildDaySlashMonthDateString } from '../utils/title_field';
 import { buildDatePropertyData } from "../utils/date_field";
-import { SalaryFromNotionApi } from "../controller/SalaryController";
+
+export interface IRecord {
+  Valor: number;
+}
+
+type IRecordFromNotion = { results: { properties: { Valor: { number: null; }; }; }[]; }
 
 export default class RecordsRepository {
 
@@ -130,5 +135,69 @@ export default class RecordsRepository {
         },
         properties,
     });
+  }
+
+  private recordMap(response: IRecordFromNotion): IRecord[] {
+    return response.results.map((notionResult: { properties: { Valor: { number: null; }; }; }) => {
+      let { Valor } = {
+        Valor: null,
+      };
+
+      if (notionResult.properties.Valor.number !== null) {
+        Valor = notionResult.properties.Valor.number;
+      }
+
+      return {
+        Valor: Valor || 0,
+      } as IRecord;
+    }) as IRecord[];
+  }
+
+  async findCompulsionRecordsForAGivenSalaryId(salaryId: string): Promise<IRecord[]>{
+    const response = await notion.databases.query({
+      database_id: recordsDatabaseId,
+      filter: {
+        and: [
+          {
+            property: "Salary",
+            relation: {
+              contains: salaryId,
+            },
+          },
+          {
+            property: "Big Category",
+            select: {
+              equals: "1 - Compulsões"
+            },
+            },
+        ]
+      }
+    });
+
+    return this.recordMap(response)
+  }
+
+  async findExtraRecordsForAGivenSalaryId(salaryId: string): Promise<IRecord[]>{
+    const response = await notion.databases.query({
+      database_id: recordsDatabaseId,
+      filter: {
+        and: [
+          {
+            property: "Salary",
+            relation: {
+              contains: salaryId,
+            },
+          },
+          {
+            property: "Big Category",
+            select: {
+              equals: "3 - Extra"
+            },
+            },
+        ]
+      }
+    });
+
+    return this.recordMap(response)
   }
 }

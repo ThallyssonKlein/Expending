@@ -20,3 +20,6 @@ POST https://my-expending-project.rj.r.appspot.com/refresh_config
 
 ###
 POST http://0.0.0.0:8080/refresh_config
+
+###
+GET https://my-expending-project.rj.r.appspot.com/ping

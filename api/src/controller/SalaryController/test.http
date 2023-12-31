@@ -20,3 +20,6 @@ GET http://0.0.0.0:8080/current_salary
 
 ###
 GET https://my-expending-project.rj.r.appspot.com/current_salary
+
+###
+GET http://0.0.0.0:8080/current_salary_details

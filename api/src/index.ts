@@ -71,9 +71,9 @@ import { IConfig, loadConfigsFromNotion } from "./config";
     salaryController.getCurrentSalary(req, res);
   });
 
-  // app.get('/current_salary_details', async (req: any, res: any) => {
-  //   salaryController.getCurrentSalaryDetails(req, res);
-  // });
+  app.get('/current_salary_details', async (req: any, res: any) => {
+    salaryController.getCurrentSalaryDetails(req, res);
+  });
 })();
 
 const PORT = process.env.PORT || 8080;

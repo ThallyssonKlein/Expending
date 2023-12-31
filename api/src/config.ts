@@ -19,13 +19,8 @@ export interface IConfig {
   DefaultName: string | null;
 }
 
-// TODO - Improve this validations
-export async function loadConfigsFromNotion(): Promise<IConfig[]> {
-  const response = await notion.databases.query({
-    database_id: configssDatabaseId,
-  });
-
-  const configs = response.results.map((page: any) => {
+function configMap(response: { results: any[]; }) {
+  return response.results.map((page: any) => {
     let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName } = {
       CanUseMealsCard: null,
       Name: null,
@@ -79,5 +74,27 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
     } as IConfig;
   });
 
-  return configs;
+}
+// TODO - Improve this validations
+export async function loadConfigsFromNotion(): Promise<IConfig[]> {
+  const response = await notion.databases.query({
+    database_id: configssDatabaseId,
+  });
+
+
+  return configMap(response);
+}
+
+export async function loadLifeCostConfigsFromNotion(): Promise<IConfig[]> {
+  const response = await notion.databases.query({
+    database_id: configssDatabaseId,
+    filter: {
+      property: "Category",
+      select: {
+        equals: "2 - Life Cost",
+      },
+    },
+  });
+
+  return configMap(response);
 }

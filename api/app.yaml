@@ -1,4 +1,3 @@
 runtime: nodejs18
 automatic_scaling:
   min_idle_instances: 1 # Mantém sempre uma instância ociosa
-  min_pending_latency: automatic  # ou um valor específico como '30ms'

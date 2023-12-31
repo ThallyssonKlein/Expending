@@ -1,9 +1,11 @@
 import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
+import { Request, Response } from "express";
 
-import { salariesDatabaseId } from "../../config";
+import { salariesDatabaseId, loadLifeCostConfigsFromNotion, IConfig } from "../../config";
 
 import SalaryRepository from "../../repository/SalaryRepository";
+import RecordsRepository, { IRecord } from "../../repository/RecordsRepository";
 
 import {
   convertDateToYearTraceMonthTraceDayFormat,
@@ -52,6 +54,7 @@ interface PastMonthSalaryFromNotionApi extends SalaryFromNotionApi {
 
 export default class EnterSalaryController {
   private salaryRepository: SalaryRepository = new SalaryRepository();
+  private recordsRepository: RecordsRepository = new RecordsRepository();
 
   private async createSalaryItem(
     salaryAverage: number,
@@ -136,7 +139,7 @@ export default class EnterSalaryController {
   }
 
   // new enter salary
-  async createSalary(req: any, res: any) {
+  async createSalary(req: Request, res: Response) {
     const transaction = Sentry.startTransaction({
       name: "enter-salary-transaction",
     });
@@ -192,7 +195,7 @@ export default class EnterSalaryController {
     res.status(200).send();
   }
 
-  async getCurrentSalary(req: any, res: any): Promise<SalaryFromNotionApi | undefined> {
+  async getCurrentSalary(req: Request, res: Response): Promise<SalaryFromNotionApi | undefined> {
     const transaction = Sentry.startTransaction({
       name: "get-current-salary-transaction",
     });
@@ -210,6 +213,57 @@ export default class EnterSalaryController {
       transaction.finish();
       res.status(200).json(salary);
     } catch (e) {
+      res.status(404).json({
+        error: "Salário não encontrado!",
+      });
+    }
+  }
+
+  async getCurrentSalaryDetails(req: Request, res: Response) {
+    try {
+      const configs: IConfig[] = await loadLifeCostConfigsFromNotion();
+
+      const lifeCostTotal = configs.reduce(
+        (total, config) => total + config.DefaultValue,
+        0
+      );
+
+      // find the currentSalary of this month and get its id
+      const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem();
+      const currentSalaryId = currentSalary?.id;
+    
+      // if not current salary, return 404
+      if (!currentSalaryId) {
+        res.status(404).json({
+          error: "Salário não encontrado!",
+        });
+        return;
+      }
+
+      // find all records of this month
+      const compulsionRecords = await this.recordsRepository.findCompulsionRecordsForAGivenSalaryId(currentSalaryId);
+
+      // calculate the total of compulsions
+      const compulsionsTotal = compulsionRecords.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
+
+      //find all extras
+      const extrasRecords = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId);
+
+      // calculate the total of extras
+      const extrasTotal = extrasRecords.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
+
+      res.status(200).json({
+        lifeCostTotal,
+        compulsionsTotal,
+        extrasTotal,
+      })
+    } catch (err) {
       res.status(404).json({
         error: "Salário não encontrado!",
       });
