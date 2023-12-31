@@ -1,87 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-// import * as Progress from 'react-native-progress';
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import PieChart from 'react-native-pie-chart'
 
-import { getSalaryDetails, type SalaryUsageDetails } from '../../api'
+interface Props {
+  series: number[]
+  sliceColor: string[]
+}
 
-const SalaryUsage = ({
-  whatWillBeLeft,
-  whatWillBeLeftWithoutCompulsions,
-  currentSalaryUsePercentage,
-  dialogVisible
-}: SalaryUsageDetails) => {
-  const [salary, setSalary] = useState('0')
-
-  const handleEnterSalary = (salary: string): void => {
-
-  }
+const SalaryUsage = ({ series, sliceColor }: Props): JSX.Element => {
+  const widthAndHeight = 250
 
   return (
     <View style={styles.container}>
-        <View style={styles.row}>
-            <Text style={styles.title}>Detalhes do salário</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.detailName}>O que vai sobrar: </Text>
-            <Text style={[styles.detailValue, { color: 'green' }]}>{whatWillBeLeft || 'Loading...'}</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.detailName}>Sem compulsões: </Text>
-            <Text style={[styles.detailValue, { color: 'green' }]}>{whatWillBeLeftWithoutCompulsions && whatWillBeLeft
-              ? whatWillBeLeftWithoutCompulsions + ' (' + (whatWillBeLeftWithoutCompulsions - whatWillBeLeft).toFixed(2) + ')'
-              : 'Loading...'}</Text>
-        </View>
-        <View style={styles.row}>
-            <Text style={styles.detailName}>Quantos % já foi do salário: </Text>
-            <Text style={[styles.detailValue, { color: 'red' }]}>{currentSalaryUsePercentage ? currentSalaryUsePercentage + '%' : 'Loading...'}</Text>
-        </View>
-        {/* <View style={styles.row}>
-          <Progress.Bar progress={0.3} width={200} />
-        </View> */}
+      <PieChart
+        widthAndHeight={widthAndHeight}
+        series={series}
+        sliceColor={sliceColor}
+        coverRadius={0.45}
+        coverFill={'#FFF'}
+      />
     </View>
   )
 }
 
-const SalaryUsageWrapper = () => {
-  const [salaryUsageDetailsState, setSalaryUsageDetailsState] = useState<SalaryUsageDetails>({})
-  const [dialogVisible, setDialogVisible] = useState(false)
+const SalaryUsageWrapper = (): JSX.Element => {
+  const series = [123, 321, 123, 789, 537]
+  const sliceColor = ['#fbd203', '#ffb300', '#ff9100', '#ff6c00', '#ff3c00']
 
-  useEffect(() => {
-    void getSalaryDetails().then(salaryDetails => {
-      if (salaryDetails != null) {
-        setSalaryUsageDetailsState(salaryDetails)
-      } else {
-        setDialogVisible(true)
-      }
-    })
-  }, [])
-
-  return <SalaryUsage {...salaryUsageDetailsState, dialogVisible}/>
+  return <SalaryUsage series={series} sliceColor={sliceColor} />
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#e6f2ff',
-    borderRadius: 10,
-    padding: 10,
-    flexDirection: 'column'
-  },
-  row: {
-    flexDirection: 'row',
-    margin: 20
-  },
-  detailName: {
-    fontSize: 17,
-    color: 'black'
-  },
-  detailValue: {
-    fontSize: 17,
-    fontWeight: 'bold'
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black'
+    flex: 1,
+    alignItems: 'center'
   }
 })
 

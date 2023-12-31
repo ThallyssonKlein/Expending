@@ -2,7 +2,7 @@ import { View, StyleSheet, Alert } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import BottomSheet from './components/BottomSheet'
 import React, { useEffect, useState } from 'react'
-// import SalaryUsage from './components/salary_usage'
+import SalaryUsage from './components/salary_usage'
 import * as Sentry from '@sentry/react-native'
 import { getCurrentSalary as getCurrentSalaryFromApi, createSalary } from './api'
 import Dialog from 'react-native-dialog'
@@ -64,7 +64,7 @@ function App (): JSX.Element {
                       <Dialog.Button label="OK" onPress={handleEnterSalary} />
                   </Dialog.Container>
             }
-            {/* <SalaryUsage /> */}
+            <SalaryUsage />
       </View>
       <BottomSheet />
     </GestureHandlerRootView>
