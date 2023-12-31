@@ -49,6 +49,7 @@ function App (): JSX.Element {
     // call the api to createSalary
 
     void createSalary(salaryNumber, vouncherNumber)
+    setDialogVisible(false)
   }
 
   return (
