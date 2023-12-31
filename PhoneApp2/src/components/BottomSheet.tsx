@@ -10,6 +10,7 @@ import Animated from 'react-native-reanimated'
 import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns'
 import * as Sentry from '@sentry/react-native'
+import { type Transaction } from '@sentry/types'
 
 // TODO - Is this component being used?
 const CustomBackground = (props: any): JSX.Element => {
@@ -33,8 +34,8 @@ export default function BottomSheetComponent (): JSX.Element {
 
   const [value, setValue] = useState<string>('0')
 
-  const [disabledButton, setDisabledButton] = useState<boolean>(false)
-  const [isEnabled, setEnabled] = useState<boolean>(false)
+  const [disabledButton, setDisabledButton] = useState<boolean>()
+  const [isEnabled, setEnabled] = useState<boolean>((selectedOption?.DefaultValue) !== 0)
 
   const [date, setDate] = useState(new Date())
 
@@ -54,7 +55,7 @@ export default function BottomSheetComponent (): JSX.Element {
   useEffect(() => {
     if (options.length > 0 && selectedOption != null && selectedOption !== undefined) {
       setCanRenderBottomSheet(true)
-      setEnabled(selectedOption?.DefaultValue != null)
+      setEnabled((selectedOption?.DefaultValue) !== 0)
       setValue(((selectedOption?.DefaultValue) != null) ? selectedOption?.DefaultValue + '' : '0')
     }
   }, [options, selectedOption])
@@ -62,8 +63,6 @@ export default function BottomSheetComponent (): JSX.Element {
   useEffect(() => {
     void (async () => {
       const response = await getOptions()
-      console.log(selectedMode)
-      console.log(response)
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
       setOptions(response)
       setSelectedOption(defaultOption)
@@ -83,7 +82,7 @@ export default function BottomSheetComponent (): JSX.Element {
     })
   }
 
-  async function getOptions (counter = 0, transactionFromPastFunction = null): Promise<IOption[]> {
+  async function getOptions (counter = 0, transactionFromPastFunction: Transaction | null = null): Promise<IConfig[]> {
     const transaction = transactionFromPastFunction ?? Sentry.startTransaction({ name: 'app-get-options' })
     transaction.setData('counter', counter)
 
@@ -104,10 +103,12 @@ export default function BottomSheetComponent (): JSX.Element {
         transaction.finish()
         return response
       } else {
-        setTimeout(() => {
-          void getOptions(counter + 1)
-        }, 3000)
+        await new Promise(resolve => setTimeout(resolve, 3000))
+        return await getOptions(counter + 1, transaction)
       }
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 3000))
+      return await getOptions(counter + 1, transaction)
     }
   }
 
@@ -200,7 +201,7 @@ export default function BottomSheetComponent (): JSX.Element {
               {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
             </View>
 
-            {canRenderBottomSheet &&
+            {canRenderBottomSheet && (selectedOption !== null && selectedOption !== undefined) &&
               <View style={{ flex: 2 }}>
                 <View style={{ marginBottom: 40 }}>
                   <View style={styles.pickerContainer}>

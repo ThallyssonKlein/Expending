@@ -23,7 +23,7 @@ export default function Input (props: IProps): JSX.Element {
   }
 
   useEffect(() => {
-    props.setEnabled(option.DefaultValue !== undefined && option.DefaultValue !== null)
+    props.setEnabled((option?.DefaultValue) !== 0)
   }, [props.option])
 
   return (
