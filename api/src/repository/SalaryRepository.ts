@@ -16,11 +16,14 @@ export default class SalaryRepository {
             }
         })
 
-        if (response.results.length !== 1) {
+        if (response.results.length !== 1 || !response.results[0].properties || !response.results[0].id) {
             throw new Error('Could not find salary for this month')
         }
 
-        return response.results[0]
+        return {
+            id: response.results[0].id,
+            ...response.results[0].properties
+        }
     }
 
     async findAllSalaries() {

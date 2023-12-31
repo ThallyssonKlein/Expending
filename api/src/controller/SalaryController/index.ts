@@ -224,7 +224,7 @@ export default class EnterSalaryController {
       const configs: IConfig[] = await loadLifeCostConfigsFromNotion();
 
       const lifeCostTotal = configs.reduce(
-        (total, config) => total + config.DefaultValue,
+        (total, config) => total + config.Total,
         0
       );
 
@@ -258,12 +258,41 @@ export default class EnterSalaryController {
         0
       );
 
+      console.log(currentSalary)
+
+      // find all configs that can use mealsVouncher
+      const mealVouncherConfigs = configs.filter(
+        (config) => config.CanUseMealsCard
+      );
+      // sum the total of only this configs
+      const canUseMealCardTotal = mealVouncherConfigs.reduce(
+        (total, config) => total + config.Total,
+        0
+      );
+
+      const mealVouncherRest = currentSalary["Quanto pode chegar Refeicao"].number - (canUseMealCardTotal + compulsionsTotal)
+
+      // findAllConfigs that can't use mealsVouncher
+      const noMealVouncherConfigs = configs.filter(
+        (config) => !config.CanUseMealsCard
+      );
+      // sum the total of only this configs
+      const noMealVouncherTotal = noMealVouncherConfigs.reduce(
+        (total, config) => total + config.Total,
+        0
+      );
+
+      const salaryRest = currentSalary["Quanto pode chegar"].number - (noMealVouncherTotal + extrasTotal)
+
       res.status(200).json({
         lifeCostTotal,
         compulsionsTotal,
         extrasTotal,
+        salaryRest,
+        mealVouncherRest
       })
     } catch (err) {
+      console.log(err)
       res.status(404).json({
         error: "Salário não encontrado!",
       });

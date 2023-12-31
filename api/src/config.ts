@@ -17,11 +17,12 @@ export interface IConfig {
   CustomName: boolean;
   DefaultValue: number;
   DefaultName: string | null;
+  Total: number;
 }
 
 function configMap(response: { results: any[]; }) {
   return response.results.map((page: any) => {
-    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName } = {
+    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName, Total } = {
       CanUseMealsCard: null,
       Name: null,
       NameInApp: null,
@@ -30,6 +31,7 @@ function configMap(response: { results: any[]; }) {
       CustomName: null,
       DefaultValue: null,
       DefaultName: null,
+      Total: null
     };
 
     if (page.properties.CanUseMealsCard.checkbox !== null) {
@@ -62,6 +64,10 @@ function configMap(response: { results: any[]; }) {
       DefaultName = page.properties.DefaultName.rich_text[0].plain_text;
     }
 
+    if (page.properties.Total.formula.number != null) {
+      Total = page.properties.Total.formula.number;
+    }
+
     return {
       CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
@@ -71,6 +77,7 @@ function configMap(response: { results: any[]; }) {
       CustomName: CustomName || false,
       DefaultValue: DefaultValue || 0,
       DefaultName: DefaultName || "",
+      Total: Total || 0,
     } as IConfig;
   });
 

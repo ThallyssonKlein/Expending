@@ -37,15 +37,28 @@ export async function post (body: IConfig): Promise<boolean> {
 }
 
 export interface SalaryUsageDetails {
-  whatWillBeLeft?: number
-  whatWillBeLeftWithoutCompulsions?: number
-  currentSalaryUsePercentage?: number
-  dialogVisible?: boolean
+  lifeCostTotal: number
+  compulsionsTotal: number
+  extrasTotal: number
+  salaryRest: number
+  mealVouncherRest: number
+}
+
+interface Page {
+  object: string
+  id: string
+  created_time: string
+  last_edited_time: string
+  cover: null
+  icon: null
+  archived: boolean
+  url: string
+  public_url: null | string
 }
 
 export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
   try {
-    const response = await api.get('/current_salary')
+    const response = await api.get('/current_salary_details')
 
     if (response.status === 200) {
       return response.data as SalaryUsageDetails
@@ -57,12 +70,12 @@ export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
   }
 }
 
-export async function getCurrentSalary (): Promise<SalaryUsageDetails | null> {
+export async function getCurrentSalary (): Promise<Page | null> {
   try {
     const response = await api.get('/current_salary')
 
     if (response.status === 200) {
-      return response.data as SalaryUsageDetails
+      return response.data as Page
     }
 
     return null
