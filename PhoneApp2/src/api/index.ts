@@ -73,7 +73,8 @@ export async function getCurrentSalary (): Promise<SalaryUsageDetails | null> {
 
 export async function createSalary (salary: number, vouncher: number): Promise<void> {
   try {
-    await api.post('/create_salary', { salary, vouncher })
+    const response = await api.post('/salary', { salary, mealVouncher: vouncher })
+    console.log(response.data)
   } catch (err) {
     console.log(err)
   }

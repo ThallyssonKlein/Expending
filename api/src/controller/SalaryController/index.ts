@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
 
-import { salariesDatabaseId, recordsDatabaseId } from "../../config";
+import { salariesDatabaseId } from "../../config";
 
 import SalaryRepository from "../../repository/SalaryRepository";
 
