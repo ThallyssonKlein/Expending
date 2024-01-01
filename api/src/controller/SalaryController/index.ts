@@ -62,7 +62,9 @@ export default class EnterSalaryController {
     transaction: any,
     pastMonth: boolean = false,
     salary?: number,
-    mealVouncher?: number
+    mealVouncher?: number,
+    update: boolean = false,
+    salaryIdToUpdate?: string
   ) {
     const span = transaction.startChild({ op: "createSalary" });
     console.log("--------------------");
@@ -114,12 +116,19 @@ export default class EnterSalaryController {
         };
       }
 
-      salaryCreationResponse = await notion.pages.create({
-        parent: {
-          database_id: salariesDatabaseId,
-        },
-        properties: { ...properties2 },
-      });
+      if (update) {
+        salaryCreationResponse = await notion.pages.update({
+          page_id: salaryIdToUpdate,
+          properties: { ...properties2 },
+        });
+      } else {
+        salaryCreationResponse = await notion.pages.create({
+          parent: {
+            database_id: salariesDatabaseId,
+          },
+          properties: { ...properties2 },
+        });
+      }
 
       console.log(salaryCreationResponse);
       span.setData("salaryCreationResponse", salaryCreationResponse);
@@ -140,59 +149,91 @@ export default class EnterSalaryController {
 
   // new enter salary
   async createSalary(req: Request, res: Response) {
-    const transaction = Sentry.startTransaction({
-      name: "enter-salary-transaction",
-    });
-
-    // get salary from request body
-    // return 400 if salary was not informed or is not a number
-    const salary = req.body.salary;
-    const mealVouncher = req.body.mealVouncher;
-    if (!salary || isNaN(salary)) {
-      transaction.finish();
-      res.status(400).json({
-        error: "Salário não informado ou não é um número!",
+    try {
+      const transaction = Sentry.startTransaction({
+        name: "enter-salary-transaction",
       });
-      return;
-    }
-    if (!mealVouncher || isNaN(mealVouncher)) {
-      transaction.finish();
-      res.status(400).json({
-        error: "Vale refeição não informado ou não é um número!",
-      });
-      return;
-    }
-
-    // find all salaries and get the average of the field "Chegou":
-    const salaries = await this.salaryRepository.findAllSalaries();
-
-    const average =
-      salaries.reduce((total: number, salary: any) => {
+  
+      // get salary from request body
+      // return 400 if salary was not informed or is not a number
+      const salary = req.body.salary;
+      const mealVouncher = req.body.mealVouncher;
+      if (!salary || isNaN(salary)) {
+        transaction.finish();
+        res.status(400).json({
+          error: "Salário não informado ou não é um número!",
+        });
+        return;
+      }
+      if (!mealVouncher || isNaN(mealVouncher)) {
+        transaction.finish();
+        res.status(400).json({
+          error: "Vale refeição não informado ou não é um número!",
+        });
+        return;
+      }
+  
+      // find all salaries and get the average of the field "Chegou":
+      let salaries = await this.salaryRepository.findAllSalaries();
+      // remove the itens with "Chegou" or "Chegou Refeicao" equals to "0" to not affect the average
+      salaries = salaries.filter((salary: { properties: PastMonthSalaryFromNotionApi; }) => {
         return (
-          total +
           ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]
-            ?.number ?? 0)
-        );
-      }, 0) / salaries.length; // Subtract 1 from the length
-    // calculate mealVouncher average from "Chegou Refeicao" field
-    const mealVouncherAverage =
-      salaries.reduce((total: number, salary: any) => {
-        return (
-          total +
+            ?.number ?? 0) > 0 &&
           ((salary.properties as PastMonthSalaryFromNotionApi)?.[
             "Chegou Refeicao"
-          ]?.number ?? 0)
+          ]?.number ?? 0) > 0
         );
-      }, 0) / salaries.length; // Subtract 1 from the length
+      })
 
-    // createSalaryPastMonth
-    this.createSalaryItem(average, mealVouncherAverage, transaction, true, salary, mealVouncher);
-
-    // createSalary currentMonth
-    this.createSalaryItem(average, mealVouncherAverage, transaction, false);
-
-    transaction.finish();
-    res.status(200).send();
+      const average =
+        salaries.reduce((total: number, salary: any) => {
+          return (
+            total +
+            ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]
+              ?.number ?? 0)
+          );
+        }, 0) / salaries.length; // Subtract 1 from the length
+      // calculate mealVouncher average from "Chegou Refeicao" field
+      const mealVouncherAverage =
+        salaries.reduce((total: number, salary: any) => {
+          return (
+            total +
+            ((salary.properties as PastMonthSalaryFromNotionApi)?.[
+              "Chegou Refeicao"
+            ]?.number ?? 0)
+          );
+        }, 0) / salaries.length; // Subtract 1 from the length
+  
+      // createSalaryPastMonth
+      // verify if salary of past month exists
+      const pastMonthSalary = await this.salaryRepository.findPastMonthSalaryItem();
+      if (pastMonthSalary && pastMonthSalary.id) {
+        this.createSalaryItem(
+          average,
+          mealVouncherAverage,
+          transaction,
+          true,
+          salary,
+          mealVouncher,
+          true,
+          pastMonthSalary.id
+        );
+      } else {
+        this.createSalaryItem(average, mealVouncherAverage, transaction, true, salary, mealVouncher);
+      }
+  
+      // createSalary currentMonth
+      this.createSalaryItem(average, mealVouncherAverage, transaction, false);
+  
+      transaction.finish();
+      res.status(200).send();
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        error: "Erro ao criar salário!",
+      });
+    }
   }
 
   async getCurrentSalary(req: Request, res: Response): Promise<SalaryFromNotionApi | undefined> {
