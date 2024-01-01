@@ -10,7 +10,10 @@ interface Props {
 
 const SalaryUsage = ({ series, sliceColor }: Props): JSX.Element => {
   const widthAndHeight = 250
+  const total: number = series.reduce((a, b) => a + b, 0)
 
+  // create also a legend for the pie chart
+  // add also the percentage on the legend
   return (
     <View style={styles.container}>
       <PieChart
@@ -20,6 +23,26 @@ const SalaryUsage = ({ series, sliceColor }: Props): JSX.Element => {
         coverRadius={0.45}
         coverFill={'#FFF'}
       />
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: 10, height: 10, backgroundColor: sliceColor[0], marginRight: 5 }} />
+        <Text style={{ color: 'black' }}>Salary rest {series[0].toFixed(2)} ({((series[0] / total) * 100).toFixed(2)}%)</Text>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: 10, height: 10, backgroundColor: sliceColor[1], marginRight: 5 }} />
+        <Text style={{ color: 'black' }}>Meal vouncher rest {series[1].toFixed(2)} ({((series[1] / total) * 100).toFixed(2)}%)</Text>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: 10, height: 10, backgroundColor: sliceColor[2], marginRight: 5 }} />
+        <Text style={{ color: 'black' }}>Life cost total {series[2].toFixed(2)} ({((series[2] / total) * 100).toFixed(2)}%)</Text>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: 10, height: 10, backgroundColor: sliceColor[3], marginRight: 5 }} />
+        <Text style={{ color: 'black' }}>Extras total {series[3].toFixed(2)} ({((series[3] / total) * 100).toFixed(2)}%)</Text>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ width: 10, height: 10, backgroundColor: sliceColor[4], marginRight: 5 }} />
+        <Text style={{ color: 'black' }}>Compulsions total {series[4].toFixed(2)} ({((series[4] / total) * 100).toFixed(2)}%)</Text>
+      </View>
     </View>
   )
 }
@@ -27,17 +50,20 @@ const SalaryUsage = ({ series, sliceColor }: Props): JSX.Element => {
 const SalaryUsageWrapper = (): JSX.Element => {
   const [detailsLoaded, setDetailsLoaded] = useState(false)
   const [series, setSeries] = useState<number[]>([])
-  // const series = [123, 321, 123, 789, 537]
   const sliceColor = ['#fbd203', '#ffb300', '#ff9100', '#ff6c00', '#ff3c00']
 
   useEffect(() => {
     void (async () => {
-      const salaryDetails: SalaryUsageDetails = await getSalaryDetails()
+      const salaryDetails: SalaryUsageDetails | null = await getSalaryDetails()
 
       if (salaryDetails == null) {
         return
       }
-      setSeries([salaryDetails.lifeCostTotal, salaryDetails.extrasTotal, salaryDetails.compulsionsTotal])
+      setSeries([salaryDetails.salaryRest,
+        salaryDetails.mealVouncherRest,
+        salaryDetails.lifeCostTotal,
+        salaryDetails.extrasTotal,
+        salaryDetails.compulsionsTotal])
       setDetailsLoaded(true)
     })()
   }, [])

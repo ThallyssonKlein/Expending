@@ -25,7 +25,7 @@ function App (): JSX.Element {
     if (response == null && counter < 2) {
       setDialogVisible(true)
     } else {
-      await new Promise(resolve => setTimeout(resolve, 3000))
+      await new Promise(resolve => setTimeout(resolve, 10000))
       await getCurrentSalary(counter + 1)
     }
   }
@@ -57,8 +57,6 @@ function App (): JSX.Element {
 
   return (
     <GestureHandlerRootView style={styles.gestureHandler}>
-      <View style={{ flex: 1 }}>
-      </View>
       <View style={{ margin: 20, flex: 10 }}>
             {dialogVisible &&
                   <Dialog.Container visible={dialogVisible}>
