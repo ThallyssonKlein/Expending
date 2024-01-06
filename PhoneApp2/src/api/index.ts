@@ -1,5 +1,6 @@
 import { create } from 'apisauce'
 import { type IConfig, type IConfigFromApi } from '../model/IConfig'
+import retry from 'async-retry'
 
 const api = create({
   baseURL: 'https://my-expending-project.rj.r.appspot.com',
@@ -8,13 +9,40 @@ const api = create({
 
 export async function getOptions (selectedMode: string): Promise<IConfig[]> {
   let response
+  try {
+    if (selectedMode === 'compulsions') {
+      response = await retry(async () => {
+        const r = await api.get<IConfigFromApi[]>('/compulsions_options')
 
-  if (selectedMode === 'compulsions') {
-    response = await api.get<IConfigFromApi[]>('/compulsions_options')
-  } else if (selectedMode === 'lifecost') {
-    response = await api.get<IConfigFromApi[]>('/lifecost_options')
-  } else {
-    response = await api.get<IConfigFromApi[]>('/additional_expenses_options')
+        if (r.status !== 200) {
+          throw new Error('Error fetching compulsions options')
+        } else {
+          return r
+        }
+      }, { retries: 3 })
+    } else if (selectedMode === 'lifecost') {
+      response = await retry(async () => {
+        const r = await api.get<IConfigFromApi[]>('/lifecost_options')
+
+        if (r.status !== 200) {
+          throw new Error('Error fetching lifecost options')
+        } else {
+          return r
+        }
+      }, { retries: 3 })
+    } else {
+      response = await retry(async () => {
+        const r = await api.get<IConfigFromApi[]>('/additional_expenses_options')
+
+        if (r.status !== 200) {
+          throw new Error('Error fetching additional expenses options')
+        } else {
+          return r
+        }
+      }, { retries: 3 })
+    }
+  } catch (err) {
+    return []
   }
 
   if (response?.data != null && response.status === 200) {
@@ -72,13 +100,17 @@ export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
 
 export async function getCurrentSalary (): Promise<Page | null> {
   try {
-    const response = await api.get('/current_salary')
+    const response = await retry(async () => {
+      const r = await api.get('/current_salary')
 
-    if (response.status === 200) {
-      return response.data as Page
-    }
+      if (response.status !== 200) {
+        throw new Error('Error fetching current salary')
+      } else {
+        return r
+      }
+    }, { retries: 3 })
 
-    return null
+    return response?.data as Page
   } catch (err) {
     return null
   }

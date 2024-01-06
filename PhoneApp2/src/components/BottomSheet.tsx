@@ -10,7 +10,7 @@ import Animated from 'react-native-reanimated'
 import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns'
 import * as Sentry from '@sentry/react-native'
-import { type Transaction } from '@sentry/types'
+// import { type Transaction } from '@sentry/types'
 
 // TODO - Is this component being used?
 const CustomBackground = (props: any): JSX.Element => {
@@ -82,33 +82,27 @@ export default function BottomSheetComponent (): JSX.Element {
     })
   }
 
-  async function getOptions (counter = 0, transactionFromPastFunction: Transaction | null = null): Promise<IConfig[]> {
-    const transaction = transactionFromPastFunction ?? Sentry.startTransaction({ name: 'app-get-options' })
-    transaction.setData('counter', counter)
-
-    if (counter > 1) {
-      Alert.alert('Erro ao buscar opções para o select')
-      transaction.finish()
-      return []
-    }
+  async function getOptions (): Promise<IConfig[]> {
+    const transaction = Sentry.startTransaction({ name: 'app-get-options' })
 
     const response = await getOptionsApi(selectedMode)
 
-    if (response.length > 0) {
-      transaction.setData(`response-${counter}`, response)
-
+    if (response.length === 0) {
+      Alert.alert('Erro ao buscar opções para o select')
+      transaction.finish()
+      return []
+    } else {
+      // transaction.setData(`response-${counter}`, response)
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
 
       if (defaultOption !== undefined) {
         transaction.finish()
         return response
       } else {
-        await new Promise(resolve => setTimeout(resolve, 3000))
-        return await getOptions(counter + 1, transaction)
+        Alert.alert('Erro ao buscar opções para o select')
+        transaction.finish()
+        return []
       }
-    } else {
-      await new Promise(resolve => setTimeout(resolve, 3000))
-      return await getOptions(counter + 1, transaction)
     }
   }
 

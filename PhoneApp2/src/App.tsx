@@ -19,14 +19,11 @@ function App (): JSX.Element {
   const [salary, setSalary] = useState('')
   const [vouncher, setVouncher] = useState('')
 
-  async function getCurrentSalary (counter: number = 0): Promise<void> {
+  async function getCurrentSalary (): Promise<void> {
     const response = await getCurrentSalaryFromApi()
 
-    if (response == null && counter < 2) {
+    if (response == null) {
       setDialogVisible(true)
-    } else {
-      await new Promise(resolve => setTimeout(resolve, 10000))
-      await getCurrentSalary(counter + 1)
     }
   }
 
