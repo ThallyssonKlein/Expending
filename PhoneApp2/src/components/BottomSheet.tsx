@@ -24,7 +24,7 @@ const CustomBackground = (props: any): JSX.Element => {
 
 export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
-  const snapPoints = ['45%', '70%']
+  const [snapPoints, setSnapPoints] = useState(['45%', '70%'])
   const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false)
 
   const [selectedMode, setSelectedMode] = useState('compulsions')
@@ -66,6 +66,12 @@ export default function BottomSheetComponent (): JSX.Element {
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
       setOptions(response)
       setSelectedOption(defaultOption)
+      console.log('selectedMode', selectedMode)
+      if (selectedMode === 'additional_expenses') {
+        setSnapPoints(['55%', '80%'])
+      } else {
+        setSnapPoints(['45%', '70%'])
+      }
     })()
   }, [selectedMode])
 
