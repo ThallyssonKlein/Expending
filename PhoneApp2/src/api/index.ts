@@ -14,32 +14,35 @@ export async function getOptions (selectedMode: string): Promise<IConfig[]> {
       response = await retry(async () => {
         const r = await api.get<IConfigFromApi[]>('/compulsions_options')
 
+        console.log('doing retry')
         if (r.status !== 200) {
           throw new Error('Error fetching compulsions options')
         } else {
           return r
         }
-      }, { retries: 3 })
+      }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
     } else if (selectedMode === 'lifecost') {
       response = await retry(async () => {
         const r = await api.get<IConfigFromApi[]>('/lifecost_options')
 
+        console.log('doing retry')
         if (r.status !== 200) {
           throw new Error('Error fetching lifecost options')
         } else {
           return r
         }
-      }, { retries: 3 })
+      }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
     } else {
       response = await retry(async () => {
         const r = await api.get<IConfigFromApi[]>('/additional_expenses_options')
 
+        console.log('doing retry')
         if (r.status !== 200) {
           throw new Error('Error fetching additional expenses options')
         } else {
           return r
         }
-      }, { retries: 3 })
+      }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
     }
   } catch (err) {
     return []
@@ -86,13 +89,18 @@ interface Page {
 
 export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
   try {
-    const response = await api.get('/current_salary_details')
+    const response = await retry(async () => {
+      console.log('doing retry')
+      const r = await api.get('/current_salary_details')
 
-    if (response.status === 200) {
-      return response.data as SalaryUsageDetails
-    }
+      if (r.status !== 200) {
+        throw new Error('Error fetching current salary')
+      } else {
+        return r.data as SalaryUsageDetails
+      }
+    }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
 
-    return null
+    return response
   } catch (err) {
     return null
   }
@@ -101,16 +109,17 @@ export async function getSalaryDetails (): Promise<SalaryUsageDetails | null> {
 export async function getCurrentSalary (): Promise<Page | null> {
   try {
     const response = await retry(async () => {
+      console.log('doing retry')
       const r = await api.get('/current_salary')
 
-      if (response.status !== 200) {
+      if (r.status !== 200) {
         throw new Error('Error fetching current salary')
       } else {
-        return r
+        return r?.data as Page
       }
-    }, { retries: 3 })
+    }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
 
-    return response?.data as Page
+    return response
   } catch (err) {
     return null
   }
