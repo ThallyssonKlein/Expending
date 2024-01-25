@@ -56,9 +56,16 @@ const SalaryUsageWrapper = (): JSX.Element => {
     void (async () => {
       const salaryDetails: SalaryUsageDetails | null = await getSalaryDetails()
 
-      if (salaryDetails == null) {
+      console.log(salaryDetails)
+
+      if (salaryDetails == null || salaryDetails.compulsionsTotal < 0 ||
+                  salaryDetails.extrasTotal < 0 ||
+                  salaryDetails.lifeCostTotal < 0 ||
+                  salaryDetails.mealVouncherRest < 0 || salaryDetails.salaryRest < 0) {
+        console.log('Deu o return')
         return
       }
+
       setSeries([salaryDetails.salaryRest,
         salaryDetails.mealVouncherRest,
         salaryDetails.lifeCostTotal,
