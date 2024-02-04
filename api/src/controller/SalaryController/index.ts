@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
 import { Request, Response } from "express";
 
-import { salariesDatabaseId, loadLifeCostConfigsFromNotion, IConfig } from "../../config";
+import { salariesDatabaseId, IConfig, loadConfigsFromNotion } from "../../config";
 
 import SalaryRepository from "../../repository/SalaryRepository";
 import RecordsRepository, { IRecord } from "../../repository/RecordsRepository";
@@ -262,9 +262,10 @@ export default class EnterSalaryController {
 
   async getCurrentSalaryDetails(req: Request, res: Response) {
     try {
-      const configs: IConfig[] = await loadLifeCostConfigsFromNotion();
+      const allConfigs: IConfig[] = await loadConfigsFromNotion();
+      const lifeCostConfigs = allConfigs.filter((config) => config.Category === "2 - Life Cost");
 
-      const lifeCostTotal = configs.reduce(
+      const lifeCostTotal = lifeCostConfigs.reduce(
         (total, config) => total + config.Total,
         0
       );
@@ -291,7 +292,7 @@ export default class EnterSalaryController {
       );
 
       //find all extras
-      const extrasRecords = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId);
+      const extrasRecords: IRecord[] = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId);
 
       // calculate the total of extras
       const extrasTotal = extrasRecords.reduce(
@@ -301,8 +302,27 @@ export default class EnterSalaryController {
 
       console.log(currentSalary)
 
+      // filter the extras subcategory that can use mealsCard
+      const extrasMealsCard = extrasRecords.filter((record) => {
+        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+
+        return config?.CanUseMealsCard
+      });
+
+      const extrasMealsCardTotal = extrasMealsCard.reduce((total, record) => total + record.Valor, 0);
+
+      // filter compulsions that can use mealsCard
+
+      const compulsionsMealsCard = compulsionRecords.filter((record) => {
+        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+
+        return config?.CanUseMealsCard
+      })
+
+      const compulsionsMealsCardTotal = compulsionsMealsCard.reduce((total, record) => total + record.Valor, 0);
+
       // find all configs that can use mealsVouncher
-      const mealVouncherConfigs = configs.filter(
+      const mealVouncherConfigs = lifeCostConfigs.filter(
         (config) => config.CanUseMealsCard
       );
       // sum the total of only this configs
@@ -311,10 +331,29 @@ export default class EnterSalaryController {
         0
       );
 
-      const mealVouncherRest = currentSalary["Quanto pode chegar Refeicao"].number - (canUseMealCardTotal + compulsionsTotal)
+      const mealVouncherRest = currentSalary["Quanto pode chegar Refeicao"].number - (canUseMealCardTotal + extrasMealsCardTotal + compulsionsMealsCardTotal)
+
+      // filter extras that cant use mealsCard
+      const extrasNoMealCard = extrasRecords.filter((record) => {
+        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+
+        return !config?.CanUseMealsCard
+      });
+
+      const extrasNoMealCardTotal = extrasNoMealCard.reduce((total, record) => total + record.Valor, 0);
+
+      // filter compulsions that cant use mealsCard
+
+      const compulsionsNoMealCard = compulsionRecords.filter((record) => {
+        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+
+        return !config?.CanUseMealsCard
+      })
+
+      const compulsionsNoMealCardTotal = compulsionsNoMealCard.reduce((total, record) => total + record.Valor, 0);
 
       // findAllConfigs that can't use mealsVouncher
-      const noMealVouncherConfigs = configs.filter(
+      const noMealVouncherConfigs = lifeCostConfigs.filter(
         (config) => !config.CanUseMealsCard
       );
       // sum the total of only this configs
@@ -323,7 +362,7 @@ export default class EnterSalaryController {
         0
       );
 
-      const salaryRest = currentSalary["Quanto pode chegar"].number - (noMealVouncherTotal + extrasTotal)
+      const salaryRest = currentSalary["Quanto pode chegar"].number - (noMealVouncherTotal + compulsionsNoMealCardTotal + extrasNoMealCardTotal)
 
       res.status(200).json({
         lifeCostTotal,

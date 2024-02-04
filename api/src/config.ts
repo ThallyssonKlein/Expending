@@ -91,17 +91,3 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
 
   return configMap(response);
 }
-
-export async function loadLifeCostConfigsFromNotion(): Promise<IConfig[]> {
-  const response = await notion.databases.query({
-    database_id: configssDatabaseId,
-    filter: {
-      property: "Category",
-      select: {
-        equals: "2 - Life Cost",
-      },
-    },
-  });
-
-  return configMap(response);
-}
