@@ -18,11 +18,12 @@ export interface IConfig {
   DefaultValue: number;
   DefaultName: string | null;
   Total: number;
+  Archived: boolean;
 }
 
 function configMap(response: { results: any[]; }) {
   return response.results.map((page: any) => {
-    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName, Total } = {
+    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName, Total, Archived } = {
       CanUseMealsCard: null,
       Name: null,
       NameInApp: null,
@@ -31,7 +32,8 @@ function configMap(response: { results: any[]; }) {
       CustomName: null,
       DefaultValue: null,
       DefaultName: null,
-      Total: null
+      Total: null,
+      Archived: null
     };
 
     if (page.properties.CanUseMealsCard.checkbox !== null) {
@@ -68,6 +70,8 @@ function configMap(response: { results: any[]; }) {
       Total = page.properties.Total.formula.number;
     }
 
+    Archived = page.properties.Archived.checkbox;
+
     return {
       CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
@@ -78,6 +82,7 @@ function configMap(response: { results: any[]; }) {
       DefaultValue: DefaultValue || 0,
       DefaultName: DefaultName || "",
       Total: Total || 0,
+      Archived: Archived || false,
     } as IConfig;
   });
 
@@ -86,6 +91,12 @@ function configMap(response: { results: any[]; }) {
 export async function loadConfigsFromNotion(): Promise<IConfig[]> {
   const response = await notion.databases.query({
     database_id: configssDatabaseId,
+    filter: {
+      property: "Archived",
+      checkbox: {
+        equals: false,
+      },
+    },  
   });
 
 
