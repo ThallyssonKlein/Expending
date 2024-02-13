@@ -49,20 +49,27 @@ const SalaryUsage = ({ series, sliceColor }: Props): JSX.Element => {
 
 const SalaryUsageWrapper = (): JSX.Element => {
   const [detailsLoaded, setDetailsLoaded] = useState(false)
+  const [showAmountsOnly, setShowAmountsOnly] = useState(false)
   const [series, setSeries] = useState<number[]>([])
   const sliceColor = ['#fbd203', '#ffb300', '#ff9100', '#ff6c00', '#ff3c00']
+  const [salaryDetails, setSalaryDetails] = useState<SalaryUsageDetails>()
 
   useEffect(() => {
     void (async () => {
       const salaryDetails: SalaryUsageDetails | null = await getSalaryDetails()
 
-      console.log(salaryDetails)
+      if (salaryDetails === null) {
+        console.log('Deu o return')
+        return
+      }
 
-      if (salaryDetails == null || salaryDetails.compulsionsTotal < 0 ||
+      if (salaryDetails.compulsionsTotal < 0 ||
                   salaryDetails.extrasTotal < 0 ||
                   salaryDetails.lifeCostTotal < 0 ||
                   salaryDetails.mealVouncherRest < 0 || salaryDetails.salaryRest < 0) {
         console.log('Deu o return')
+        setShowAmountsOnly(true)
+        setSalaryDetails(salaryDetails)
         return
       }
 
@@ -75,8 +82,17 @@ const SalaryUsageWrapper = (): JSX.Element => {
     })()
   }, [])
 
+  if (showAmountsOnly) {
+    return <View>
+          <Text style={{ color: 'black' }}>Salary Rest: { salaryDetails?.salaryRest.toFixed(2) }</Text>
+          <Text style={{ color: 'black' }}>Meal Vouncher Rest: { salaryDetails?.mealVouncherRest.toFixed(2) }</Text>
+      </View>
+  }
+
   if (!detailsLoaded) {
-    return <Text>Loading...</Text>
+    return <View>
+      <Text>Loading...</Text>
+    </View>
   } else {
     return <SalaryUsage series={series} sliceColor={sliceColor} />
   }
