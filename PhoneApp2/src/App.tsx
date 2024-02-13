@@ -3,16 +3,16 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import BottomSheet from './components/BottomSheet'
 import React, { useEffect, useState } from 'react'
 import SalaryUsage from './components/salary_usage'
-import * as Sentry from '@sentry/react-native'
+// import * as Sentry from '@sentry/react-native'
 import { getCurrentSalary as getCurrentSalaryFromApi, createSalary } from './api'
 import Dialog from 'react-native-dialog'
 
-Sentry.init({
-  dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
-  // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-  // We recommend adjusting this value in production.
-  tracesSampleRate: 1.0
-})
+// Sentry.init({
+//   dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
+//   // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+//   // We recommend adjusting this value in production.
+//   tracesSampleRate: 1.0
+// })
 
 function App (): JSX.Element {
   const [dialogVisible, setDialogVisible] = useState(false)
@@ -97,4 +97,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Sentry.wrap(App)
+export default App
+// export default Sentry.wrap(App)

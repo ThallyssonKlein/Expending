@@ -9,7 +9,7 @@ import Input from './Input'
 import Animated from 'react-native-reanimated'
 import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns'
-import * as Sentry from '@sentry/react-native'
+// import * as Sentry from '@sentry/react-native'
 // import { type Transaction } from '@sentry/types'
 
 // TODO - Is this component being used?
@@ -89,24 +89,24 @@ export default function BottomSheetComponent (): JSX.Element {
   }
 
   async function getOptions (): Promise<IConfig[]> {
-    const transaction = Sentry.startTransaction({ name: 'app-get-options' })
+    // const transaction = Sentry.startTransaction({ name: 'app-get-options' })
 
     const response = await getOptionsApi(selectedMode)
 
     if (response.length === 0) {
       Alert.alert('Erro ao buscar opções para o select')
-      transaction.finish()
+      // transaction.finish()
       return []
     } else {
       // transaction.setData(`response-${counter}`, response)
       const defaultOption = findDefaultOptionForEachMode(response, selectedMode)
 
       if (defaultOption !== undefined) {
-        transaction.finish()
+        // transaction.finish()
         return response
       } else {
         Alert.alert('Erro ao buscar opções para o select')
-        transaction.finish()
+        // transaction.finish()
         return []
       }
     }
