@@ -109,7 +109,7 @@ export default class RecordsRepository {
     }
   }
 
-  async createRecord(configWithValues: IConfigPlusValues, salaryId: string) {
+  async createRecord(configWithValues: IConfigPlusValues, salaryId: string, token: string) {
     let properties = {};
 
     properties = {
@@ -139,7 +139,7 @@ export default class RecordsRepository {
 
     await notion.pages.create({
       parent: {
-        database_id: recordsDatabaseId,
+        database_id: recordsDatabaseId(token),
       },
       properties,
     });
@@ -170,10 +170,11 @@ export default class RecordsRepository {
   }
 
   async findCompulsionRecordsForAGivenSalaryId(
-    salaryId: string
+    salaryId: string,
+    token: string
   ): Promise<IRecord[]> {
     const response = await notion.databases.query({
-      database_id: recordsDatabaseId,
+      database_id: recordsDatabaseId(token),
       filter: {
         and: [
           {
@@ -196,10 +197,11 @@ export default class RecordsRepository {
   }
 
   async findExtraRecordsForAGivenSalaryId(
-    salaryId: string
+    salaryId: string,
+    token: string
   ): Promise<IRecord[]> {
     const response = await notion.databases.query({
-      database_id: recordsDatabaseId,
+      database_id: recordsDatabaseId(token),
       filter: {
         and: [
           {

@@ -1,7 +1,26 @@
-export const salariesDatabaseId = "5ffb177a9e57475cbe14f50664dd9387";
-export const recordsDatabaseId = "33ddadec57b6485faae5a88d6b770141";
+export function salariesDatabaseId(token: string) {
+  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
+    return "5ffb177a9e57475cbe14f50664dd9387"
+  } else {
+    return "";
+  }
+}
 
-const configssDatabaseId = "8bec8602848a4a6dbf5432fed52fd1f6";
+export function recordsDatabaseId(token: string) {
+  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
+    return "33ddadec57b6485faae5a88d6b770141"
+  } else {
+    return "";
+  }
+}
+
+function configssDatabaseId(token: string) {
+  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
+    return "8bec8602848a4a6dbf5432fed52fd1f6"
+  } else {
+    return ""
+  }
+}
 
 export default {
   access_token: "secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG",
@@ -88,9 +107,15 @@ function configMap(response: { results: any[]; }) {
 
 }
 // TODO - Improve this validations
-export async function loadConfigsFromNotion(): Promise<IConfig[]> {
+export async function loadConfigsFromNotion(token: string): Promise<IConfig[]> {
+  let database_id
+  try {
+    database_id = configssDatabaseId(token)
+  } catch (err) {
+    throw err
+  }
   const response = await notion.databases.query({
-    database_id: configssDatabaseId,
+    database_id,
     filter: {
       property: "Archived",
       checkbox: {

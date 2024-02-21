@@ -134,4 +134,9 @@ export async function createSalary (salary: number, vouncher: number): Promise<v
   }
 }
 
+export async function validateToken(token: string): Promise<boolean> {
+  const response = await api.get('/validate_token/' + token)
+  return Boolean(response.data)
+}
+
 export default api

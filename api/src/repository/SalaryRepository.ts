@@ -3,9 +3,9 @@ import { salariesDatabaseId } from '../config'
 import { SalaryFromNotionApi } from '../controller/SalaryController'
 
 export default class SalaryRepository {
-    async findCurrentMonthSalaryItem(): Promise<SalaryFromNotionApi> {
+    async findCurrentMonthSalaryItem(token: string): Promise<SalaryFromNotionApi> {
         const response = await notion.databases.query({
-            database_id: salariesDatabaseId,
+            database_id: salariesDatabaseId(token),
             filter: {
                 property: 'This Month',
                 formula: {
@@ -26,7 +26,7 @@ export default class SalaryRepository {
         }
     }
 
-    async findPastMonthSalaryItem(): Promise<SalaryFromNotionApi | null> {
+    async findPastMonthSalaryItem(token: string): Promise<SalaryFromNotionApi | null> {
         // get the first and last day of the last month
         let date = new Date();
         let firstDay = new Date(date.getFullYear(), date.getMonth() - 1, 1);
@@ -34,7 +34,7 @@ export default class SalaryRepository {
         let dateString = firstDay.toISOString().split('T')[0];
 
         const response = await notion.databases.query({
-            database_id: salariesDatabaseId,
+            database_id: salariesDatabaseId(token),
             filter: {
                 property: 'Date',
                 date: {
@@ -53,9 +53,9 @@ export default class SalaryRepository {
         }
     }
 
-    async findAllSalaries() {
+    async findAllSalaries(token: string) {
         const response = await notion.databases.query({
-            database_id: salariesDatabaseId,
+            database_id: salariesDatabaseId(token),
         })
 
         return response.results

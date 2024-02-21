@@ -19,6 +19,19 @@ Sentry.init({
 });
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const authHeader = (req.headers as any)['token'];
+  const token = typeof authHeader === 'string' ? authHeader.split(' ')[1] : undefined;
+
+  if (!token) return res.sendStatus(403);
+
+  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95" || token === "613b2edf-540c-4eff-a16b-176eac548050") {
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+});
+
 import SalaryController from "./controller/SalaryController";
 import RecordsController from "./controller/RecordsController";
 import { IConfig, loadConfigsFromNotion } from "./config";
@@ -71,8 +84,15 @@ import { IConfig, loadConfigsFromNotion } from "./config";
     salaryController.getCurrentSalary(req, res);
   });
 
-  app.get('/current_salary_details', async (req: any, res: any) => {
+  app.get("/current_salary_details", async (req: any, res: any) => {
     salaryController.getCurrentSalaryDetails(req, res);
+  });
+
+  app.get("/validate_token/:token", (req: any, res: any) => {
+    res.send(
+      (req.params.token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
+        req.params.token === "613b2edf-540c-4eff-a16b-176eac548050") + ""
+    );
   });
 })();
 

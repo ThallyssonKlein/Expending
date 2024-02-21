@@ -17,7 +17,21 @@ export default class RecordsController {
   private salaryRepository: SalaryRepository = new SalaryRepository();
   private recordsRepository: RecordsRepository = new RecordsRepository();
 
+  private getToken(req: Request) {
+    const authHeader = (req.headers as any)['token'];
+    return typeof authHeader === 'string' ? authHeader.split(' ')[1] : undefined;
+  }
+
   async createRecord(req: any, res: any) {
+    const token = this.getToken(req)
+
+    if (!token) {
+      res.status(403).json({
+        error: "Invalid token!",
+      });
+      return;
+    }
+
     const transaction = Sentry.startTransaction({
       name: "create-record-transaction",
     });
@@ -36,14 +50,14 @@ export default class RecordsController {
     }
 
     //find currentSalary of this month or return 400
-    const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem();
+    const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem(token);
     if (!currentSalary || !currentSalary.id) {
       res.status(400).send();
       return;
     }
 
     try {
-        this.recordsRepository.createRecord(configWithValues, currentSalary.id)
+        this.recordsRepository.createRecord(configWithValues, currentSalary.id, token)
     } catch (err) {
         res.status(400).json({
             error: (err as Error).message,

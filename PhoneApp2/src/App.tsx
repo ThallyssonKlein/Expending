@@ -4,8 +4,9 @@ import BottomSheet from './components/BottomSheet'
 import React, { useEffect, useState } from 'react'
 import SalaryUsage from './components/salary_usage'
 // import * as Sentry from '@sentry/react-native'
-import { getCurrentSalary as getCurrentSalaryFromApi, createSalary } from './api'
+import api, { getCurrentSalary as getCurrentSalaryFromApi, createSalary, validateToken} from './api'
 import Dialog from 'react-native-dialog'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Sentry.init({
 //   dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
@@ -15,20 +16,49 @@ import Dialog from 'react-native-dialog'
 // })
 
 function App (): JSX.Element {
-  const [dialogVisible, setDialogVisible] = useState(false)
+  const [salaryDialogVisible, setSalaryDialogVisible] = useState(false)
+  const [tokenDialogVisible, setTokenDialogVisible] = useState(false)
   const [salary, setSalary] = useState('')
+  const [token, setToken] = useState('')
   const [vouncher, setVouncher] = useState('')
+
+  async function getToken(): Promise<string | null> {
+    try {
+      const value = await AsyncStorage.getItem('@PhoneApp/token')
+      return value
+    } catch (e) {
+      // error reading value
+      console.error(e)
+      return null
+    }
+  }
 
   async function getCurrentSalary (): Promise<void> {
     const response = await getCurrentSalaryFromApi()
 
     if (response == null) {
-      setDialogVisible(true)
+      setSalaryDialogVisible(true)
     }
   }
 
   useEffect(() => {
-    void getCurrentSalary()
+    void (async () => {
+      const token = await getToken()
+
+      if (!token) {
+        setTokenDialogVisible(true)
+        return
+      }
+
+      const isTokenValid = await validateToken(token)
+
+      if (isTokenValid) {
+        api.setHeader('token', token)
+        await getCurrentSalary()
+      } else {
+        setTokenDialogVisible(true)
+      }
+    })()
   }, [])
 
   function handleEnterSalary (): void {
@@ -49,18 +79,45 @@ function App (): JSX.Element {
     // call the api to createSalary
 
     void createSalary(salaryNumber, vouncherNumber)
-    setDialogVisible(false)
+    setSalaryDialogVisible(false)
+  }
+
+  async function handleSetToken (): Promise<void> {
+    if (token.length === 0) {
+      Alert.alert('Error', 'Please enter your token')
+      return
+    }
+
+    const isTokenValid = await validateToken(token)
+
+    if (isTokenValid) {
+      void AsyncStorage.setItem('@PhoneApp/token', token)
+      api.setHeader('token', token)
+      setTokenDialogVisible(false)
+      void getCurrentSalary()
+    } else {
+      Alert.alert('Error', 'Invalid token')
+      return
+    }
   }
 
   return (
     <GestureHandlerRootView style={styles.gestureHandler}>
       <View style={{ margin: 20, flex: 10 }}>
-            {dialogVisible &&
-                  <Dialog.Container visible={dialogVisible}>
+            {salaryDialogVisible &&
+                  <Dialog.Container visible={salaryDialogVisible}>
                       <Dialog.Title>Enter your salary and vouncher</Dialog.Title>
                       <Dialog.Input label="Salary" onChangeText={(salary: string) => { setSalary(salary) }} />
                       <Dialog.Input label="Meal Vouncher" onChangeText={(vouncher: string) => { setVouncher(vouncher) }}/>
                       <Dialog.Button label="OK" onPress={handleEnterSalary} />
+                  </Dialog.Container>
+            }
+            {
+              tokenDialogVisible &&
+                <Dialog.Container visible={tokenDialogVisible}>
+                      <Dialog.Title>Enter your token</Dialog.Title>
+                      <Dialog.Input label="Token" onChangeText={(token: string) => { setToken(token) }} />
+                      <Dialog.Button label="OK" onPress={handleSetToken} />
                   </Dialog.Container>
             }
             <SalaryUsage />

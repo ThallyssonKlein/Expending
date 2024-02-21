@@ -23,3 +23,6 @@ POST http://0.0.0.0:8080/refresh_config
 
 ###
 GET https://my-expending-project.rj.r.appspot.com/ping
+
+###
+GET http://0.0.0.0:8080/validate_token/584be57d-1729-46c1-8850-166fdf7c0c95

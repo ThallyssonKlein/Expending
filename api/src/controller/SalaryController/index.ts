@@ -61,6 +61,7 @@ export default class EnterSalaryController {
     mealVouncherAverage: number,
     transaction: any,
     pastMonth: boolean = false,
+    token: string,
     salary?: number,
     mealVouncher?: number,
     update: boolean = false,
@@ -124,7 +125,7 @@ export default class EnterSalaryController {
       } else {
         salaryCreationResponse = await notion.pages.create({
           parent: {
-            database_id: salariesDatabaseId,
+            database_id: salariesDatabaseId(token),
           },
           properties: { ...properties2 },
         });
@@ -147,9 +148,23 @@ export default class EnterSalaryController {
     }
   }
 
+  private getToken(req: Request) {
+    const authHeader = (req.headers as any)['token'];
+    return typeof authHeader === 'string' ? authHeader.split(' ')[1] : undefined;
+  }
+
   // new enter salary
   async createSalary(req: Request, res: Response) {
     try {
+      const token = this.getToken(req)
+
+      if (!token) {
+        res.status(403).json({
+          error: "Invalid token!",
+        });
+        return;
+      }
+
       const transaction = Sentry.startTransaction({
         name: "enter-salary-transaction",
       });
@@ -174,7 +189,7 @@ export default class EnterSalaryController {
       }
   
       // find all salaries and get the average of the field "Chegou":
-      let salaries = await this.salaryRepository.findAllSalaries();
+      let salaries = await this.salaryRepository.findAllSalaries(token);
       // remove the itens with "Chegou" or "Chegou Refeicao" equals to "0" to not affect the average
       salaries = salaries.filter((salary: { properties: PastMonthSalaryFromNotionApi; }) => {
         return (
@@ -207,13 +222,14 @@ export default class EnterSalaryController {
   
       // createSalaryPastMonth
       // verify if salary of past month exists
-      const pastMonthSalary = await this.salaryRepository.findPastMonthSalaryItem();
+      const pastMonthSalary = await this.salaryRepository.findPastMonthSalaryItem(token);
       if (pastMonthSalary && pastMonthSalary.id) {
         this.createSalaryItem(
           average,
           mealVouncherAverage,
           transaction,
           true,
+          token,
           salary,
           mealVouncher,
           true,
@@ -224,7 +240,7 @@ export default class EnterSalaryController {
       }
   
       // createSalary currentMonth
-      this.createSalaryItem(average, mealVouncherAverage, transaction, false);
+      this.createSalaryItem(average, mealVouncherAverage, transaction, false, token);
   
       transaction.finish();
       res.status(200).send();
@@ -237,12 +253,21 @@ export default class EnterSalaryController {
   }
 
   async getCurrentSalary(req: Request, res: Response): Promise<SalaryFromNotionApi | undefined> {
+    const token = this.getToken(req)
+
+    if (!token) {
+      res.status(403).json({
+        error: "Invalid token!",
+      });
+      return;
+    }
+
     const transaction = Sentry.startTransaction({
       name: "get-current-salary-transaction",
     });
 
     try {
-      const salary = await this.salaryRepository.findCurrentMonthSalaryItem();
+      const salary = await this.salaryRepository.findCurrentMonthSalaryItem(token);
 
       if (!salary) {
         res.status(404).json({
@@ -262,7 +287,16 @@ export default class EnterSalaryController {
 
   async getCurrentSalaryDetails(req: Request, res: Response) {
     try {
-      const allConfigs: IConfig[] = await loadConfigsFromNotion();
+      const token = this.getToken(req)
+
+      if (!token) {
+        res.status(403).json({
+          error: "Invalid token!",
+        });
+        return;
+      }
+
+      const allConfigs: IConfig[] = await loadConfigsFromNotion(token);
       const lifeCostConfigs = allConfigs.filter((config) => config.Category === "2 - Life Cost");
 
       const lifeCostTotal = lifeCostConfigs.reduce(
@@ -271,7 +305,7 @@ export default class EnterSalaryController {
       );
 
       // find the currentSalary of this month and get its id
-      const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem();
+      const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem(token);
       const currentSalaryId = currentSalary?.id;
     
       // if not current salary, return 404
@@ -283,7 +317,7 @@ export default class EnterSalaryController {
       }
 
       // find all records of this month
-      const compulsionRecords = await this.recordsRepository.findCompulsionRecordsForAGivenSalaryId(currentSalaryId);
+      const compulsionRecords = await this.recordsRepository.findCompulsionRecordsForAGivenSalaryId(currentSalaryId, token);
 
       // calculate the total of compulsions
       const compulsionsTotal = compulsionRecords.reduce(
@@ -292,7 +326,7 @@ export default class EnterSalaryController {
       );
 
       //find all extras
-      const extrasRecords: IRecord[] = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId);
+      const extrasRecords: IRecord[] = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId, token);
 
       // calculate the total of extras
       const extrasTotal = extrasRecords.reduce(
