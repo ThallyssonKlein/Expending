@@ -135,8 +135,23 @@ export async function createSalary (salary: number, vouncher: number): Promise<v
 }
 
 export async function validateToken(token: string): Promise<boolean> {
-  const response = await api.get('/validate_token/' + token)
-  return Boolean(response.data)
+
+  try {
+    const response = await retry(async () => {
+      console.log('doing retry')
+      const r = await api.get('/validate_token/' + token)
+
+      if (r.status !== 200) {
+        throw new Error('Error fetching current salary')
+      } else {
+        return Boolean(r?.data)
+      }
+    }, { retries: 3, minTimeout: 20000, maxTimeout: 20000 })
+
+    return response
+  } catch (err) {
+    return false
+  }
 }
 
 export default api

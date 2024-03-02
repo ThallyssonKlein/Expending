@@ -1,12 +1,11 @@
-import { View, StyleSheet, Alert } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import BottomSheet from './components/BottomSheet'
-import React, { useEffect, useState } from 'react'
-import SalaryUsage from './components/salary_usage'
+import React from 'react'
 // import * as Sentry from '@sentry/react-native'
-import api, { getCurrentSalary as getCurrentSalaryFromApi, createSalary, validateToken} from './api'
-import Dialog from 'react-native-dialog'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigationContainer } from '@react-navigation/native';
+
+import Home from './screens/Home';
+import Loading from './screens/Loading';
+import AskToken from './screens/AskToken';
+import EnterSalary from './screens/EnterSalary';
 
 // Sentry.init({
 //   dsn: 'https://9511c52db9eb90e0c8ca6797e6c84c92@o4505779172737024.ingest.sentry.io/4506039201103872',
@@ -15,144 +14,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 //   tracesSampleRate: 1.0
 // })
 
-function App (): JSX.Element {
-  const [salaryDialogVisible, setSalaryDialogVisible] = useState(false)
-  const [tokenDialogVisible, setTokenDialogVisible] = useState(false)
-  const [salary, setSalary] = useState('')
-  const [token, setToken] = useState('')
-  const [vouncher, setVouncher] = useState('')
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-  async function getToken(): Promise<string | null> {
-    try {
-      const value = await AsyncStorage.getItem('@PhoneApp/token')
-      return value
-    } catch (e) {
-      // error reading value
-      console.error(e)
-      return null
-    }
-  }
+const Stack = createNativeStackNavigator();
 
-  async function getCurrentSalary (): Promise<void> {
-    const response = await getCurrentSalaryFromApi()
-
-    if (response == null) {
-      setSalaryDialogVisible(true)
-    }
-  }
-
-  useEffect(() => {
-    void (async () => {
-      const token = await getToken()
-
-      if (!token) {
-        setTokenDialogVisible(true)
-        return
-      }
-
-      const isTokenValid = await validateToken(token)
-
-      if (isTokenValid) {
-        api.setHeader('token', token)
-        await getCurrentSalary()
-      } else {
-        setTokenDialogVisible(true)
-      }
-    })()
-  }, [])
-
-  function handleEnterSalary (): void {
-    // if is empty string or not a number
-    if ((salary.length === 0) || (vouncher.length === 0)) {
-      Alert.alert('Error', 'Please enter your salary and vouncher')
-      return
-    }
-
-    // try to convert salary and vouncher into numbers and alert if it goes wrong
-    const salaryNumber = Number(salary)
-    const vouncherNumber = Number(vouncher)
-    if (isNaN(salaryNumber) || isNaN(vouncherNumber)) {
-      Alert.alert('Error', 'Please enter a valid number')
-      return
-    }
-
-    // call the api to createSalary
-
-    void createSalary(salaryNumber, vouncherNumber)
-    setSalaryDialogVisible(false)
-  }
-
-  async function handleSetToken (): Promise<void> {
-    if (token.length === 0) {
-      Alert.alert('Error', 'Please enter your token')
-      return
-    }
-
-    const isTokenValid = await validateToken(token)
-
-    if (isTokenValid) {
-      void AsyncStorage.setItem('@PhoneApp/token', token)
-      api.setHeader('token', token)
-      setTokenDialogVisible(false)
-      void getCurrentSalary()
-    } else {
-      Alert.alert('Error', 'Invalid token')
-      return
-    }
-  }
-
+function App () {
   return (
-    <GestureHandlerRootView style={styles.gestureHandler}>
-      <View style={{ margin: 20, flex: 10 }}>
-            {salaryDialogVisible &&
-                  <Dialog.Container visible={salaryDialogVisible}>
-                      <Dialog.Title>Enter your salary and vouncher</Dialog.Title>
-                      <Dialog.Input label="Salary" onChangeText={(salary: string) => { setSalary(salary) }} />
-                      <Dialog.Input label="Meal Vouncher" onChangeText={(vouncher: string) => { setVouncher(vouncher) }}/>
-                      <Dialog.Button label="OK" onPress={handleEnterSalary} />
-                  </Dialog.Container>
-            }
-            {
-              tokenDialogVisible &&
-                <Dialog.Container visible={tokenDialogVisible}>
-                      <Dialog.Title>Enter your token</Dialog.Title>
-                      <Dialog.Input label="Token" onChangeText={(token: string) => { setToken(token) }} />
-                      <Dialog.Button label="OK" onPress={handleSetToken} />
-                  </Dialog.Container>
-            }
-            <SalaryUsage />
-      </View>
-      <BottomSheet />
-    </GestureHandlerRootView>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Loading">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Loading" component={Loading} />
+        <Stack.Screen name="AskToken" component={AskToken} />
+        <Stack.Screen name="EnterSalary" component={EnterSalary} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
-  gestureHandler: {
-    flex: 1,
-    backgroundColor: '#f5faff',
-    justifyContent: 'flex-start'
-  },
-  button: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#4a90e2',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttonText: {
-    color: 'white'
-  },
-  picker: {
-    borderWidth: 1,
-    borderColor: '#4a90e2',
-    borderRadius: 5,
-    marginVertical: 5,
-    color: 'black',
-    flex: 1
-  }
-})
 
 export default App
 // export default Sentry.wrap(App)

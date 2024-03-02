@@ -21,11 +21,15 @@ Sentry.init({
 app.use(express.json());
 
 const checkToken: RequestHandlerWithToken = (req, res, next) => {
-  const token = (req.headers as any)['token'];
+  const token = (req.headers as any)["token"];
+  console.log("token: " + token);
 
   if (!token) return res.sendStatus(403);
 
-  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95" || token === "613b2edf-540c-4eff-a16b-176eac548050") {
+  if (
+    token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
+    token === "613b2edf-540c-4eff-a16b-176eac548050"
+  ) {
     (req as RequestWithToken).token = token;
     next();
   } else {
@@ -80,7 +84,6 @@ app.get("/validate_token/:token", (req: RequestWithToken, res: any) => {
       req.params.token === "613b2edf-540c-4eff-a16b-176eac548050") + ""
   );
 });
-
 
 const PORT = process.env.PORT || 8080;
 
