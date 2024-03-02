@@ -1,8 +1,13 @@
 import * as Sentry from "@sentry/node";
 import { notion } from "../../notion";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { RequestWithToken } from "../../types";
 
-import { salariesDatabaseId, IConfig, loadConfigsFromNotion } from "../../config";
+import {
+  salariesDatabaseId,
+  IConfig,
+  loadConfigsFromNotion,
+} from "../../config";
 
 import SalaryRepository from "../../repository/SalaryRepository";
 import RecordsRepository, { IRecord } from "../../repository/RecordsRepository";
@@ -15,7 +20,7 @@ import {
 import { buildMonthSlashYearDateString } from "../../utils/title_field";
 
 export interface SalaryFromNotionApi {
-  id?: string,
+  id?: string;
   Mes: {
     title: [
       {
@@ -148,27 +153,15 @@ export default class EnterSalaryController {
     }
   }
 
-  private getToken(req: Request) {
-    const authHeader = (req.headers as any)['token'];
-    return typeof authHeader === 'string' ? authHeader.split(' ')[1] : undefined;
-  }
-
   // new enter salary
-  async createSalary(req: Request, res: Response) {
+  async createSalary(req: RequestWithToken, res: Response) {
     try {
-      const token = this.getToken(req)
-
-      if (!token) {
-        res.status(403).json({
-          error: "Invalid token!",
-        });
-        return;
-      }
+      const token = req.token;
 
       const transaction = Sentry.startTransaction({
         name: "enter-salary-transaction",
       });
-  
+
       // get salary from request body
       // return 400 if salary was not informed or is not a number
       const salary = req.body.salary;
@@ -187,19 +180,21 @@ export default class EnterSalaryController {
         });
         return;
       }
-  
+
       // find all salaries and get the average of the field "Chegou":
       let salaries = await this.salaryRepository.findAllSalaries(token);
       // remove the itens with "Chegou" or "Chegou Refeicao" equals to "0" to not affect the average
-      salaries = salaries.filter((salary: { properties: PastMonthSalaryFromNotionApi; }) => {
-        return (
-          ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]
-            ?.number ?? 0) > 0 &&
-          ((salary.properties as PastMonthSalaryFromNotionApi)?.[
-            "Chegou Refeicao"
-          ]?.number ?? 0) > 0
-        );
-      })
+      salaries = salaries.filter(
+        (salary: { properties: PastMonthSalaryFromNotionApi }) => {
+          return (
+            ((salary.properties as PastMonthSalaryFromNotionApi)?.["Chegou"]
+              ?.number ?? 0) > 0 &&
+            ((salary.properties as PastMonthSalaryFromNotionApi)?.[
+              "Chegou Refeicao"
+            ]?.number ?? 0) > 0
+          );
+        }
+      );
 
       const average =
         salaries.reduce((total: number, salary: any) => {
@@ -219,10 +214,11 @@ export default class EnterSalaryController {
             ]?.number ?? 0)
           );
         }, 0) / salaries.length; // Subtract 1 from the length
-  
+
       // createSalaryPastMonth
       // verify if salary of past month exists
-      const pastMonthSalary = await this.salaryRepository.findPastMonthSalaryItem(token);
+      const pastMonthSalary =
+        await this.salaryRepository.findPastMonthSalaryItem(token);
       if (pastMonthSalary && pastMonthSalary.id) {
         this.createSalaryItem(
           average,
@@ -236,12 +232,25 @@ export default class EnterSalaryController {
           pastMonthSalary.id
         );
       } else {
-        this.createSalaryItem(average, mealVouncherAverage, transaction, true, salary, mealVouncher);
+        this.createSalaryItem(
+          average,
+          mealVouncherAverage,
+          transaction,
+          true,
+          salary,
+          mealVouncher
+        );
       }
-  
+
       // createSalary currentMonth
-      this.createSalaryItem(average, mealVouncherAverage, transaction, false, token);
-  
+      this.createSalaryItem(
+        average,
+        mealVouncherAverage,
+        transaction,
+        false,
+        token
+      );
+
       transaction.finish();
       res.status(200).send();
     } catch (err) {
@@ -252,22 +261,20 @@ export default class EnterSalaryController {
     }
   }
 
-  async getCurrentSalary(req: Request, res: Response): Promise<SalaryFromNotionApi | undefined> {
-    const token = this.getToken(req)
-
-    if (!token) {
-      res.status(403).json({
-        error: "Invalid token!",
-      });
-      return;
-    }
+  async getCurrentSalary(
+    req: RequestWithToken,
+    res: Response
+  ): Promise<SalaryFromNotionApi | undefined> {
+    const token = req.token;
 
     const transaction = Sentry.startTransaction({
       name: "get-current-salary-transaction",
     });
 
     try {
-      const salary = await this.salaryRepository.findCurrentMonthSalaryItem(token);
+      const salary = await this.salaryRepository.findCurrentMonthSalaryItem(
+        token
+      );
 
       if (!salary) {
         res.status(404).json({
@@ -285,19 +292,14 @@ export default class EnterSalaryController {
     }
   }
 
-  async getCurrentSalaryDetails(req: Request, res: Response) {
+  async getCurrentSalaryDetails(req: RequestWithToken, res: Response) {
     try {
-      const token = this.getToken(req)
-
-      if (!token) {
-        res.status(403).json({
-          error: "Invalid token!",
-        });
-        return;
-      }
+      const token = req.token;
 
       const allConfigs: IConfig[] = await loadConfigsFromNotion(token);
-      const lifeCostConfigs = allConfigs.filter((config) => config.Category === "2 - Life Cost");
+      const lifeCostConfigs = allConfigs.filter(
+        (config) => config.Category === "2 - Life Cost"
+      );
 
       const lifeCostTotal = lifeCostConfigs.reduce(
         (total, config) => total + config.Total,
@@ -305,9 +307,10 @@ export default class EnterSalaryController {
       );
 
       // find the currentSalary of this month and get its id
-      const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem(token);
+      const currentSalary =
+        await this.salaryRepository.findCurrentMonthSalaryItem(token);
       const currentSalaryId = currentSalary?.id;
-    
+
       // if not current salary, return 404
       if (!currentSalaryId) {
         res.status(404).json({
@@ -317,7 +320,11 @@ export default class EnterSalaryController {
       }
 
       // find all records of this month
-      const compulsionRecords = await this.recordsRepository.findCompulsionRecordsForAGivenSalaryId(currentSalaryId, token);
+      const compulsionRecords =
+        await this.recordsRepository.findCompulsionRecordsForAGivenSalaryId(
+          currentSalaryId,
+          token
+        );
 
       // calculate the total of compulsions
       const compulsionsTotal = compulsionRecords.reduce(
@@ -326,7 +333,11 @@ export default class EnterSalaryController {
       );
 
       //find all extras
-      const extrasRecords: IRecord[] = await this.recordsRepository.findExtraRecordsForAGivenSalaryId(currentSalaryId, token);
+      const extrasRecords: IRecord[] =
+        await this.recordsRepository.findExtraRecordsForAGivenSalaryId(
+          currentSalaryId,
+          token
+        );
 
       // calculate the total of extras
       const extrasTotal = extrasRecords.reduce(
@@ -334,26 +345,36 @@ export default class EnterSalaryController {
         0
       );
 
-      console.log(currentSalary)
+      console.log(currentSalary);
 
       // filter the extras subcategory that can use mealsCard
       const extrasMealsCard = extrasRecords.filter((record) => {
-        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+        const config = allConfigs.find(
+          (config) => config.Subcategory === record["Sub Category"]
+        );
 
-        return config?.CanUseMealsCard
+        return config?.CanUseMealsCard;
       });
 
-      const extrasMealsCardTotal = extrasMealsCard.reduce((total, record) => total + record.Valor, 0);
+      const extrasMealsCardTotal = extrasMealsCard.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
 
       // filter compulsions that can use mealsCard
 
       const compulsionsMealsCard = compulsionRecords.filter((record) => {
-        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+        const config = allConfigs.find(
+          (config) => config.Subcategory === record["Sub Category"]
+        );
 
-        return config?.CanUseMealsCard
-      })
+        return config?.CanUseMealsCard;
+      });
 
-      const compulsionsMealsCardTotal = compulsionsMealsCard.reduce((total, record) => total + record.Valor, 0);
+      const compulsionsMealsCardTotal = compulsionsMealsCard.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
 
       // find all configs that can use mealsVouncher
       const mealVouncherConfigs = lifeCostConfigs.filter(
@@ -365,26 +386,40 @@ export default class EnterSalaryController {
         0
       );
 
-      const mealVouncherRest = currentSalary["Quanto pode chegar Refeicao"].number - (canUseMealCardTotal + extrasMealsCardTotal + compulsionsMealsCardTotal)
+      const mealVouncherRest =
+        currentSalary["Quanto pode chegar Refeicao"].number -
+        (canUseMealCardTotal +
+          extrasMealsCardTotal +
+          compulsionsMealsCardTotal);
 
       // filter extras that cant use mealsCard
       const extrasNoMealCard = extrasRecords.filter((record) => {
-        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+        const config = allConfigs.find(
+          (config) => config.Subcategory === record["Sub Category"]
+        );
 
-        return !config?.CanUseMealsCard
+        return !config?.CanUseMealsCard;
       });
 
-      const extrasNoMealCardTotal = extrasNoMealCard.reduce((total, record) => total + record.Valor, 0);
+      const extrasNoMealCardTotal = extrasNoMealCard.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
 
       // filter compulsions that cant use mealsCard
 
       const compulsionsNoMealCard = compulsionRecords.filter((record) => {
-        const config = allConfigs.find((config) => config.Subcategory === record["Sub Category"]);
+        const config = allConfigs.find(
+          (config) => config.Subcategory === record["Sub Category"]
+        );
 
-        return !config?.CanUseMealsCard
-      })
+        return !config?.CanUseMealsCard;
+      });
 
-      const compulsionsNoMealCardTotal = compulsionsNoMealCard.reduce((total, record) => total + record.Valor, 0);
+      const compulsionsNoMealCardTotal = compulsionsNoMealCard.reduce(
+        (total, record) => total + record.Valor,
+        0
+      );
 
       // findAllConfigs that can't use mealsVouncher
       const noMealVouncherConfigs = lifeCostConfigs.filter(
@@ -396,17 +431,21 @@ export default class EnterSalaryController {
         0
       );
 
-      const salaryRest = currentSalary["Quanto pode chegar"].number - (noMealVouncherTotal + compulsionsNoMealCardTotal + extrasNoMealCardTotal)
+      const salaryRest =
+        currentSalary["Quanto pode chegar"].number -
+        (noMealVouncherTotal +
+          compulsionsNoMealCardTotal +
+          extrasNoMealCardTotal);
 
       res.status(200).json({
         lifeCostTotal,
         compulsionsTotal,
         extrasTotal,
         salaryRest,
-        mealVouncherRest
-      })
+        mealVouncherRest,
+      });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(404).json({
         error: "Salário não encontrado!",
       });

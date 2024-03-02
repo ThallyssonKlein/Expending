@@ -1,6 +1,7 @@
 import express from "express";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import * as Sentry from "@sentry/node";
+import { RequestHandlerWithToken, RequestWithToken } from "./types";
 
 const app = express();
 Sentry.init({
@@ -19,82 +20,67 @@ Sentry.init({
 });
 app.use(express.json());
 
-app.use((req, res, next) => {
-  const authHeader = (req.headers as any)['token'];
-  const token = typeof authHeader === 'string' ? authHeader.split(' ')[1] : undefined;
+const checkToken: RequestHandlerWithToken = (req, res, next) => {
+  const token = (req.headers as any)['token'];
 
   if (!token) return res.sendStatus(403);
 
   if (token === "584be57d-1729-46c1-8850-166fdf7c0c95" || token === "613b2edf-540c-4eff-a16b-176eac548050") {
+    (req as RequestWithToken).token = token;
     next();
   } else {
     res.sendStatus(403);
   }
-});
+};
+
+app.use(checkToken);
 
 import SalaryController from "./controller/SalaryController";
 import RecordsController from "./controller/RecordsController";
-import { IConfig, loadConfigsFromNotion } from "./config";
+import OptionsController from "./controller/OptionsController";
 
-(async function startApp() {
-  let config: IConfig[] = await loadConfigsFromNotion();
+const optionsController = new OptionsController();
 
-  config = config.filter((config) => {
-    if (
-      config.Name &&
-      config.NameInApp &&
-      config.Category &&
-      config.Subcategory
-    ) {
-      return config;
-    }
-  });
+app.get("/ping", (_: any, res: any) => {
+  res.json({ res: "pong" });
+});
 
-  app.get("/ping", (req: any, res: any) => {
-    res.json({ res: "pong" });
-  });
+app.get("/compulsions_options", (req: RequestWithToken, res: any) => {
+  optionsController.getCompulsionsOptions(req, res);
+});
+app.get("/lifecost_options", (req: RequestWithToken, res: any) => {
+  optionsController.getLifeCostOptions(req, res);
+});
+app.get("/additional_expenses_options", (req: RequestWithToken, res: any) => {
+  optionsController.getAdditionalExpensesOptions(req, res);
+});
 
-  app.post("/refresh_config", async (req: any, res: any) => {
-    config = await loadConfigsFromNotion();
-    res.json({ res: "ok" });
-  });
+const salaryController = new SalaryController();
+const recordsController = new RecordsController();
 
-  app.get("/compulsions_options", (req: any, res: any) => {
-    res.json(config.filter((config) => config.Category === "1 - Compulsões"));
-  });
-  app.get("/lifecost_options", (req: any, res: any) => {
-    res.json(config.filter((config) => config.Category === "2 - Life Cost"));
-  });
-  app.get("/additional_expenses_options", (req: any, res: any) => {
-    res.json(config.filter((config) => config.Category === "3 - Extra"));
-  });
+app.post("/salary", async (req: RequestWithToken, res: any) => {
+  salaryController.createSalary(req, res);
+});
 
-  const salaryController = new SalaryController();
-  const recordsController = new RecordsController();
+app.post("/record", async (req: RequestWithToken, res: any) => {
+  recordsController.createRecord(req, res);
+});
 
-  app.post("/salary", async (req: any, res: any) => {
-    salaryController.createSalary(req, res);
-  });
+app.get("/current_salary", async (req: RequestWithToken, res: any) => {
+  salaryController.getCurrentSalary(req, res);
+});
 
-  app.post("/record", async (req: any, res: any) => {
-    recordsController.createRecord(req, res);
-  });
+app.get("/current_salary_details", async (req: RequestWithToken, res: any) => {
+  salaryController.getCurrentSalaryDetails(req, res);
+});
 
-  app.get("/current_salary", async (req: any, res: any) => {
-    salaryController.getCurrentSalary(req, res);
-  });
+app.get("/validate_token/:token", (req: RequestWithToken, res: any) => {
+  res.send(
+    (req.params.token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
+      req.params.token === "613b2edf-540c-4eff-a16b-176eac548050") + ""
+  );
+});
 
-  app.get("/current_salary_details", async (req: any, res: any) => {
-    salaryController.getCurrentSalaryDetails(req, res);
-  });
-
-  app.get("/validate_token/:token", (req: any, res: any) => {
-    res.send(
-      (req.params.token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
-        req.params.token === "613b2edf-540c-4eff-a16b-176eac548050") + ""
-    );
-  });
-})();
 
 const PORT = process.env.PORT || 8080;
 
