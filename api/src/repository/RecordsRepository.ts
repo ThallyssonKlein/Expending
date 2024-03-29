@@ -9,7 +9,12 @@ export interface IRecord {
   ["Sub Category"]: string | null;
 }
 
-type IRecordFromNotion = { properties: { Valor: { number: null }, "Sub Category": {select: {name: string}} } }
+type IRecordFromNotion = {
+  properties: {
+    Valor: { number: null };
+    "Sub Category": { select: { name: string } };
+  };
+};
 
 type IRecordsFromNotion = {
   results: IRecordFromNotion[];
@@ -109,6 +114,23 @@ export default class RecordsRepository {
     }
   }
 
+  private buildStatusAndMes(config: IConfigPlusValues) {
+    if (config.PlannedExpense && config.Mes) {
+      return {
+        Status: {
+          status: {
+            name: "A planejar",
+          },
+        },
+        Mes: {
+          select: {
+            name: config.Mes,
+          },
+        },
+      };
+    }
+  }
+
   async createRecord(configWithValues: IConfigPlusValues, salaryId: string) {
     let properties = {};
 
@@ -136,6 +158,10 @@ export default class RecordsRepository {
       ...properties,
       ...this.buildSalary(salaryId),
     };
+    properties = {
+      ...properties,
+      ...this.buildStatusAndMes(configWithValues),
+    };
 
     await notion.pages.create({
       parent: {
@@ -146,27 +172,25 @@ export default class RecordsRepository {
   }
 
   private recordMap(response: IRecordsFromNotion): IRecord[] {
-    return response.results.map(
-      (notionResult: IRecordFromNotion) => {
-        let { Valor, SubCategory } = {
-          Valor: null as number | null,
-          SubCategory: null as string | null,
-        };
+    return response.results.map((notionResult: IRecordFromNotion) => {
+      let { Valor, SubCategory } = {
+        Valor: null as number | null,
+        SubCategory: null as string | null,
+      };
 
-        if (notionResult.properties.Valor.number !== null) {
-          Valor = notionResult.properties.Valor.number;
-        }
-
-        if (notionResult.properties["Sub Category"].select !== null) {
-          SubCategory = notionResult.properties["Sub Category"].select.name;
-        }
-
-        return {
-          Valor: Valor || 0,
-          ["Sub Category"]: SubCategory,
-        } as IRecord;
+      if (notionResult.properties.Valor.number !== null) {
+        Valor = notionResult.properties.Valor.number;
       }
-    ) as IRecord[];
+
+      if (notionResult.properties["Sub Category"].select !== null) {
+        SubCategory = notionResult.properties["Sub Category"].select.name;
+      }
+
+      return {
+        Valor: Valor || 0,
+        ["Sub Category"]: SubCategory,
+      } as IRecord;
+    }) as IRecord[];
   }
 
   async findCompulsionRecordsForAGivenSalaryId(

@@ -1,5 +1,5 @@
 // TODO - Add traceability
-import { View, Text, StyleSheet, Alert, Button, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Alert, Button, TextInput, Switch } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useState, useEffect, useRef } from 'react'
 import { getOptions as getOptionsApi, post } from '../api'
@@ -22,6 +22,12 @@ const CustomBackground = (props: any): JSX.Element => {
   return <Animated.View pointerEvents="none" style={containerStyle} />
 }
 
+function generateMonthsOfTheYear() {
+  const currentYear = new Date().getFullYear();
+  const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  return months.map(month => `${month} ${currentYear}`);
+}
+
 export default function BottomSheetComponent (): JSX.Element {
   const bottomSheetRef = useRef(null)
   const [snapPoints, setSnapPoints] = useState(['45%', '70%'])
@@ -31,6 +37,9 @@ export default function BottomSheetComponent (): JSX.Element {
 
   const [options, setOptions] = useState<IConfig[]>([])
   const [selectedOption, setSelectedOption] = useState<IConfig>()
+
+  const [monthOptions, _] = useState<string[]>(generateMonthsOfTheYear())
+  const [selectedMonthOption, setSelectedMonthOption] = useState<string>(generateMonthsOfTheYear()[0])
 
   const [value, setValue] = useState<string>('0')
 
@@ -42,6 +51,8 @@ export default function BottomSheetComponent (): JSX.Element {
   const [reason, setReason] = useState('')
 
   const [customName, setCustomName] = useState('')
+
+  const [plannedExpense, setPlannedExpense] = useState(false)
 
   useEffect(() => {
     void (async () => {
@@ -74,6 +85,20 @@ export default function BottomSheetComponent (): JSX.Element {
       }
     })()
   }, [selectedMode])
+
+  useEffect(() => {
+    console.log("chamou useeffect")
+    console.log(plannedExpense)
+    if (plannedExpense) {
+      setSnapPoints(['65%', '90%'])
+    } else {
+      if (selectedMode === 'additional_expenses') {
+        setSnapPoints(['55%', '80%'])
+      } else {
+        setSnapPoints(['45%', '70%'])
+      }
+    }
+  }, [plannedExpense])
 
   function findDefaultOptionForEachMode (data: IConfig[], mode: string): IConfig | undefined {
     return data.find((item: IConfig) => {
@@ -166,6 +191,14 @@ export default function BottomSheetComponent (): JSX.Element {
       }
     }
 
+    if (plannedExpense) {
+      body = {
+        ...body,
+        PlannedExpense: plannedExpense,
+        Mes: selectedMonthOption
+      }
+    }
+
     if (selectedOption.CustomName) {
       if (customName.length === 0) {
         Alert.alert('Erro', 'O nome customizado não pode ser vazio')
@@ -234,6 +267,30 @@ export default function BottomSheetComponent (): JSX.Element {
                     </Picker>
                   </View>
                   {selectedOption != null && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled} />}
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ color: 'black', alignSelf: 'center', marginLeft: 10 }}>Planned Expense</Text>
+                    <Switch
+                      trackColor={{ false: '#767577', true: '#81b0ff' }}
+                      thumbColor={plannedExpense ? '#f5dd4b' : '#f4f3f4'}
+                      ios_backgroundColor="#3e3e3e"
+                      onValueChange={(value) => { setPlannedExpense(value) }}
+                      value={plannedExpense}/>
+                  </View>
+                  {plannedExpense && 
+                        <View style={styles.pickerContainer}>
+                          <Picker
+                            selectedValue={selectedMonthOption}
+                            onValueChange={itemValue => { setSelectedMonthOption(itemValue) } }
+                            style={styles.picker}
+                            dropdownIconColor="black"
+                          >
+                            {monthOptions.map(option => (
+                              <Picker.Item key={option.trim().toLowerCase()} label={option} value={option.trim().toLowerCase()} />
+                            ))}
+                          </Picker>
+                      </View>
+                  
+                  }
                   <TextInput
                       placeholder="Reason"
                       value={reason}
