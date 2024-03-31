@@ -3,7 +3,6 @@ import { recordsDatabaseId, IConfig } from "../config";
 import { IConfigPlusValues } from "../controller/RecordsController";
 import { buildDaySlashMonthDateString } from "../utils/title_field";
 import { buildDatePropertyData } from "../utils/date_field";
-import * as Sentry from "@sentry/node";
 
 export interface IRecord {
   Valor: number;
@@ -115,17 +114,17 @@ export default class RecordsRepository {
     }
   }
 
-  private buildStatusAndWhen(config: IConfigPlusValues) {
-    if (config.PlannedExpense && config.When) {
+  private buildStatusAndMes(config: IConfigPlusValues) {
+    if (config.PlannedExpense && config.Mes) {
       return {
         Status: {
           status: {
             name: "A planejar",
           },
         },
-        Quando: {
+        Mes: {
           select: {
-            name: config.When,
+            name: config.Mes,
           },
         },
       };
@@ -161,7 +160,7 @@ export default class RecordsRepository {
     };
     properties = {
       ...properties,
-      ...this.buildStatusAndWhen(configWithValues),
+      ...this.buildStatusAndMes(configWithValues),
     };
 
     await notion.pages.create({

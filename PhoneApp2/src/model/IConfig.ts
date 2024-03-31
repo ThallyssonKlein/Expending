@@ -1,30 +1,30 @@
 export interface IConfig {
-  CanUseMealsCard: boolean;
-  Name: string;
-  NameInApp: string;
-  Category: string;
-  Subcategory: string;
-  CustomName: boolean;
-  DefaultValue: number;
-  DefaultName: string | null;
+  CanUseMealsCard: boolean
+  Name: string
+  NameInApp: string
+  Category: string
+  Subcategory: string
+  CustomName: boolean
+  DefaultValue: number
+  DefaultName: string | null
 }
 
 export interface IConfigFromApi {
-  CanUseMealsCard: boolean;
-  Name: string | null;
-  NameInApp: string | null;
-  Category: string | null;
-  Subcategory: string | null;
-  CustomName: boolean;
-  DefaultValue: number;
-  DefaultName: string | null;
+  CanUseMealsCard: boolean
+  Name: string | null
+  NameInApp: string | null
+  Category: string | null
+  Subcategory: string | null
+  CustomName: boolean
+  DefaultValue: number
+  DefaultName: string | null
 }
 
 export interface IConfigPlusValues extends IConfig {
-  Value: number;
-  Date: string;
-  CustomNameValue?: string;
-  Reason?: string;
+  Value: number
+  Date: string
+  CustomNameValue?: string
+  Reason?: string
   PlannedExpense?: boolean;
-  When?: string;
+  Mes?: string;
 }

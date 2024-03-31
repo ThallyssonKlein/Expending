@@ -10,7 +10,7 @@ export interface IConfigPlusValues extends IConfig {
   Date: string;
   UseMealsCard?: boolean;
   PlannedExpense?: boolean;
-  When?: string;
+  Mes?: string;
   CustomNameValue?: string;
   Reason?: string;
 }

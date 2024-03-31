@@ -22,12 +22,10 @@ const CustomBackground = (props: any): JSX.Element => {
   return <Animated.View pointerEvents="none" style={containerStyle} />
 }
 
-function generateWhenOptions() {
+function generateMonthsOfTheYear() {
   const currentYear = new Date().getFullYear();
   const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-  const mappedMonths = months.map(month => `${month} ${currentYear}`);
-  mappedMonths.push("Longo Prazo")
-  return mappedMonths;
+  return months.map(month => `${month} ${currentYear}`);
 }
 
 export default function BottomSheetComponent (): JSX.Element {
@@ -40,8 +38,8 @@ export default function BottomSheetComponent (): JSX.Element {
   const [options, setOptions] = useState<IConfig[]>([])
   const [selectedOption, setSelectedOption] = useState<IConfig>()
 
-  const [whenOptions, _] = useState<string[]>(generateWhenOptions())
-  const [selectedWhenOption, setSelectedWhenOption] = useState<string>(generateWhenOptions()[0])
+  const [monthOptions, _] = useState<string[]>(generateMonthsOfTheYear())
+  const [selectedMonthOption, setSelectedMonthOption] = useState<string>(generateMonthsOfTheYear()[0])
 
   const [value, setValue] = useState<string>('0')
 
@@ -183,12 +181,8 @@ export default function BottomSheetComponent (): JSX.Element {
       Subcategory: selectedOption.Subcategory,
       CustomName: selectedOption.CustomName,
       DefaultValue: selectedOption.DefaultValue,
-      DefaultName: selectedOption.DefaultName,
-      PlannedExpense: plannedExpense,
-      When: selectedWhenOption
+      DefaultName: selectedOption.DefaultName
     }
-
-    console.log(body)
 
     if (reason !== '') {
       body = {
@@ -201,7 +195,7 @@ export default function BottomSheetComponent (): JSX.Element {
       body = {
         ...body,
         PlannedExpense: plannedExpense,
-        When: selectedWhenOption
+        Mes: selectedMonthOption
       }
     }
 
@@ -285,13 +279,13 @@ export default function BottomSheetComponent (): JSX.Element {
                   {plannedExpense && 
                         <View style={styles.pickerContainer}>
                           <Picker
-                            selectedValue={selectedWhenOption}
-                            onValueChange={itemValue => { setSelectedWhenOption(itemValue) } }
+                            selectedValue={selectedMonthOption}
+                            onValueChange={itemValue => { setSelectedMonthOption(itemValue) } }
                             style={styles.picker}
                             dropdownIconColor="black"
                           >
-                            {whenOptions.map(option => (
-                              <Picker.Item key={option.trim().toLowerCase()} label={option} value={option} />
+                            {monthOptions.map(option => (
+                              <Picker.Item key={option.trim().toLowerCase()} label={option} value={option.trim().toLowerCase()} />
                             ))}
                           </Picker>
                       </View>
