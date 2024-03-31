@@ -1,16 +1,14 @@
 import * as Sentry from "@sentry/node";
+import { notion } from "../../notion";
 
 import { IConfig } from "../../config";
 
 import SalaryRepository from "../../repository/SalaryRepository";
-import RecordsRepository from "../../repository/RecordsRepository";
+import RecordsRepository from '../../repository/RecordsRepository';
 
 export interface IConfigPlusValues extends IConfig {
   Value: number;
   Date: string;
-  UseMealsCard?: boolean;
-  PlannedExpense?: boolean;
-  Mes?: string;
   CustomNameValue?: string;
   Reason?: string;
 }
@@ -25,13 +23,6 @@ export default class RecordsController {
     });
 
     const configWithValues = req.body as IConfigPlusValues;
-
-    if (
-      configWithValues.PlannedExpense === undefined ||
-      configWithValues.PlannedExpense === null
-    )
-      configWithValues.PlannedExpense = false;
-
     // validate if value, date, Category, and Subcategory arent empty:
     if (
       !configWithValues.Value ||
@@ -45,19 +36,18 @@ export default class RecordsController {
     }
 
     //find currentSalary of this month or return 400
-    const currentSalary =
-      await this.salaryRepository.findCurrentMonthSalaryItem();
+    const currentSalary = await this.salaryRepository.findCurrentMonthSalaryItem();
     if (!currentSalary || !currentSalary.id) {
       res.status(400).send();
       return;
     }
 
     try {
-      this.recordsRepository.createRecord(configWithValues, currentSalary.id);
+        this.recordsRepository.createRecord(configWithValues, currentSalary.id)
     } catch (err) {
-      res.status(400).json({
-        error: (err as Error).message,
-      });
+        res.status(400).json({
+            error: (err as Error).message,
+        });
     }
 
     transaction.finish();

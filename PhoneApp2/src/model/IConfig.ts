@@ -25,6 +25,4 @@ export interface IConfigPlusValues extends IConfig {
   Date: string
   CustomNameValue?: string
   Reason?: string
-  PlannedExpense?: boolean;
-  Mes?: string;
 }
