@@ -10,6 +10,7 @@ export interface IConfig {
 }
 
 export interface IConfigFromApi {
+  id: string
   CanUseMealsCard: boolean
   Name: string | null
   NameInApp: string | null
