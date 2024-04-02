@@ -147,6 +147,7 @@ export default function BottomSheetComponent (): JSX.Element {
 
     // TODO - Why not use float from the beginning?
     let body: IConfigPlusValues = {
+      id: selectedOption.id,
       Value: parseFloat(value),
       Date: format(date, 'yyyy-MM-dd'),
       CanUseMealsCard: selectedOption.CanUseMealsCard,

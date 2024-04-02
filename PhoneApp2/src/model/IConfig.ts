@@ -1,4 +1,5 @@
 export interface IConfig {
+  id: string
   CanUseMealsCard: boolean
   Name: string
   NameInApp: string
