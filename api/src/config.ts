@@ -9,6 +9,7 @@ export default {
 import { notion } from "./notion";
 
 export interface IConfig {
+  id: string;
   CanUseMealsCard: boolean;
   Name: string | null;
   NameInApp: string | null;
@@ -21,9 +22,20 @@ export interface IConfig {
   Archived: boolean;
 }
 
-function configMap(response: { results: any[]; }) {
+function configMap(response: { results: any[] }) {
   return response.results.map((page: any) => {
-    let { CanUseMealsCard, Name, NameInApp, Category, Subcategory, CustomName, DefaultValue, DefaultName, Total, Archived } = {
+    let {
+      CanUseMealsCard,
+      Name,
+      NameInApp,
+      Category,
+      Subcategory,
+      CustomName,
+      DefaultValue,
+      DefaultName,
+      Total,
+      Archived,
+    } = {
       CanUseMealsCard: null,
       Name: null,
       NameInApp: null,
@@ -33,7 +45,7 @@ function configMap(response: { results: any[]; }) {
       DefaultValue: null,
       DefaultName: null,
       Total: null,
-      Archived: null
+      Archived: null,
     };
 
     if (page.properties.CanUseMealsCard.checkbox !== null) {
@@ -73,6 +85,7 @@ function configMap(response: { results: any[]; }) {
     Archived = page.properties.Archived.checkbox;
 
     return {
+      id: page.id,
       CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
       NameInApp: NameInApp || "",
@@ -85,7 +98,6 @@ function configMap(response: { results: any[]; }) {
       Archived: Archived || false,
     } as IConfig;
   });
-
 }
 // TODO - Improve this validations
 export async function loadConfigsFromNotion(): Promise<IConfig[]> {
@@ -96,9 +108,8 @@ export async function loadConfigsFromNotion(): Promise<IConfig[]> {
       checkbox: {
         equals: false,
       },
-    },  
+    },
   });
-
 
   return configMap(response);
 }
