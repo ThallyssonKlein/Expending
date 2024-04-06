@@ -22,6 +22,7 @@ app.use(express.json());
 import SalaryController from "./controller/SalaryController";
 import RecordsController from "./controller/RecordsController";
 import { IConfig, loadConfigsFromNotion } from "./config";
+import ConfigController from "./controller/ConfigController";
 
 (async function startApp() {
   let config: IConfig[] = await loadConfigsFromNotion();
@@ -58,6 +59,12 @@ import { IConfig, loadConfigsFromNotion } from "./config";
 
   const salaryController = new SalaryController();
   const recordsController = new RecordsController();
+  const configController = new ConfigController();
+
+  app.post("/fill_config_time_fields", async (_: any, res: any) => {
+    configController.fillConfigTimeFields();
+    res.json({ res: "ok" });
+  })
 
   app.post("/salary", async (req: any, res: any) => {
     salaryController.createSalary(req, res);

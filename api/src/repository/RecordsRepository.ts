@@ -7,12 +7,14 @@ import { buildDatePropertyData } from "../utils/date_field";
 export interface IRecord {
   Valor: number;
   ["Sub Category"]: string | null;
+  Date: Date | null;
 }
 
 type IRecordFromNotion = {
   properties: {
     Valor: { number: null };
     "Sub Category": { select: { name: string } };
+    Date: { date: { start: string } };
   };
 };
 
@@ -168,9 +170,10 @@ export default class RecordsRepository {
 
   private recordMap(response: IRecordsFromNotion): IRecord[] {
     return response.results.map((notionResult: IRecordFromNotion) => {
-      let { Valor, SubCategory } = {
+      let { Valor, SubCategory, date } = {
         Valor: null as number | null,
         SubCategory: null as string | null,
+        date: null as Date | null,
       };
 
       if (notionResult.properties.Valor.number !== null) {
@@ -181,9 +184,14 @@ export default class RecordsRepository {
         SubCategory = notionResult.properties["Sub Category"].select.name;
       }
 
+      if (notionResult.properties.Date.date !== null) {
+        date = new Date(notionResult.properties.Date.date.start);
+      }
+
       return {
         Valor: Valor || 0,
         ["Sub Category"]: SubCategory,
+        Date: date,
       } as IRecord;
     }) as IRecord[];
   }
@@ -235,6 +243,26 @@ export default class RecordsRepository {
           },
         ],
       },
+    });
+
+    return this.recordMap(response);
+  }
+
+  async findRecordsForAGivenConfigId(configId: string): Promise<IRecord[]> {
+    const response = await notion.databases.query({
+      database_id: recordsDatabaseId,
+      filter: {
+        property: "Config",
+        relation: {
+          contains: configId,
+        },
+      },
+      sorts: [
+        {
+          property: "Date",
+          direction: "ascending",
+        },
+      ],
     });
 
     return this.recordMap(response);

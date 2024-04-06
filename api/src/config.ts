@@ -8,6 +8,12 @@ export default {
 };
 import { notion } from "./notion";
 
+// 'Last Date': {
+//     id: 'EdD%5B',
+//     type: 'rollup',
+//     rollup: { type: 'date', date: null, function: 'latest_date' }
+//   },
+
 export interface IConfig {
   id: string;
   CanUseMealsCard: boolean;
@@ -20,6 +26,7 @@ export interface IConfig {
   DefaultName: string | null;
   Total: number;
   Archived: boolean;
+  LastDate: Date | null;
 }
 
 function configMap(response: { results: any[] }) {
@@ -35,6 +42,7 @@ function configMap(response: { results: any[] }) {
       DefaultName,
       Total,
       Archived,
+      LastDate
     } = {
       CanUseMealsCard: null,
       Name: null,
@@ -46,6 +54,7 @@ function configMap(response: { results: any[] }) {
       DefaultName: null,
       Total: null,
       Archived: null,
+      LastDate: null
     };
 
     if (page.properties.CanUseMealsCard.checkbox !== null) {
@@ -83,6 +92,7 @@ function configMap(response: { results: any[] }) {
     }
 
     Archived = page.properties.Archived.checkbox;
+    LastDate = page.properties['Last Date'].rollup.date;
 
     return {
       id: page.id,
@@ -96,6 +106,7 @@ function configMap(response: { results: any[] }) {
       DefaultName: DefaultName || "",
       Total: Total || 0,
       Archived: Archived || false,
+      LastDate
     } as IConfig;
   });
 }

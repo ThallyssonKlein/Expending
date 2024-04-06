@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/node";
-import { notion } from "../../notion";
 
 import { IConfig } from "../../config";
 
