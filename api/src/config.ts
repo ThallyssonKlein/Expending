@@ -29,8 +29,8 @@ export interface IConfig {
   LastDate: Date | null;
 }
 
-function configMap(response: { results: any[] }) {
-  return response.results.map((page: any) => {
+function configMap(results: any[]) {
+  return results.map((page: any) => {
     let {
       CanUseMealsCard,
       Name,
@@ -111,16 +111,25 @@ function configMap(response: { results: any[] }) {
   });
 }
 // TODO - Improve this validations
-export async function loadConfigsFromNotion(): Promise<IConfig[]> {
-  const response = await notion.databases.query({
-    database_id: configssDatabaseId,
-    filter: {
-      property: "Archived",
-      checkbox: {
-        equals: false,
-      },
-    },
-  });
+export async function loadConfigsFromNotion() {
+  let startCursor: string | undefined = undefined;
+  const results: any[] = [];
 
-  return configMap(response);
+  while (true) {
+    const response: any = await notion.databases.query({
+      database_id: configssDatabaseId,
+      start_cursor: startCursor,
+      page_size: 100, // you can set the number of items to fetch per request
+    });
+
+    results.push(...response.results);
+
+    if (!response.has_more) {
+      break;
+    }
+
+    startCursor = response.next_cursor;
+  }
+
+  return configMap(results);
 }
