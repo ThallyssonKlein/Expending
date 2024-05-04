@@ -67,7 +67,7 @@ export default function BottomSheetComponent (): JSX.Element {
       setOptions(response)
       setSelectedOption(defaultOption)
       console.log('selectedMode', selectedMode)
-      if (selectedMode === 'additional_expenses') {
+      if (selectedMode === 'additional_expenses' || selectedMode === 'lifecost') {
         setSnapPoints(['55%', '80%'])
       } else {
         setSnapPoints(['45%', '70%'])
