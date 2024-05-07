@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View, Switch, Text } from 'react-native'
 import React, { useEffect } from 'react'
-import { type IConfig } from '../model/IConfig'
+import { type IConfig } from '../../../model/IConfig'
 
 interface IProps {
   option: IConfig

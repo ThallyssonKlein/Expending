@@ -1,13 +1,12 @@
 // TODO - Add traceability
-import { View, Text, StyleSheet, Alert, Button, TextInput } from 'react-native'
+import { useContext } from 'react'
+import Context from './Context'
+import { View, Text, StyleSheet, Alert, ScrollView } from 'react-native'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useState, useEffect, useRef } from 'react'
-import { getOptions as getOptionsApi, post } from '../api'
-import { type IConfig, type IConfigPlusValues } from '../model/IConfig'
-import { Picker } from '@react-native-picker/picker'
-import Input from './Input'
+import { getOptions as getOptionsApi, post } from '../../api'
+import { type IConfig, type IConfigPlusValues } from '../../model/IConfig'
 import Animated from 'react-native-reanimated'
-import DatePicker from 'react-native-date-picker'
 import { format } from 'date-fns'
 // import * as Sentry from '@sentry/react-native'
 // import { type Transaction } from '@sentry/types'
@@ -23,6 +22,8 @@ const CustomBackground = (props: any): JSX.Element => {
 }
 
 export default function BottomSheetComponent (): JSX.Element {
+  const context = useContext(Context);
+
   const bottomSheetRef = useRef(null)
   const [snapPoints, setSnapPoints] = useState(['45%', '70%'])
   const [canRenderBottomSheet, setCanRenderBottomSheet] = useState(false)
@@ -42,6 +43,8 @@ export default function BottomSheetComponent (): JSX.Element {
   const [reason, setReason] = useState('')
 
   const [customName, setCustomName] = useState('')
+
+  const [usingMealsCard, setUsingMealsCard] = useState<boolean>(false)
 
   useEffect(() => {
     void (async () => {
@@ -110,12 +113,6 @@ export default function BottomSheetComponent (): JSX.Element {
         return []
       }
     }
-  }
-
-  function onSelect (value: any): void {
-    setSelectedOption(
-      options.find(option => option.Name === value)
-    )
   }
 
   async function onPressButton (secondCall: boolean = false): Promise<void> {
@@ -199,74 +196,23 @@ export default function BottomSheetComponent (): JSX.Element {
   }
 
   return <BottomSheet
-          ref={bottomSheetRef}
-          index={0}
-          snapPoints={snapPoints}
-          backgroundComponent={CustomBackground}>
-          <View style={styles.bottomSheetContent}>
-            <View style={{ maxHeight: 200, flex: 0.3 }}>
-              <Picker
-                onValueChange={(itemValue: any) => { setSelectedMode(itemValue) }}
-                style={styles.picker}
-                selectedValue={selectedMode}
-                dropdownIconColor="black"
-              >
-                <Picker.Item key={'compulsions'} label={'Compulsions'} value={'compulsions'} />
-                <Picker.Item key={'lifecost'} label={'Life Cost'} value={'lifecost'} />
-                <Picker.Item key={'additional_expenses'} label={'Additional Expenses'} value={'additional_expenses'} />
-              </Picker>
+            ref={bottomSheetRef}
+            index={0}
+            snapPoints={snapPoints}
+            backgroundComponent={CustomBackground}>
+                  <ScrollView>
+                    <View style={styles.bottomSheetContent}>
+                      <View style={{ maxHeight: 200, flex: 0.3 }}>
+                        {/*bigcategory*/}
 
-              {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
-            </View>
+                        {!canRenderBottomSheet && <Text style={{ marginLeft: 20, marginTop: 20, color: 'black' }}>Loading...</Text>}
+                      </View>
 
-            {canRenderBottomSheet && (selectedOption !== null && selectedOption !== undefined) &&
-              <View style={{ flex: 2 }}>
-                <View style={{ marginBottom: 40 }}>
-                  <View style={styles.pickerContainer}>
-                    <Picker
-                      selectedValue={selectedOption?.Name}
-                      onValueChange={itemValue => { onSelect(itemValue) } }
-                      style={styles.picker}
-                      dropdownIconColor="black"
-                    >
-                      {options.map(option => (
-                        <Picker.Item key={option.Name} label={option.NameInApp} value={option.Name} />
-                      ))}
-                    </Picker>
-                  </View>
-                  {selectedOption != null && <Input option={selectedOption} value={value} setValue={setValue} isEnabled={isEnabled} setEnabled={setEnabled} />}
-                  <TextInput
-                      placeholder="Reason"
-                      value={reason}
-                      onChangeText={text => { setReason(text) }}
-                      style={styles.textInput}
-                      placeholderTextColor="black"
-                  />
-                  {selectedOption.CustomName &&
-                    <TextInput
-                        placeholder="Custom Name"
-                        value={customName}
-                        onChangeText={text => { setCustomName(text) }}
-                        style={styles.textInput}
-                        placeholderTextColor="black"
-                    />
-                    }
-                  <DatePicker
-                    mode="date"
-                    textColor="black"
-                    date={date}
-                    onDateChange={setDate} />
-                </View>
-                <Button
-                  onPress={() => {
-                    void onPressButton()
-                  }}
-                  disabled={disabledButton}
-                  title="SALVAR"
-                  />
-              </View>
-            }
-          </View>
+                      {canRenderBottomSheet && (selectedOption !== null && selectedOption !== undefined) &&
+                        // optionoptions
+                      }
+                    </View>
+                </ScrollView>
         </BottomSheet>
 }
 
