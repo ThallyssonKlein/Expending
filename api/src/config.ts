@@ -61,10 +61,6 @@ function configMap(results: any[]) {
       CanUseMealsCard = page.properties.CanUseMealsCard.checkbox;
     }
 
-    if (page.properties.Name.title.length > 0) {
-      Name = page.properties.Name.title[0].plain_text;
-    }
-
     if (page.properties.NameInApp.rich_text.length > 0) {
       NameInApp = page.properties.NameInApp.rich_text[0].plain_text;
     }
@@ -96,14 +92,14 @@ function configMap(results: any[]) {
 
     return {
       id: page.id,
-      CanUseMealsCard: CanUseMealsCard || false,
       Name: Name || "",
       NameInApp: NameInApp || "",
       Category: Category || "",
       Subcategory: Subcategory || "",
-      CustomName: CustomName || false,
-      DefaultValue: DefaultValue || 0,
       DefaultName: DefaultName || "",
+      CustomName: CustomName || false,
+      CanUseMealsCard: CanUseMealsCard || false,
+      DefaultValue: DefaultValue || 0,
       Total: Total || 0,
       Archived: Archived || false,
       LastDate
