@@ -1,3 +1,12 @@
 runtime: nodejs18
 automatic_scaling:
-  min_idle_instances: 1 # Mantém sempre uma instância ociosa
+  min_idle_instances: 1
+
+env_variables:
+  NOTION_TOKEN: ""
+  USER_TOKEN_1: ""
+  USER_TOKEN_2: ""
+  SENTRY_DSN: ""
+  NOTION_DB_SALARIES: ""
+  NOTION_DB_RECORDS: ""
+  NOTION_DB_CONFIGS: ""

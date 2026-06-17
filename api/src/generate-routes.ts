@@ -14,7 +14,7 @@ interface Sums {
 
 async function searchDatabase(month: number) {
   const response = await notion.databases.query({
-    database_id: "33ddadec57b6485faae5a88d6b770141",
+    database_id: process.env.NOTION_DB_RECORDS || "",
     filter: {
       and: [
         {

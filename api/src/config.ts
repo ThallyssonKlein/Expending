@@ -1,29 +1,32 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+const USER_TOKEN_1 = process.env.USER_TOKEN_1 || "";
+const USER_TOKEN_2 = process.env.USER_TOKEN_2 || "";
+
 export function salariesDatabaseId(token: string) {
-  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
-    return "5ffb177a9e57475cbe14f50664dd9387"
-  } else {
-    return "";
+  if (token === USER_TOKEN_1 || token === USER_TOKEN_2) {
+    return process.env.NOTION_DB_SALARIES || "";
   }
+  return "";
 }
 
 export function recordsDatabaseId(token: string) {
-  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
-    return "33ddadec57b6485faae5a88d6b770141"
-  } else {
-    return "";
+  if (token === USER_TOKEN_1 || token === USER_TOKEN_2) {
+    return process.env.NOTION_DB_RECORDS || "";
   }
+  return "";
 }
 
 function configssDatabaseId(token: string) {
-  if (token === "584be57d-1729-46c1-8850-166fdf7c0c95") {
-    return "8bec8602848a4a6dbf5432fed52fd1f6"
-  } else {
-    return ""
+  if (token === USER_TOKEN_1 || token === USER_TOKEN_2) {
+    return process.env.NOTION_DB_CONFIGS || "";
   }
+  return "";
 }
 
 export default {
-  access_token: "secret_NkGYvmWZ6e0o9Z7CgVys4QDYWuUHkv7wFm3hGVUFycG",
+  access_token: process.env.NOTION_TOKEN || "",
 };
 import { notion } from "./notion";
 

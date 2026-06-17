@@ -1,11 +1,16 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import { ProfilingIntegration } from "@sentry/profiling-node";
 import * as Sentry from "@sentry/node";
 import { RequestHandlerWithToken, RequestWithToken } from "./types";
 
+const USER_TOKEN_1 = process.env.USER_TOKEN_1 || "";
+const USER_TOKEN_2 = process.env.USER_TOKEN_2 || "";
+
 const app = express();
 Sentry.init({
-  dsn: "https://d885625495f176009a5dd25f38329508@o4505779172737024.ingest.sentry.io/4505886773084160",
+  dsn: process.env.SENTRY_DSN,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
@@ -26,10 +31,7 @@ const checkToken: RequestHandlerWithToken = (req, res, next) => {
 
   if (!token) return res.sendStatus(403);
 
-  if (
-    token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
-    token === "613b2edf-540c-4eff-a16b-176eac548050"
-  ) {
+  if (token === USER_TOKEN_1 || token === USER_TOKEN_2) {
     (req as RequestWithToken).token = token;
     next();
   } else {
@@ -80,8 +82,7 @@ app.get("/current_salary_details", async (req: RequestWithToken, res: any) => {
 
 app.get("/validate_token/:token", (req: RequestWithToken, res: any) => {
   res.send(
-    (req.params.token === "584be57d-1729-46c1-8850-166fdf7c0c95" ||
-      req.params.token === "613b2edf-540c-4eff-a16b-176eac548050") + ""
+    (req.params.token === USER_TOKEN_1 || req.params.token === USER_TOKEN_2) + ""
   );
 });
 
